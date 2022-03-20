@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Session;
 
 class UserController extends Controller
 {
@@ -13,9 +14,9 @@ class UserController extends Controller
     {
         Session::flush();
         
-        Auth::logout();
+        auth('web')->logout();
 
-        return redirect('home');
+        return redirect()->route('home');
     }
 
     public function authenticate(Request $request)
