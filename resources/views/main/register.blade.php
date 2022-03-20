@@ -45,14 +45,19 @@
 
     <div class="padding container d-flex justify-content-center">
         <div class="col-md-10 col-md-offset-1">
-            <form class="signup-form">
-                <h2 class="text-center">SIGNUP NOW</h2>
+            <form method="POST" class="signup-form" action="{{route('register.volunteer')}}" enctype="multipart/form-data">
+                @csrf
+                <h2 class="text-center">Registracija</h2>
                 <hr>
-                <div class="form-group"> <input type="text" class="form-control" placeholder="Full Name" required="required"> </div>
-                <div class="form-group"> <input type="email" class="form-control" placeholder="Email Address" required="required"> </div>
-                <div class="form-group"> <input type="text" class="form-control" placeholder="User Name" required="required"> </div>
-                <div class="form-group"> <input type="text" class="form-control" placeholder="Password" required="required"> </div>
-                <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Start Now</button> </div>
+                <div class="form-group"> <input type="text" name="full_name" class="form-control" placeholder="Vardas" required="required"> </div>
+                <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
+                <div class="form-group"> <input type="password" name="password" class="form-control" placeholder="Slaptažodis" required="required"> </div>
+                <div class="flex items-center justify-end mt-4">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                        {{ __('Jau esate užsiregistravę?') }}
+                    </a>
+                </div>
+                <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Registruotis</button> </div>
             </form>
         </div>
     </div>

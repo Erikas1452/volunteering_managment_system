@@ -52,3 +52,7 @@ h2 {
 .form-group {
     margin-top: 1rem;
 }
+
+.underline text-sm text-gray-600 hover:text-gray-900{
+    text-align: right;
+}
