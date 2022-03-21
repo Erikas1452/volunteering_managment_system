@@ -24,6 +24,8 @@ class UserController extends Controller
     {
         $user = User::where('email',$request->email)->first();
 
+        if(!$user) return redirect()->back()->with('email','Neteisingas el.pašto adresas');
+
         if($user) {
             $credentials = [
                 'email' => $request->email,
@@ -32,7 +34,7 @@ class UserController extends Controller
             if (Auth::attempt($credentials)) {
                 return redirect()->route('volunteering');
             } else {
-                return redirect()->back()->with('status', 'Invalid credentials!');
+                return redirect()->back()->with('password', 'Neteisingas slaptažodis');
             } 
         } else {
         return redirect()->back()->with('status', 'Not found!');

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
 use App\Http\Controllers\UserController;
 

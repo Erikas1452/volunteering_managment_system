@@ -52,8 +52,11 @@
                 <h2 class="text-center">Prisijungimas</h2>
                 <hr>
                 <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
+                    <span class="text-danger">{{session()->get('email')}}</span>
                 <div class="form-group"> <input type="password" name="password" class="form-control" placeholder="Slaptažodis" required="required"> </div>
+                    <span class="text-danger">{{session()->get('password')}}</span>
                 <div class="flex items-center justify-end mt-4">
+               
                     @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                             {{ __('Pamiršau slaptažodį') }}
