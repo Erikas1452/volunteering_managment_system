@@ -28,6 +28,8 @@
         
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
       
         <!-- =======================================================
         * Template Name: Serenity - v4.7.0
@@ -50,8 +52,17 @@
                 <h2 class="text-center">Registracija</h2>
                 <hr>
                 <div class="form-group"> <input type="text" name="full_name" class="form-control" placeholder="Vardas" required="required"> </div>
+                @error('full_name')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
+                @error('email')
+                    <span class="text-danger">Toks el.paštas jau egzistuoja</span>
+                @enderror
                 <div class="form-group"> <input type="password" name="password" class="form-control" placeholder="Slaptažodis" required="required"> </div>
+                @error('password')
+                    <span class="text-danger">Slaptažodis turi būti ne trumpesnis kaip 8 simboliai</span>
+                @enderror
                 <div class="flex items-center justify-end mt-4">
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                         {{ __('Jau esate užsiregistravę?') }}
@@ -80,6 +91,32 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch(type){
+       case 'info':
+       toastr.info(" {{ Session::get('message') }} ");
+       break;
+   
+       case 'success':
+       toastr.success(" {{ Session::get('message') }} ");
+       break;
+   
+       case 'warning':
+       toastr.warning(" {{ Session::get('message') }} ");
+       break;
+   
+       case 'error':
+       toastr.error(" {{ Session::get('message') }} ");
+       break; 
+    }
+    @endif 
+   </script>
 
 </body>
 

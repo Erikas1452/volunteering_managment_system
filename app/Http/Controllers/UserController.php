@@ -42,8 +42,8 @@ class UserController extends Controller
     public function registerVolunteer(Request $request){
         $request->validate([
             'full_name' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'min:8'],
         ]);
 
         User::create([
@@ -53,7 +53,11 @@ class UserController extends Controller
             'profile_img' => "https://bootdey.com/img/Content/avatar/avatar7.png",
         ]);
 
-        return redirect()->route('login');
+        $notification = array(
+            'message' => 'Užsiregistruota sėkmingai',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('login')->with($notification);
     }
 
     public function updateVolunteerPhoto(Request $request)
