@@ -42,8 +42,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}', function (
 
 })->name('volunteer.profile');
 
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/volunteer/logout',[UserController::class, 'logout'])->name('volunteer.logout');
 Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/update',[UserController::class, 'updateVolunteer'])->name('volunteer.profile.update');
+Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/photo/update/',[UserController::class, 'updateVolunteerPhoto'])->name('volunteer.profile.photo.update');
 Route::post('/volunteer/register',[UserController::class, 'registerVolunteer'])->name('register.volunteer');
 Route::post('/volunteer/login',[UserController::class, 'authenticate'])->name('authenticate.volunteer');
 

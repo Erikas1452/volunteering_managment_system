@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Session;
+use Image;
 
 class UserController extends Controller
 {
@@ -48,10 +49,27 @@ class UserController extends Controller
         User::create([
             'email' => $request->email,
             'full_name' => $request->full_name,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'profile_img' => "https://bootdey.com/img/Content/avatar/avatar7.png",
         ]);
 
         return redirect()->route('login');
+    }
+
+    public function updateVolunteerPhoto(Request $request)
+    {
+        $old_img = $request->old_image;
+
+        $image = $request->file('image');
+    	$name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+    	Image::make($image)->resize(300,300)->save('uploads/profile_pictures/'.$name_gen);
+    	$save_url = 'uploads/profile_pictures/'.$name_gen;
+
+        $user = User::findOrFail(Auth::user()->id)->update([
+            'profile_img' => $save_url,
+        ]);
+
+        return redirect()->back();
     }
 
     public function updateVolunteer(Request $request){
@@ -64,9 +82,9 @@ class UserController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'full_name' => $request->full_name,
+            'description' => $request->description,
         ]);
 
         return redirect()->back();
-
     }
 }

@@ -62,14 +62,21 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                      <img src="{{asset($user->profile_img)}}" alt="Admin" class="rounded-circle" width="150">
                       <div class="mt-3">
                         <h4>{{$user->full_name}}</h4>
                         <p class="text-secondary mb-1">
-                          TEKSTAS TEKSTAS TEKSTAS tekstas tekstas
-                          TEKSTAS TEKSTAS TEKSTAS tekstas tekstas
-                          TEKSTAS TEKSTAS TEKSTAS tekstas tekstas
+                        {{$user->description}}
                         </p>
+                        <hr>
+                        <form method="POST" action="{{route('volunteer.profile.photo.update')}}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="old_image" value="{{ $user->profile_img }}">
+                            <input type="file" name="image" class="form-control">
+                            <br>
+                            <button class="editbutton" style="margin-left:0px; float:none;">Atnaujinti nuotrauką</button>
+                        </form>
+                        
                       </div>
                     </div>
                   </div>
@@ -117,8 +124,17 @@
                             </div>
                             <hr>
                             <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Aprašas</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="form-group"> <input type="text" name="description" class="form-control" value="{{$user->description}}"> </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="editbutton">Redaguoti</button>
+                                    <button class="editbutton">Išsaugoti pakeitimus</button>
                                 </div>
                             </div>
                         </div>

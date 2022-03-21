@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->string('description')->default("Aprašas");
             $table->string('profile_img')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
