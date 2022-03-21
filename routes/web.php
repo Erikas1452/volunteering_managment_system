@@ -20,6 +20,33 @@ Route::get('/login', function(){
     return view('main/login');
 })->name('login');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/volunteering', function () {
+    return view('volunteer/volunteering');
+})->name('volunteering');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile/edit', function () {
+    $user = Auth::user();
+    return view('volunteer/profile_edit')->with(compact('user'));
+})->name('profile.edit');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}', function ($id) {
+    
+    $user = User::where('id', $id)->first();
+    
+    if(!$user) return redirect()->back();
+    else return view('volunteer/profile')->with(compact('user'));
+
+})->name('volunteer.profile');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/volunteer/logout',[UserController::class, 'logout'])->name('volunteer.logout');
+Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/update',[UserController::class, 'updateVolunteer'])->name('volunteer.profile.update');
+Route::post('/volunteer/register',[UserController::class, 'registerVolunteer'])->name('register.volunteer');
+Route::post('/volunteer/login',[UserController::class, 'authenticate'])->name('authenticate.volunteer');
+
 Route::post('/search',function(Request $request){
     $search_word = $request->search_word;
     $user = User::where('full_name','LIKE','%'.$search_word.'%')->orWhere('email','LIKE','%'.$search_word.'%')->get();
@@ -37,19 +64,3 @@ Route::post('/search',function(Request $request){
         return view('volunteer/volunteering')->with(compact('data'));
     }
 })->name('search');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/volunteering', function () {
-    return view('volunteer/volunteering');
-})->name('volunteering');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/profile', function () {
-    return view('volunteer/profile');
-})->name('volunteer.profile');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/volunteer/logout',[UserController::class, 'logout'])->name('volunteer.logout');
-Route::post('/volunteer/register',[UserController::class, 'registerVolunteer'])->name('register.volunteer');
-Route::post('/volunteer/login',[UserController::class, 'authenticate'])->name('authenticate.volunteer');

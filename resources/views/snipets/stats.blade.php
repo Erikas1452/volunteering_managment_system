@@ -10,7 +10,7 @@
                   <div class="count-box py-5">
                     <i class="bi bi-emoji-smile"></i>
                     <span data-purecounter-start="0" data-purecounter-end="65" class="purecounter">0</span>
-                    <p>Happy Clients</p>
+                    <p>Patenkintų kompanijų</p>
                   </div>
                 </div>
   
@@ -18,7 +18,7 @@
                   <div class="count-box py-5">
                     <i class="bi bi-journal-richtext"></i>
                     <span data-purecounter-start="0" data-purecounter-end="85" class="purecounter">0</span>
-                    <p>Projects</p>
+                    <p>Savanorystės</p>
                   </div>
                 </div>
   
@@ -26,7 +26,7 @@
                   <div class="count-box pb-5 pt-0 pt-lg-5">
                     <i class="bi bi-clock"></i>
                     <span data-purecounter-start="0" data-purecounter-end="27" class="purecounter">0</span>
-                    <p>Years of experience</p>
+                    <p>Prasavanoriautų valandų</p>
                   </div>
                 </div>
   
@@ -34,7 +34,7 @@
                   <div class="count-box pb-5 pt-0 pt-lg-5">
                     <i class="bi bi-award"></i>
                     <span data-purecounter-start="0" data-purecounter-end="22" class="purecounter">0</span>
-                    <p>Awards</p>
+                    <p>Pagyrimai</p>
                   </div>
                 </div>
   

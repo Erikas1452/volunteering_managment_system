@@ -77,95 +77,69 @@
               </div>
               <div class="col-md-8">
                 <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Vardas Pavardė</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{$user->full_name}}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">El. paštas</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{$user->email}}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Telefono nr.</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{$user->phone}}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Adresas</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{$user->address}}
-                      </div>
-                    </div>
-                    <hr>
-                    @if (Auth::user()->id === $user->id)
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <a class="editbutton"href="{{route('profile.edit')}}">Redaguoti</a>
-                      </div>
-                    </div>
-                    @endif
-                  </div>
+                    <form method="POST" action="{{route('volunteer.profile.update')}}" enctype="multipart/form-data">
+                        @csrf
+                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Vardas Pavardė</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="form-group"> <input type="text" name="full_name" class="form-control" value="{{$user->full_name}}" required="required"> </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">El. paštas</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{$user->email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Telefono nr.</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="form-group"> <input type="text" name="phone" class="form-control" value="{{$user->phone}}"> </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Adresas</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="form-group"> <input type="text" name="address" class="form-control" value="{{$user->address}}"> </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="editbutton">Redaguoti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                  
                 </div>
               </div>
             </div>
   
           </div>
       </div>
-
     {{-- Profile finish --}}
-
-   @include('snipets.stats')
-
-       <!-- ======= Services Section ======= -->
-       <section id="services" class="services ">
-        <div class="container">
-  
-          <div class="row">
-            <div class="col-md-6">
-              <div class="icon-box" data-aos="fade-up">
-                <div class="icon"><i class="bi bi-briefcase" style="color: #ff689b;"></i></div>
-                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="icon-box" data-aos="fade-up">
-                <div class="icon"><i class="bi bi-book" style="color: #e9bf06;"></i></div>
-                <h4 class="title"><a href="">Dolor Sitema</a></h4>
-                <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-              </div>
-            </div>
-          </div>
-  
-        </div>
-      </section><!-- End Services Section -->
-  
 
     <!-- ======= Cta Section ======= -->
     <section id="cta" class="cta">
       <div class="container" data-aos="fade-in">
 
         <div class="text-center">
-          <h3>Call To Action</h3>
-          <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="cta-btn" href="#">Call To Action</a>
+          <h3>Redaguokite savo savanorysčių istoriją</h3>
+          <p> Čia galite redaguoti savo atliktų savanorysčių istoriją, kurią gali matyti įvairios organizacijos</p>
+          <a class="cta-btn" href="#">Redaguoti</a>
         </div>
 
       </div>

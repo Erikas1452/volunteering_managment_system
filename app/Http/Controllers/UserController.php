@@ -40,8 +40,8 @@ class UserController extends Controller
 
     public function registerVolunteer(Request $request){
         $request->validate([
-            'full_name' => ['required', 'email'],
-            'email' => ['required'],
+            'full_name' => ['required'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
@@ -51,6 +51,22 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('login');
+    }
+
+    public function updateVolunteer(Request $request){
+
+        // $request->validate([
+        //     'full_name' => ['required'],
+        // ]);
+
+        $user = User::findOrFail(Auth::user()->id)->update([
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'full_name' => $request->full_name,
+        ]);
+
+        return redirect()->back();
+
     }
 }

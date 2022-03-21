@@ -44,43 +44,87 @@
     <section id="cta" class="cta">
       <div class="container" data-aos="fade-in">
 
-        <form action="{{route('search')}}" method="POST" role="search">
-            @csrf
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Savanorystės pavadinimas" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                <button type="submit" class="btn btn-primary btn-lg btn-dark" type="button">Ieškoti</button>
-                </div>
-            </div>
-        </form>
-
       </div>
     </section><!-- End Cta Section -->
 
   </main><!-- End #main -->
 
-  <div class="container">
-    @if(isset($data))
-    <h2>Sample Search Results</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($data['users'] as $user)
-            <tr>
-                <td>{{$user->full_name}}</td>
-                <td>{{$user->email}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @else
-    EMPTY
-    @endif
+     <!-- ======= Blog Section ======= -->
+     <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+
+            <div class="container">
+              @if(isset($data))
+              <h2>Sample Search Results</h2>
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach($data['users'] as $user)
+                      <tr>
+                          <td>{{$user->full_name}}</td>
+                          <td>{{$user->email}}</td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+              @else
+                <h2>Sample Search Results</h2>
+                <h1>NIEKO NERASTA</h1>
+              </div>
+              @endif
+
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+              </ul>
+            </div>
+
+          </div><!-- End blog entries list -->
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              <h3 class="sidebar-title">Paieška</h3>
+              <div class="sidebar-item search-form">
+                <form action="{{route('search')}}" method="POST" role="search">
+                  @csrf
+                  <input type="text" name="search_word">
+                  <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+              </div><!-- End sidebar search formn-->
+
+              <h3 class="sidebar-title">Kategorijos</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="#">Medicina <span>(25)</span></a></li>
+                  <li><a href="#">Kelionės <span>(12)</span></a></li>
+                  <li><a href="#">Prieglauda <span>(5)</span></a></li>
+                  <li><a href="#">Menas <span>(22)</span></a></li>
+                </ul>
+              </div><!-- End sidebar categories-->
+
+            </div><!-- End sidebar -->
+
+          </div><!-- End blog sidebar -->
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+
 </div>
 
   @include('snipets.footer')
