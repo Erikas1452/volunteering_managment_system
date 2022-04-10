@@ -31,7 +31,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => $request->password,
             ];
-            if (Auth::attempt($credentials)) {
+            if (Auth::guard('web')->attempt($credentials)) {
                 return redirect()->route('volunteering');
             } else {
                 return redirect()->back()->with('password', 'Neteisingas slaptažodis');

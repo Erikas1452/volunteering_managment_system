@@ -11,7 +11,7 @@
 
       
 
-          @if (Auth::check())
+          @if (Auth::guard('web')->check())
           <nav id="navbar" class="navbar">
             <ul>
               <li><a href="{{route('volunteering')}}">Savanorystės</a></li>
@@ -25,6 +25,13 @@
                   <li><a href="{{route('volunteer.logout')}}">Atsijungti</a></li></form>
                 </ul>
               </li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+          @elseif (Auth::guard('admin')->check())
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="getstarted" href="{{route('admin.logout')}}">Atsijungti</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->

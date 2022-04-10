@@ -23,9 +23,13 @@
         <link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+
+        <link href="{{asset('assets/css/register.css')}}" rel="stylesheet">
         
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
       
         <!-- =======================================================
         * Template Name: Serenity - v4.7.0
@@ -37,87 +41,33 @@
 
 <body>
 
-  @include('snipets.header')
+    @include('snipets.header')
 
   <main id="main">
-    <!-- ======= Cta Section ======= -->
-    <section id="cta" class="cta">
-      <div class="container" data-aos="fade-in">
 
-      </div>
-    </section><!-- End Cta Section -->
+    <div class="padding container d-flex justify-content-center">
+        <div class="col-md-10 col-md-offset-1">
+            <form method="POST" class="signup-form" action="{{route('authenticate.admin')}}" enctype="multipart/form-data">
+                @csrf
+                <h2 class="text-center">Prisijungimas</h2>
+                <hr>
+                <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
+                    <span class="text-danger">{{session()->get('email')}}</span>
+                <div class="form-group"> <input type="password" name="password" class="form-control" placeholder="Slaptažodis" required="required"> </div>
+                    <span class="text-danger">{{session()->get('password')}}</span>
+                <div class="flex items-center justify-end mt-4">
+               
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                            {{ __('Pamiršau slaptažodį') }}
+                        </a>
+                    @endif
+                <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Prisijungti</button> </div>
+            </form>
+        </div>
+    </div>
 
   </main><!-- End #main -->
-
-     <!-- ======= Blog Section ======= -->
-     <section id="blog" class="blog">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-
-          <div class="col-lg-8 entries">
-
-            <div class="container">
-              @if(isset($data))
-              <h2>Sample Search Results</h2>
-              <table class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>Email</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      @foreach($data['users'] as $user)
-                      <tr>
-                          <td>{{$user->full_name}}</td>
-                          <td>{{$user->email}}</td>
-                      </tr>
-                      @endforeach
-                  </tbody>
-              </table>
-            </div>
-              @else
-                <h2>Sample Search Results</h2>
-                <h1>NIEKO NERASTA</h1>
-              </div>
-              @endif
-
-          </div><!-- End blog entries list -->
-
-          <div class="col-lg-4">
-
-            <div class="sidebar">
-
-              <h3 class="sidebar-title">Paieška</h3>
-              <div class="sidebar-item search-form">
-                <form action="{{route('search')}}" method="POST" role="search">
-                  @csrf
-                  <input type="text" name="search_word">
-                  <button type="submit"><i class="bi bi-search"></i></button>
-                </form>
-              </div><!-- End sidebar search formn-->
-
-              <h3 class="sidebar-title">Kategorijos</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="#">Medicina <span>(25)</span></a></li>
-                  <li><a href="#">Kelionės <span>(12)</span></a></li>
-                  <li><a href="#">Prieglauda <span>(5)</span></a></li>
-                  <li><a href="#">Menas <span>(22)</span></a></li>
-                </ul>
-              </div><!-- End sidebar categories-->
-
-            </div><!-- End sidebar -->
-
-          </div><!-- End blog sidebar -->
-
-        </div>
-
-      </div>
-    </section><!-- End Blog Section -->
-
-</div>
 
   @include('snipets.footer')
 
@@ -135,6 +85,31 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch(type){
+       case 'info':
+       toastr.info(" {{ Session::get('message') }} ");
+       break;
+   
+       case 'success':
+       toastr.success(" {{ Session::get('message') }} ");
+       break;
+   
+       case 'warning':
+       toastr.warning(" {{ Session::get('message') }} ");
+       break;
+   
+       case 'error':
+       toastr.error(" {{ Session::get('message') }} ");
+       break; 
+    }
+    @endif 
+  </script>
 
 </body>
 

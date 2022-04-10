@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
+use App\Models\Admin;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('main/index');
@@ -43,15 +45,30 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}', function (
 })->name('volunteer.profile');
 
 
+//Volunteer
 Route::middleware(['auth:sanctum', 'verified'])->get('/volunteer/logout',[UserController::class, 'logout'])->name('volunteer.logout');
 Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/update',[UserController::class, 'updateVolunteer'])->name('volunteer.profile.update');
 Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/photo/update/',[UserController::class, 'updateVolunteerPhoto'])->name('volunteer.profile.photo.update');
 Route::post('/volunteer/register',[UserController::class, 'registerVolunteer'])->name('register.volunteer');
 Route::post('/volunteer/login',[UserController::class, 'authenticate'])->name('authenticate.volunteer');
 
+//Admin
+Route::get('/admin/login', function(){
+    if(Auth::guard('admin')->check()) return redirect()->route('admin.dashboard');
+    return view('admin.login');
+})->name('admin.login');
+
+Route::get('/admin/register',[AdminController::class, 'registerAdmin'])->name('register.admin');
+Route::post('/admin/authenticate',[AdminController::class, 'authenticate'])->name('authenticate.admin');
+Route::get('/admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+
+
+
 Route::post('/search',function(Request $request){
     $search_word = $request->search_word;
-    $user = User::where('full_name','LIKE','%'.$search_word.'%')->orWhere('email','LIKE','%'.$search_word.'%')->get();
+    $user = User::where('full_name','LIKE','%'.$search_word.'%')->orWhere('email','LIKE','%'.$search_word.'%')->get();//->paginate(3);
 
     if(count($user) > 0){
         $data = array(
