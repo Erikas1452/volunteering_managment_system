@@ -26,6 +26,7 @@
         <link href="{{asset('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/stylebar.css')}}">
+        <link href="{{asset('assets/css/register.css')}}" rel="stylesheet">
         
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
@@ -48,14 +49,14 @@
 			<nav id="sidebar" class="active">
 				<h1><a class="logo">{{Str::ucfirst(Auth::guard('admin')->user()->name[0])}}</a></h1>
         <ul class="list-unstyled components mb-5">
-          <li class="active">
+          <li class="">
             <a href="{{route('admin.dashboard')}}"><span class="fa fa-user"></span> Vartotojai</a>
           </li>
           <li class="">
             <a href="{{route('admin.dashboard.organizations')}}"><span class="fa fa-address-book"></span> Įmonių sąrašas</a>
           </li>
-          <li class="">
-              <a href="{{route('organizations')}}"><span class="fa fa-address-book"></span> Įmonių registracija</a>
+          <li class="active">
+              <a href="{{route('organization.registration')}}"><span class="fa fa-address-book"></span> Įmonių registracija</a>
           </li>
         </ul>
 
@@ -81,34 +82,26 @@
           </div>
         </nav>
 
-        <h2 class="mb-4">Savanorių profilių sąrašas</h2>
-        
-        <table class="table table-striped">
-          <thead>
-              <tr>
-                  <th>Vardas</th>
-                  <th>El. paštas</th>
-                  <th>Statusas</th>
-                  <th>Nusiskundimų skaičius</th>
-                  <th>Informacija</th>
-                  <th>Sustabdyti paskyrą</th>
-              </tr>
-          </thead>
-          <tbody>
-              @foreach($data['users'] as $user)
-              <tr>
-                  <td>{{$user->full_name}}</td>
-                  <td>{{$user->email}}</td>
-                  <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
-                  <td>Reports</td>
-                  <td>Status</td>
-                  <td>Reports</td>
-              </tr>
-              @endforeach
-          </tbody>
-      </table>
-      {{ $data['users']->links('vendor.pagination.bootstrap-4') }}
-
+        <h2 class="mb-4">Įmonės registracijos anketa</h2>
+        <div class="padding container d-flex justify-content-center">
+          <div class="col-md-10 col-md-offset-1">
+              <form method="POST" class="signup-form" action="{{route('organization.registration')}}" enctype="multipart/form-data">
+                  @csrf
+                  <h2 class="text-center">Registracija</h2>
+                  <hr>
+                  <div class="form-group"> <input type="text" name="name" class="form-control" placeholder="Pavadinimas" required="required"> </div>
+                  @error('name')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                  <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
+                  @error('email')
+                      <span class="text-danger">Toks el.paštas jau egzistuoja</span>
+                  @enderror
+                  
+                  <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Registruoti</button> </div>
+              </form>
+          </div>
+      </div>
       </div>
 		</div>
 

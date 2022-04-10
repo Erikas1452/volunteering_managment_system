@@ -48,10 +48,10 @@
 			<nav id="sidebar" class="active">
 				<h1><a class="logo">{{Str::ucfirst(Auth::guard('admin')->user()->name[0])}}</a></h1>
         <ul class="list-unstyled components mb-5">
-          <li class="active">
+          <li class="">
             <a href="{{route('admin.dashboard')}}"><span class="fa fa-user"></span> Vartotojai</a>
           </li>
-          <li class="">
+          <li class="active">
             <a href="{{route('admin.dashboard.organizations')}}"><span class="fa fa-address-book"></span> Įmonių sąrašas</a>
           </li>
           <li class="">
@@ -95,10 +95,10 @@
               </tr>
           </thead>
           <tbody>
-              @foreach($data['users'] as $user)
+              @foreach($data['organizations'] as $organization)
               <tr>
-                  <td>{{$user->full_name}}</td>
-                  <td>{{$user->email}}</td>
+                  <td>{{$organization->name}}</td>
+                  <td>{{$organization->email}}</td>
                   <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
                   <td>Reports</td>
                   <td>Status</td>
@@ -107,7 +107,7 @@
               @endforeach
           </tbody>
       </table>
-      {{ $data['users']->links('vendor.pagination.bootstrap-4') }}
+      {{ $data['organizations']->links('vendor.pagination.bootstrap-4') }}
 
       </div>
 		</div>

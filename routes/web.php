@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrganizationController;
 
 Route::get('/', function () {
     return view('main/index');
@@ -61,7 +62,12 @@ Route::get('/admin/login', function(){
 Route::get('/admin/register',[AdminController::class, 'registerAdmin'])->name('register.admin');
 Route::post('/admin/authenticate',[AdminController::class, 'authenticate'])->name('authenticate.admin');
 Route::get('/admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
-Route::get('/admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/dashboard/users',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/dashboard/organizations',[AdminController::class, 'organizations'])->name('admin.dashboard.organizations');
+Route::get('/admin/dashboard/organizations/register',[AdminController::class, 'registerOrganizationPage'])->name('organizations');
+Route::post('/admin/organization/register',[OrganizationController::class, 'registerOrganization'])->name('organization.registration');
+
+//Organizations
 
 
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Organization;
 use Session;
 
 class AdminController extends Controller
@@ -25,6 +26,27 @@ class AdminController extends Controller
           return view('admin.dashboard')->with();
       }
       else return view('admin.login');
+    }
+
+    public function organizations(){
+        if(Auth::guard('admin')->check()){
+  
+          $organization = Organization::paginate(3);//->paginate(3);
+  
+          if(count($organization) > 0){
+              $data = array(
+                  'organizations' => $organization,
+              );
+              return view('admin.dashboard-organizations')->with(compact('data'));
+          }
+            return view('admin.dashboard-organizations')->with();
+        }
+        else return view('admin.login');
+      }
+
+    public function registerOrganizationPage()
+    {
+        return view('admin.register-organization');
     }
 
     public function logout()
