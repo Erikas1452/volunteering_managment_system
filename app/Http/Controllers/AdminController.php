@@ -6,12 +6,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use App\Models\User;
 use Session;
 
 class AdminController extends Controller
 {
     public function dashboard(){
-      return view('admin.dashboard');
+      if(Auth::guard('admin')->check()){
+
+        $user = User::paginate(3);//->paginate(3);
+
+        if(count($user) > 0){
+            $data = array(
+                'users' => $user,
+            );
+            return view('admin.dashboard')->with(compact('data'));
+        }
+          return view('admin.dashboard')->with();
+      }
+      else return view('admin.login');
     }
 
     public function logout()

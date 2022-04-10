@@ -23,6 +23,9 @@
         <link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+        <link href="{{asset('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/stylebar.css')}}">
         
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
@@ -41,6 +44,70 @@
 
   <main id="main">
 
+    <div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+				<h1><a class="logo">{{Str::ucfirst(Auth::guard('admin')->user()->name[0])}}</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#"><span class="fa fa-user"></span> Vartotojai</a>
+          </li>
+          <li>
+              <a href="#"><span class="fa fa-address-book"></span> Įmonių registracija</a>
+          </li>
+        </ul>
+
+        <div class="footer">
+        	
+        </div>
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+              <i class="fa fa-bars"></i>
+              <span class="sr-only">Toggle Menu</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+
+          </div>
+        </nav>
+
+        <h2 class="mb-4">Savanorių profilių sąrašas</h2>
+        
+        <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Vardas</th>
+                  <th>El. paštas</th>
+                  <th>Statusas</th>
+                  <th>Nusiskundimų skaičius</th>
+                  <th>Informacija</th>
+                  <th>Sustabdyti paskyrą</th>
+              </tr>
+          </thead>
+          <tbody>
+              @foreach($data['users'] as $user)
+              <tr>
+                  <td>{{$user->full_name}}</td>
+                  <td>{{$user->email}}</td>
+                  <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
+                  <td>Reports</td>
+                  <td>Status</td>
+                  <td>Reports</td>
+              </tr>
+              @endforeach
+          </tbody>
+      </table>
+      {{ $data['users']->links('vendor.pagination.bootstrap-4') }}
+
+      </div>
+		</div>
 
   </main><!-- End #main -->
 
@@ -55,6 +122,10 @@
   <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
   <script src="{{asset('assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
   <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+  <script src="{{asset('assets/js/popper.js')}}"></script>
+  <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('assets/js/mainbar.js')}}"></script>
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
