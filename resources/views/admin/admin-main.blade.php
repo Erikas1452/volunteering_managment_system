@@ -26,9 +26,12 @@
         <link href="{{asset('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/stylebar.css')}}">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
         
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+        {{-- <link href="{{asset('css/app.css')}}" rel="stylesheet"> --}}
       
         <!-- =======================================================
         * Template Name: Serenity - v4.7.0
@@ -92,6 +95,33 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+
+  <script src="{{ asset('js/app.js') }}" defer></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+      @if(Session::has('message'))
+      var type = "{{ Session::get('alert-type','info') }}"
+      switch(type){
+         case 'info':
+         toastr.info(" {{ Session::get('message') }} ");
+         break;
+     
+         case 'success':
+         toastr.success(" {{ Session::get('message') }} ");
+         break;
+     
+         case 'warning':
+         toastr.warning(" {{ Session::get('message') }} ");
+         break;
+     
+         case 'error':
+         toastr.error(" {{ Session::get('message') }} ");
+         break; 
+      }
+      @endif 
+     </script>
 
 </body>
 

@@ -73,8 +73,10 @@ Route::post('/admin/organization/register',[OrganizationController::class, 'regi
 
 //Organizations
 
-
-
+//TEST
+Route::get('test/test', function(){
+    return "Hello";
+});
 
 Route::post('/search',function(Request $request){
     $search_word = $request->search_word;
