@@ -23,13 +23,12 @@
         <link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
-
-        <link href="{{asset('assets/css/register.css')}}" rel="stylesheet">
+        <link href="{{asset('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/stylebar.css')}}">
         
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
-
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
       
         <!-- =======================================================
         * Template Name: Serenity - v4.7.0
@@ -41,35 +40,39 @@
 
 <body>
 
-    @include('snipets.header')
+  @include('snipets.header')
 
   <main id="main">
 
-    <div class="padding container d-flex justify-content-center">
-        <div class="col-md-10 col-md-offset-1">
-            <form method="POST" class="signup-form" action="{{route('authenticate.admin')}}" enctype="multipart/form-data">
-                @csrf
-                <h2 class="text-center">Prisijungimas</h2>
-                <hr>
-                <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
-                    <span class="text-danger">{{session()->get('email')}}</span>
-                <div class="form-group"> <input type="password" name="password" class="form-control" placeholder="Slaptažodis" required="required"> </div>
-                    <span class="text-danger">{{session()->get('password')}}</span>
-                <div class="flex items-center justify-end mt-4">
-               
-                    @if (Route::has('password.request'))
-                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                            {{ __('Pamiršau slaptažodį') }}
-                        </a>
-                    @endif
-                <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Prisijungti</button> </div>
-            </form>
+    @php 
+        $route = Route::current()->getName();
+    @endphp
+
+    <div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+				<h1><a class="logo">{{Str::ucfirst(Auth::guard('admin')->user()->name[0])}}</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li class="{{ ($route == 'admin.dashboard.volunteers')? 'active' : '' }}">
+            <a href="{{route('admin.dashboard.volunteers')}}"><span class="fa fa-user"></span> Vartotojai</a>
+          </li>
+          <li class="{{ ($route == 'admin.dashboard.organizations')? 'active' : '' }}">
+            <a href="{{route('admin.dashboard.organizations')}}"><span class="fa fa-address-book"></span> Įmonių sąrašas</a>
+          </li>
+          <li class="{{ ($route == 'organizations')? 'active' : '' }}">
+              <a href="{{route('organizations')}}"><span class="fa fa-address-book"></span> Įmonių registracija</a>
+          </li>
+        </ul>
+
+        <div class="footer">
+        	
         </div>
-    </div>
+    	</nav>
+        <!-- Page Content  -->
+        @yield('content')
+        
+	</div>
 
   </main><!-- End #main -->
-
-  @include('snipets.footer')
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -82,12 +85,13 @@
   <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
   <script src="{{asset('assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
   <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+  <script src="{{asset('assets/js/popper.js')}}"></script>
+  <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('assets/js/mainbar.js')}}"></script>
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </body>
 

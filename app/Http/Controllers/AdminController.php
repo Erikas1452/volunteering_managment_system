@@ -12,7 +12,7 @@ use Session;
 
 class AdminController extends Controller
 {
-    public function dashboard(){
+    public function Volunteers(){
       if(Auth::guard('admin')->check()){
 
         $user = User::paginate(3);//->paginate(3);
@@ -21,11 +21,18 @@ class AdminController extends Controller
             $data = array(
                 'users' => $user,
             );
-            return view('admin.dashboard')->with(compact('data'));
+            return view('admin.dashboard-volunteers')->with(compact('data'));
         }
-          return view('admin.dashboard')->with();
+          return view('admin.dashboard-volunteers')->with();
       }
       else return view('admin.login');
+    }
+
+    public function dashboard(){
+        if(Auth::guard('admin')->check()){
+            return view('admin.dashboard');
+        }
+        else return redirect()->route('admin.login');
     }
 
     public function organizations(){

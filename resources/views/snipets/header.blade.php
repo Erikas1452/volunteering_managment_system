@@ -10,15 +10,18 @@
       </div>
 
       
+      @php 
+        $route = Route::current()->getName();
+      @endphp
 
           @if (Auth::guard('web')->check())
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a href="{{route('volunteering')}}">Savanorystės</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="portfolio.html">Portfolio</a></li>
-              <li><a href="blog.html">Blog</a></li>
+              <li class="{{($route == 'volunteering' || $route == 'search')? 'active' : '' }}"><a href="{{route('volunteering')}}">Savanorystės</a></li>
+              <li class=""><a href="">Services</a></li>
+              <li class=""><a href="">Pricing</a></li>
+              <li class=""><a href="">Portfolio</a></li>
+              <li class=""><a href="">Blog</a></li>
               <li class="dropdown"><a class="getstarted" href="{{route('volunteer.profile', ['id' => Auth::user()->id])}}">{{Auth::user()->full_name}}</a>
                 <ul>
                   <li><a href="{{route('volunteer.profile', ['id' => Auth::user()->id])}}">Redaguoti</a></li>

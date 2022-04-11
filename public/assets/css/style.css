@@ -258,6 +258,11 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 15px;
   color: #3c4133;
 }
+
+.active a{
+  color: #86b03c;
+}
+
 .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
   color: #94c045;
 }
