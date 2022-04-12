@@ -38,12 +38,8 @@
               <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
               <td>Reports</td>
               <td>Status</td>
-              <td> 
-                <button id="show-modal" @click="showModal = true">Stabdyti paskyrą</button>
-
-                <example-component v-if="showModal" @close="showModal = false">
-
-                </example-component>
+              <td>
+                <example-component user="{{$user->id}}"></example-component>
             </td>
           </tr>
           @endforeach

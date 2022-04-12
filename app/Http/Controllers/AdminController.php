@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Organization;
+use Carbon\Carbon;
 use Session;
 
 class AdminController extends Controller
 {
-    public function Volunteers(){
+    public function volunteers(){
       if(Auth::guard('admin')->check()){
 
         $user = User::paginate(3);//->paginate(3);
@@ -26,6 +27,23 @@ class AdminController extends Controller
           return view('admin.dashboard-volunteers')->with();
       }
       else return view('admin.login');
+    }
+
+    public function suspendVolunteer(Request $request){
+
+        $userID = $request->user;
+        $reason = $request->reason;
+
+        $dateformat = Carbon::parse($request->date);
+        $date = $dateformat->format('Y-m-d');
+
+        User::findOrFail($userID)->update([
+            'suspended' => $date,
+        ]);
+
+        $response = "user".$userID."suspended till: ".$date;
+
+        return $response;
     }
 
     public function dashboard(){

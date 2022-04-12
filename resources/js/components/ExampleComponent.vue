@@ -1,52 +1,76 @@
 <template>
-<transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+<div>
+  <button id="show-modal" @click="showModal = true">Stabdyti paskyrą</button>
+  <div v-if="showModal">
+    <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
 
-          <div class="modal-header">
-            <slot name="header">
-              Stabdyti paskyrą
-            </slot>
-          </div>
+              <div class="modal-header">
+                <slot name="header">
+                  Stabdyti paskyrą
+                </slot>
+              </div>
 
-          <div class="modal-body">
-            <h6> Stabdymo priežastis </h6>
-            <input type="text" name="reason" />
-            <hr>
-            <h6> Stabdymo Laikotarpis </h6>
-            <input type="date" />
-            <h6>Request: {{ info }} </h6>
-          </div>
+              <div class="modal-body">
+                <h6>Stabdymo priezastis</h6>
+                <input v-model="reason" @change="onReasonChange($event)" type="text" name="reason" />
+                <hr>
+                <h6> Stabdymo Laikotarpis </h6>
+                <input v-model="date" @change="onDateChange($event)" type="date" />
+              </div>
 
-          <div class="modal-footer">
-            <slot name="footer">
-              <button class="modal-default-button" @click="submit">
-                Stabdyti
-              </button>
-              <button class="modal-default-button" @click="$emit('close')">
-                Atšaukti
-              </button>
-            </slot>
+              <div class="modal-footer">
+                <slot name="footer">
+                  <button class="modal-default-button" @click="submit">
+                    Stabdyti
+                  </button>
+                  <button class="modal-default-button" @click="showModal = false">
+                    Atšaukti
+                  </button>
+                </slot>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </transition>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
   export default {
+      props:{
+        user:String,
+      },
+      data: {
+              showModal: false,
+              date: '',
+              reason: '',
+              info: 0,
+      },
       methods: {
+          onReasonChange(event){
+            this.reason = event.target.value;
+          },
+          onDateChange(event){
+            this.date = event.target.value
+          },
           submit(event){
               axios
-                .get('http://127.0.0.1:8000/test/test')
+                .post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
+                  date: this.date,
+                  reason: this.reason,
+                  user: this.user,
+                })
                 .then(response => (this.info = response))
-          }
+          },
+
       },
       data() {
           return{
-              info: 0
+              showModal: false,
           }
       }
   }

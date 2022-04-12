@@ -70,6 +70,7 @@ Route::get('/admin/dashboard/users',[AdminController::class, 'volunteers'])->nam
 Route::get('/admin/dashboard/organizations',[AdminController::class, 'organizations'])->name('admin.dashboard.organizations');
 Route::get('/admin/dashboard/organizations/register',[AdminController::class, 'registerOrganizationPage'])->name('organizations');
 Route::post('/admin/organization/register',[OrganizationController::class, 'registerOrganization'])->name('organization.registration');
+Route::post('/admin/dashboard/volunteers/suspend',[AdminController::class, 'suspendVolunteer'])->name('volunteer.suspend');
 
 //Organizations
 

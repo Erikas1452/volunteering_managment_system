@@ -32,7 +32,8 @@ class User extends Authenticatable
         'address',
         'description',
         'profile_img',
-        'email_verified_at'
+        'email_verified_at',
+        'suspended'
     ];
 
     /**

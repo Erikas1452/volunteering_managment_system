@@ -5266,6 +5266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -5303,22 +5305,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
+  props: {
+    user: String
+  },
+  data: {
+    showModal: false,
+    date: '',
+    reason: '',
+    info: 0
+  },
   methods: {
+    onReasonChange: function onReasonChange(event) {
+      this.reason = event.target.value;
+    },
+    onDateChange: function onDateChange(event) {
+      this.date = event.target.value;
+    },
     submit: function submit(event) {
       var _this = this;
 
-      axios.get('http://127.0.0.1:8000/test/test').then(function (response) {
+      axios.post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
+        date: this.date,
+        reason: this.reason,
+        user: this.user
+      }).then(function (response) {
         return _this.info = response;
       });
     }
-  },
-  data: function data() {
-    return {
-      info: 0
-    };
   }
-});
+}, "data", function data() {
+  return {
+    showModal: false
+  };
+}));
 
 /***/ }),
 
@@ -5355,9 +5379,7 @@ Vue.component('example-component', (__webpack_require__(/*! ./components/Example
 
 var app = new Vue({
   el: '#app',
-  data: {
-    showModal: false
-  }
+  data: {}
 });
 
 /***/ }),
@@ -28356,72 +28378,147 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("transition", { attrs: { name: "modal" } }, [
-    _c("div", { staticClass: "modal-mask" }, [
-      _c("div", { staticClass: "modal-wrapper" }, [
-        _c("div", { staticClass: "modal-container" }, [
-          _c(
-            "div",
-            { staticClass: "modal-header" },
-            [
-              _vm._t("header", function () {
-                return [
-                  _vm._v("\n              Stabdyti paskyrą\n            "),
-                ]
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-body" }, [
-            _c("h6", [_vm._v(" Stabdymo priežastis ")]),
-            _vm._v(" "),
-            _c("input", { attrs: { type: "text", name: "reason" } }),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("h6", [_vm._v(" Stabdymo Laikotarpis ")]),
-            _vm._v(" "),
-            _c("input", { attrs: { type: "date" } }),
-            _vm._v(" "),
-            _c("h6", [_vm._v("Request: " + _vm._s(_vm.info) + " ")]),
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "modal-footer" },
-            [
-              _vm._t("footer", function () {
-                return [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "modal-default-button",
-                      on: { click: _vm.submit },
-                    },
-                    [_vm._v("\n                Stabdyti\n              ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "modal-default-button",
-                      on: {
-                        click: function ($event) {
-                          return _vm.$emit("close")
+  return _c("div", [
+    _c(
+      "button",
+      {
+        attrs: { id: "show-modal" },
+        on: {
+          click: function ($event) {
+            _vm.showModal = true
+          },
+        },
+      },
+      [_vm._v("Stabdyti paskyrą")]
+    ),
+    _vm._v(" "),
+    _vm.showModal
+      ? _c(
+          "div",
+          [
+            _c("transition", { attrs: { name: "modal" } }, [
+              _c("div", { staticClass: "modal-mask" }, [
+                _c("div", { staticClass: "modal-wrapper" }, [
+                  _c("div", { staticClass: "modal-container" }, [
+                    _c(
+                      "div",
+                      { staticClass: "modal-header" },
+                      [
+                        _vm._t("header", function () {
+                          return [
+                            _vm._v(
+                              "\n                  Stabdyti paskyrą\n                "
+                            ),
+                          ]
+                        }),
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("h6", [_vm._v("Stabdymo priezastis")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.reason,
+                            expression: "reason",
+                          },
+                        ],
+                        attrs: { type: "text", name: "reason" },
+                        domProps: { value: _vm.reason },
+                        on: {
+                          change: function ($event) {
+                            return _vm.onReasonChange($event)
+                          },
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.reason = $event.target.value
+                          },
                         },
-                      },
-                    },
-                    [_vm._v("\n                Atšaukti\n              ")]
-                  ),
-                ]
-              }),
-            ],
-            2
-          ),
-        ]),
-      ]),
-    ]),
+                      }),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("h6", [_vm._v(" Stabdymo Laikotarpis ")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.date,
+                            expression: "date",
+                          },
+                        ],
+                        attrs: { type: "date" },
+                        domProps: { value: _vm.date },
+                        on: {
+                          change: function ($event) {
+                            return _vm.onDateChange($event)
+                          },
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.date = $event.target.value
+                          },
+                        },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "modal-footer" },
+                      [
+                        _vm._t("footer", function () {
+                          return [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "modal-default-button",
+                                on: { click: _vm.submit },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    Stabdyti\n                  "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "modal-default-button",
+                                on: {
+                                  click: function ($event) {
+                                    _vm.showModal = false
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    Atšaukti\n                  "
+                                ),
+                              ]
+                            ),
+                          ]
+                        }),
+                      ],
+                      2
+                    ),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ],
+          1
+        )
+      : _vm._e(),
   ])
 }
 var staticRenderFns = []
