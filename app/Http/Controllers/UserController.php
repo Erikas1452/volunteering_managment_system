@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Carbon\Carbon;
 use Session;
 use Image;
 
@@ -32,7 +33,26 @@ class UserController extends Controller
                 'password' => $request->password,
             ];
             if (Auth::guard('web')->attempt($credentials)) {
-                return redirect()->route('volunteering');
+
+                if(Carbon::createFromFormat('Y-m-d', $user->suspended)->gte(Carbon::now())){
+                    Session::flush();
+    
+                    auth('web')->logout();
+
+                    $notification = array(
+                        'message' => 'Jūsų vartotojo profilis sustabdytas',
+                        'alert-type' => 'warning'
+                    );
+
+                    return redirect()->route('home')->with($notification);
+                }
+                else{
+                    $notification = array(
+                        'message' => Carbon::parse($user->date),
+                        'alert-type' => 'warning'
+                    );
+                    return redirect()->route('volunteering')->with($notification);
+                }
             } else {
                 return redirect()->back()->with('password', 'Neteisingas slaptažodis');
             } 
