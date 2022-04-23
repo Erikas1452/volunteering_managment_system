@@ -3,18 +3,18 @@
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <div class="logo">
-        <h1 class="text-light"><a href="{{route('home')}}">Volunteer+</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-
-      
       @php 
         $route = Route::current()->getName();
       @endphp
 
           @if (Auth::guard('web')->check())
+
+          <div class="logo">
+            <h1 class="text-light"><a href="{{route('home')}}">Volunteer+</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          </div>
+
           <nav id="navbar" class="navbar">
             <ul>
               <li class="{{($route == 'volunteering' || $route == 'search')? 'active' : '' }}"><a href="{{route('volunteering')}}">Savanorystės</a></li>
@@ -32,6 +32,26 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
           @elseif (Auth::guard('admin')->check())
+
+          <div class="logo">
+            <h1 class="text-light"><a href="{{route('admin.dashboard')}}">Volunteer+</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          </div>
+
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="getstarted" href="{{route('admin.logout')}}">Atsijungti</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+          @elseif (Auth::guard('organization')->check())
+          <div class="logo">
+            <h1 class="text-light"><a href="{{route('home')}}">Volunteer+</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          </div>
+
           <nav id="navbar" class="navbar">
             <ul>
               <li><a class="getstarted" href="{{route('admin.logout')}}">Atsijungti</a></li>
@@ -39,14 +59,18 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
           @else
+          <div class="logo">
+            <h1 class="text-light"><a href="{{route('home')}}">Volunteer+</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          </div>
+
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a class="active" href="index.html">Home</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="portfolio.html">Portfolio</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a class="active" href="index.html">Pagrindinis</a></li>
+              <li><a href="">Paslaugos</a></li>
+              <li><a href="">Kontaktai</a></li>
+              <li><a href="{{route('company.main')}}">Organizacijoms</a></li>
               <li><a class="getstarted" href="{{route('register')}}">Registracija</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>

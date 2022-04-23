@@ -396,6 +396,8 @@ section {
 
 .section-bg {
   background-color: #f9fbf4;
+  padding-top: 15px;
+  padding-bottom: 0px;
 }
 
 .section-title {

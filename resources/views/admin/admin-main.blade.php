@@ -66,6 +66,9 @@
           <li class="{{ ($route == 'admin.dashboard.organizations')? 'active' : '' }}">
             <a href="{{route('admin.dashboard.organizations')}}"><span class="fa fa-address-book"></span> Įmonių sąrašas</a>
           </li>
+          <li class="{{ ($route == 'admin.organization.requests')? 'active' : '' }}">
+            <a href="{{route('admin.organization.requests')}}"><span class="fa fa-address-book"></span> Įmonių užklausos</a>
+          </li>
           <li class="{{ ($route == 'organizations')? 'active' : '' }}">
               <a href="{{route('organizations')}}"><span class="fa fa-pencil"></span> Įmonių registracija</a>
           </li>

@@ -25,7 +25,7 @@ class AdminController extends Controller
     public function volunteers(){
       if(Auth::guard('admin')->check()){
 
-        $user = User::paginate(3);//->paginate(3);
+        $user = User::paginate(10);//->paginate(3);
 
         if(count($user) > 0){
             $data = array(
@@ -65,7 +65,7 @@ class AdminController extends Controller
     public function organizations(){
         if(Auth::guard('admin')->check()){
   
-          $organization = Organization::paginate(3);//->paginate(3);
+          $organization = Organization::paginate(10);//->paginate(3);
   
           if(count($organization) > 0){
               $data = array(
