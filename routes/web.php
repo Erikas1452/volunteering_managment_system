@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\CategoryController;
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
@@ -66,11 +67,18 @@ Route::get('/admin/register',[AdminController::class, 'registerAdmin'])->name('r
 Route::post('/admin/authenticate',[AdminController::class, 'authenticate'])->name('authenticate.admin');
 Route::get('/admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
 Route::get('/admin/dashboard/',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+//Users
 Route::get('/admin/dashboard/users',[AdminController::class, 'volunteers'])->name('admin.dashboard.volunteers');
 Route::get('/admin/dashboard/organizations',[AdminController::class, 'organizations'])->name('admin.dashboard.organizations');
 Route::get('/admin/dashboard/organizations/register',[AdminController::class, 'registerOrganizationPage'])->name('organizations');
 Route::post('/admin/organization/register',[OrganizationController::class, 'registerOrganization'])->name('organization.registration');
 Route::post('/admin/dashboard/volunteers/suspend',[AdminController::class, 'suspendVolunteer'])->name('volunteer.suspend');
+//Categories
+Route::get('/admin/dashboard/categories',[AdminController::class, 'categories'])->name('admin.dashboard.categories');
+Route::post('/admin/dashborad/categories/create',[CategoryController::class, 'storeCategory'])->name('category.store');
+Route::get('/admin/dashborad/categories/delete/{id}',[CategoryController::class, 'deleteCategory'])->name('category.delete');
+Route::get('/admin/dashborad/categories/edit/{id}',[CategoryController::class, 'editCategory'])->name('category.edit');
+Route::post('/admin/dashborad/categories/update/{id}',[CategoryController::class, 'updateCategory'])->name('category.update');
 
 //Organizations
 

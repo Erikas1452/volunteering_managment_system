@@ -31,13 +31,37 @@
           </tr>
       </thead>
       <tbody>
+        @php
+
+        foreach ($data['users'] as $user) {
+          if($user->suspended != null){
+            if(\Carbon\Carbon::createFromFormat('Y-m-d', $user->suspended)->gte(\Carbon\Carbon::now())){
+              $suspended = true;
+            }
+            else{
+              $suspended = false;
+            }
+          }
+          else{
+            $suspended = false;
+          }
+          $user->suspended = $suspended;
+        }
+
+        $suspended = true;
+        @endphp
           @foreach($data['users'] as $user)
           <tr>
               <td>{{$user->full_name}}</td>
               <td>{{$user->email}}</td>
-              <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
+              @if($user->suspended)
+                  <td style="text-align: center;"><a class="badge badge-warning">Sustbadytas</a></td>
+              @else
+                  <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
+              @endif
+              
               <td>Reports</td>
-              <td>Status</td>
+              <td>Peržiūrėti vartotojo profilį</td>
               <td>
                 <example-component user="{{$user->id}}"></example-component>
             </td>

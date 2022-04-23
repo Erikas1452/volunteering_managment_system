@@ -60,11 +60,14 @@
           <li class="{{ ($route == 'admin.dashboard.volunteers')? 'active' : '' }}">
             <a href="{{route('admin.dashboard.volunteers')}}"><span class="fa fa-user"></span> Vartotojai</a>
           </li>
+          <li class="{{ ($route == 'admin.dashboard.categories')? 'active' : '' }}">
+            <a href="{{route('admin.dashboard.categories')}}"><span class="fa fa-list"></span> Kategorijos</a>
+          </li>
           <li class="{{ ($route == 'admin.dashboard.organizations')? 'active' : '' }}">
             <a href="{{route('admin.dashboard.organizations')}}"><span class="fa fa-address-book"></span> Įmonių sąrašas</a>
           </li>
           <li class="{{ ($route == 'organizations')? 'active' : '' }}">
-              <a href="{{route('organizations')}}"><span class="fa fa-address-book"></span> Įmonių registracija</a>
+              <a href="{{route('organizations')}}"><span class="fa fa-pencil"></span> Įmonių registracija</a>
           </li>
         </ul>
 

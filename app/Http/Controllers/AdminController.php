@@ -8,11 +8,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Organization;
+use App\Models\Category;
 use Carbon\Carbon;
 use Session;
 
 class AdminController extends Controller
 {
+    public function categories(){
+        if(auth::guard('admin')->check()){
+            $category = Category::latest()->get();
+            return view('admin.dashboard-categories', compact('category'));
+        }
+        else return view('admin.login');
+    }
+
     public function volunteers(){
       if(Auth::guard('admin')->check()){
 
