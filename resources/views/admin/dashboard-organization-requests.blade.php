@@ -37,12 +37,12 @@
             <td>{{$re->address}}</td>
             <td>{{$re->phone}}</td>
             <td style="text-align: -webkit-center;"><a href="{{ route('organization.request.file', $re->file_upload_path) }}" class="btn btn-info"
-                title="Edit Data"><i class="fa fa-download"></i> </a></td>
+                title="Atsisiūsti"><i class="fa fa-download"></i> </a></td>
             <td style="text-align: -webkit-center;">
-                <a href="{{ route('organization.request.confirm', $re->file_upload_path) }}" class="btn btn-success"
-                    title="Edit Data"><i class="fa fa-check"></i> </a>
-                <a href="{{ route('organization.request.deny', $re->file_upload_path) }}" class="btn btn-danger"
-                    title="Edit Data"><i class="fa fa-times"></i> </a>
+                <a href="{{ route('organization.request.confirm', $re->email) }}" class="btn btn-success"
+                    title="Patvirtinti"><i class="fa fa-check"></i> </a>
+                <a href="{{ route('organization.request.deny', $re->email) }}" class="btn btn-danger"
+                    title="Atmesti"><i class="fa fa-times"></i> </a>
             </td>
         </tr>
         @endforeach

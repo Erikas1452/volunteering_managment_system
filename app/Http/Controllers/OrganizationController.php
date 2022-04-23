@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 use App\Models\Organization;
 use App\Models\OrganizationRequests;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\loginData;
+use App\Mail\denied;
 use File;
 use Session;
 use Image;
@@ -67,6 +70,34 @@ class OrganizationController extends Controller
         $file = Storage::disk('public')->get($path);
 
         return Storage::download('public/'.$path, $path);
+    }
+
+    public function confirmRequest($email){
+
+        $password = Str::random(12);
+
+        $request = OrganizationRequests::where('email',$email)->first();
+
+        Organization::create([
+            'email' => $request->email,
+            'name' => $request->name,
+            'password' => Hash::make($password),
+            'profile_img' => "https://bootdey.com/img/Content/avatar/avatar7.png",
+        ]);
+
+        $notification = array(
+            'message' => 'Užsiregistruota sėkmingai',
+            'alert-type' => 'success'
+        );
+
+        Mail::to($email)->send(new loginData($email, $password));
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function denyRequest($email){
+        Mail::to($email)->send(new denied());
+        return redirect()->back();
     }
 
     public function companyRequestCreate(Request $request){

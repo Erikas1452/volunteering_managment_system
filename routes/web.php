@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Admin;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\CategoryController;
+use App\Mail\loginData;
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
@@ -91,6 +93,11 @@ Route::get('/admin/dashborad/organization/requests/deny/{email}',[OrganizationCo
 Route::get('/organization/home',[OrganizationController::class, 'companyPage'])->name('company.main');
 Route::get('/organization/register/request', [OrganizationController::class, 'companyRequest'])->name('company.request');
 Route::post('/organization/register/request/create', [OrganizationController::class, 'companyRequestCreate'])->name('company.request.create');
+
+//Emails
+Route::get('/email', function(){
+    Mail::to('test@gmail.com')->send(new loginData());
+});
 
 //TEST
 Route::get('test/test', function(){
