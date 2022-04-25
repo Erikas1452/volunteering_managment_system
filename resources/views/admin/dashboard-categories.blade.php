@@ -45,10 +45,10 @@
                                             <td> <span><i class="{{ $cat->category_icon }}"></i></span> </td>
                                             <td>{{ $cat->category_name_en }}</td>
                                             <td>
-                                                <a href="{{ route('category.edit', $cat->id) }}" class="btn btn-info"
-                                                    title="Edit Data"><i class="fa fa-pencil"></i> </a>
+                                                <a href="{{ route('category.edit', $cat->id) }}" class="btn btn-primary"
+                                                    title="Redaguoti kategoriją"><i class="fa fa-pencil"></i> </a>
                                                 <a href="{{ route('category.delete', $cat->id) }}"
-                                                    class="btn btn-danger" title="Delete Data" id="delete">
+                                                    class="btn btn-danger" title="Ištrinti kategoriją" id="delete">
                                                     <i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

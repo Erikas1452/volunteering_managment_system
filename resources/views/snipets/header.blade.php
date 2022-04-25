@@ -47,7 +47,7 @@
           </nav><!-- .navbar -->
           @elseif (Auth::guard('organization')->check())
           <div class="logo">
-            <h1 class="text-light"><a href="{{route('home')}}">Volunteer+</a></h1>
+            <h1 class="text-light"><a href="{{route('company.dashboard')}}">Volunteer+</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
           </div>

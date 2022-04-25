@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Organization;
 use App\Models\OrganizationRequests;
+use App\Models\VolunteeringActivities;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\loginData;
@@ -19,6 +21,57 @@ use Image;
 
 class OrganizationController extends Controller
 {
+
+    public function createActivityPage(){
+        $category = Category::orderBy('category_name_en')->get();
+        $data = array(
+            'categories' => $category,
+        );
+        return view('company.company-dashboard-create-activity')->with(compact('data'));
+    }
+
+    public function dashboardActivities(){
+        $activities = VolunteeringActivities::where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
+        if(count($activities) > 0){
+            $data = array(
+                'activities' => $activities,
+            );
+            return view('company.company-dashboard-activities')->with(compact('data'));
+        }
+        else return view('company.company-dashboard-activities');
+    }
+
+    public function login(){
+        return view('company.company-login');
+    }
+
+    public function dashboard(){
+        return view('company.company-dashboard');
+    }
+
+    public function authenticate(Request $request){
+        $user = Organization::where('email',$request->email)->first();
+
+        if(!$user) return redirect()->back()->with('email','Neteisingas el.pašto adresas');
+
+        if($user) {
+            $credentials = [
+                'email' => $request->email,
+                'password' => $request->password,
+            ];
+            if (Auth::guard('organization')->attempt($credentials)) {
+                    $notification = array(
+                        'message' => 'Prisijungta sėkmingai',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('company.dashboard')->with($notification);
+            }else {
+                return redirect()->back()->with('password', 'Neteisingas slaptažodis');
+            } 
+        } else {
+        return redirect()->back()->with('status', 'Not found!');
+        }
+    }
 
     public function companyRequest(){
         return view('company.company-register');

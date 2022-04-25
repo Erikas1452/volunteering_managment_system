@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\VolunteeringActivitiesController;
 use App\Mail\loginData;
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -92,7 +93,15 @@ Route::get('/admin/dashborad/organization/requests/deny/{email}',[OrganizationCo
 //Organizations
 Route::get('/organization/home',[OrganizationController::class, 'companyPage'])->name('company.main');
 Route::get('/organization/register/request', [OrganizationController::class, 'companyRequest'])->name('company.request');
+Route::post('/organization/login/authenticate', [OrganizationController::class, 'authenticate'])->name('company.authenticate');
+Route::get('/organization/login/', [OrganizationController::class, 'login'])->name('company.login');
 Route::post('/organization/register/request/create', [OrganizationController::class, 'companyRequestCreate'])->name('company.request.create');
+Route::get('/organization/dashboard/', [OrganizationController::class, 'dashboard'])->name('company.dashboard');
+Route::get('/organization/dashboard/activities', [OrganizationController::class, 'dashboardActivities'])->name('company.dashboard.activities');
+Route::get('/organization/dashboard/activities/create', [OrganizationController::class, 'createActivityPage'])->name('company.dashboard.activities.create');
+
+//Activities
+Route::post('/organization/dashboard/activities/submit',[VolunteeringActivitiesController::class, 'createActivity'])->name('activity.submit');
 
 //Emails
 Route::get('/email', function(){
