@@ -45,8 +45,9 @@
                                 <tbody>
                                     @foreach ($data['activities'] as $act)
                                         <tr>
-                                            <td><img width="120" height="120" src="{{asset($act->activity_photo)}}"/></td>
-                                            <td>{{$act->category_id}}</td>
+                                            <td><img width="100" height="80" src="{{asset($act->activity_photo)}}"/></td>
+
+                                            <td>{{$act->category['category_name_en']}}</td>
                                             <td>{{$act->start_date}} - {{$act->end_date}}</td>
                                             @php
                                                 if(!isset($act->people_limit)) $people = 0;
@@ -54,10 +55,12 @@
                                             @endphp
                                             <td>{{$people}}</td>
                                             <td>
-                                                <a href="" class="btn btn-info"
-                                                    title="Koreguoti veiklą"> <i class="fa fa-pencil"></i> </a>
+                                                <a href="{{route('activity.info',$act->id)}}" class="btn btn-info"
+                                                    title="Peržiūra"> <i class="fa fa-info-circle"></i></a>
+                                                <a href="" class="btn btn-primary"
+                                                    title="Koreguoti veiklą"> <i class="fa fa-pencil"></i></a>
                                                 <a href="" class="btn btn-danger"
-                                                title="Pašalinti veiklą" <i class="fa fa-trash"></i></a>
+                                                    title="Pašalinti veiklą"> <i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

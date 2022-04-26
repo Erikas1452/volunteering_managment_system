@@ -34,7 +34,8 @@ class UserController extends Controller
             ];
             if (Auth::guard('web')->attempt($credentials)) {
 
-                if(Carbon::createFromFormat('Y-m-d', $user->suspended)->gte(Carbon::now())){
+                if(isset($user->suspended)){
+                  if(Carbon::createFromFormat('Y-m-d', $user->suspended)->gte(Carbon::now())){
                     Session::flush();
     
                     auth('web')->logout();
@@ -45,13 +46,16 @@ class UserController extends Controller
                     );
 
                     return redirect()->route('home')->with($notification);
-                }
-                else{
-                    $notification = array(
-                        'message' => Carbon::parse($user->date),
-                        'alert-type' => 'warning'
-                    );
-                    return redirect()->route('volunteering')->with($notification);
+                    }
+                    else{
+                        $notification = array(
+                            'message' => Carbon::parse($user->date),
+                            'alert-type' => 'warning'
+                        );
+                        return redirect()->route('volunteering')->with($notification);
+                    }  
+                } else {
+                    return redirect()->route('volunteering');
                 }
             } else {
                 return redirect()->back()->with('password', 'Neteisingas slaptažodis');

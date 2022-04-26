@@ -109,11 +109,11 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <h5>Pradžios data <span class="text-danger">*</span></h5>
-                                            <input type="datetime-local" name="start_date">
+                                            <input class="form-group" type="datetime-local" name="start_date">
                                         </div>
                                         <div class="col-md-3">
                                             <h5>Pabaigos data<span class="text-danger">*</span></h5>
-                                            <input type="datetime-local" name="end_date">
+                                            <input class="form-group" type="datetime-local" name="end_date">
                                         </div>
                                     </div>
 

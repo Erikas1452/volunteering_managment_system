@@ -23,15 +23,15 @@
           <table class="table table-striped">
               <thead>
                   <tr>
-                      <th>Name</th>
-                      <th>Email</th>
+                      <th>Savanorystės pavadinimas</th>
+                      <th>Aprašymas</th>
                   </tr>
               </thead>
               <tbody>
-                  @foreach($data['users'] as $user)
+                  @foreach($data['activities'] as $a)
                   <tr>
-                      <td>{{$user->full_name}}</td>
-                      <td>{{$user->email}}</td>
+                      <td>{{$a->name}}</td>
+                      <td>{{$a->short_desc}}</td>
                   </tr>
                   @endforeach
               </tbody>
@@ -53,7 +53,11 @@
           <div class="sidebar-item search-form">
             <form action="{{route('search')}}" method="POST" role="search">
               @csrf
-              <input type="text" name="search_word">
+              @php
+                  if(isset($data['search_word']))$value = $data['search_word'];
+                  else $value = '';
+              @endphp
+              <input type="text" value="{{$value}}" name="search_word">
               <button type="submit"><i class="bi bi-search"></i></button>
             </form>
           </div><!-- End sidebar search formn-->

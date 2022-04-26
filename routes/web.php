@@ -6,6 +6,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\VolunteeringActivities;
+use App\Models\Category;
+use App\Models\ExtraQuestions;
+use App\Models\Organization;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrganizationController;
@@ -102,6 +106,7 @@ Route::get('/organization/dashboard/activities/create', [OrganizationController:
 
 //Activities
 Route::post('/organization/dashboard/activities/submit',[VolunteeringActivitiesController::class, 'createActivity'])->name('activity.submit');
+Route::get('/organization/dashboard/activities/{id}',[VolunteeringActivitiesController::class, 'openActivity'])->name('activity.info');
 
 //Emails
 Route::get('/email', function(){
@@ -115,11 +120,11 @@ Route::get('test/test', function(){
 
 Route::post('/search',function(Request $request){
     $search_word = $request->search_word;
-    $user = User::where('full_name','LIKE','%'.$search_word.'%')->orWhere('email','LIKE','%'.$search_word.'%')->get();//->paginate(3);
+    $activities = VolunteeringActivities::where('name','LIKE','%'.$search_word.'%')->orWhere('short_desc','LIKE','%'.$search_word.'%')->paginate(10);//->paginate(3);
 
-    if(count($user) > 0){
+    if(count($activities) > 0){
         $data = array(
-            'users' => $user,
+            'activities' => $activities,
             'search_word' => $search_word,
         );
         return view('volunteer/volunteering')->with(compact('data'));
@@ -132,5 +137,9 @@ Route::post('/search',function(Request $request){
 })->name('search');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/search', function () {
-    return view('volunteer/volunteering');
+    $activities = VolunteeringActivities::paginate(10);//->paginate(3);
+    $data = array(
+        'activities' => $activities,
+    );
+    return view('volunteer/volunteering')->with(compact('data'));
 })->name('search');

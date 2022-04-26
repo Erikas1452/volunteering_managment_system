@@ -19,6 +19,22 @@ use Image;
 
 class VolunteeringActivitiesController extends Controller
 {
+
+    public function openActivity($id){
+
+
+        $activity = VolunteeringActivities::with('category')->where('id', $id)->get();
+        $questions = VolunteeringActivities::find($id)->questions;
+        
+
+        $data = array(
+            'activity' => $activity,
+            'questions' => $questions,
+        );
+
+        return view('company.company-dashboard-activity-info')->with(compact('data'));
+    }
+
     public function createActivity(Request $request){
 
         $document_needed = false;
