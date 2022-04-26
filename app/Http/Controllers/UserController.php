@@ -6,12 +6,79 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\VolunteeringActivities;
+use App\Models\Category;
+use App\Models\ExtraQuestions;
+use App\Models\Organization;
 use Carbon\Carbon;
 use Session;
 use Image;
 
 class UserController extends Controller
 {
+
+    public function filterCategory($category_id)
+    {
+        $activities = VolunteeringActivities::with('category')->where('category_id',$category_id)->get();//->paginate(3);
+        $categories = Category::get();
+
+        if ($activities->isEmpty()){
+                $data = array(
+                'categories' => $categories,
+            );
+        }
+        else{
+            $activities = VolunteeringActivities::with('category')->where('category_id',$category_id)->paginate(8);
+            $data = array(
+                'activities' => $activities,
+                'categories' => $categories,
+            );
+        }
+        return view('volunteer/volunteering')->with(compact('data'));
+    }
+
+    public function volunteering(){
+        $activities = VolunteeringActivities::with('category')->paginate(8);//->paginate(3);
+        $categories = Category::get();
+        $data = array(
+            'activities' => $activities,
+            'categories' => $categories,
+        );
+        return view('volunteer/volunteering')->with(compact('data'));
+    }
+
+    public function search(Request $request){
+        $search_word = $request->search_word;
+        $activities = VolunteeringActivities::with('category')->where('name','LIKE','%'.$search_word.'%')->orWhere('short_desc','LIKE','%'.$search_word.'%')->paginate(8);//->paginate(3);
+        $categories = Category::get();
+        if(count($activities) > 0){
+            $data = array(
+                'activities' => $activities,
+                'search_word' => $search_word,
+                'categories' => $categories,
+            );
+            return view('volunteer/volunteering')->with(compact('data'));
+        } else {
+            $data = array(
+                'message' => 'Nieko nepavyko rasti',
+                'categories' => $categories,
+            );
+            return view('volunteer/volunteering')->with(compact('data'));
+        }
+    }
+
+    public function search2(){
+        $activities = VolunteeringActivities::with('category')->paginate(8);//->paginate(3);
+        $categories = Category::get();
+        $data = array(
+            'activities' => $activities,
+            'categories' => $categories,
+        );
+        return view('volunteer/volunteering')->with(compact('data'));
+    }
+
+
     public function logout()
     {
         Session::flush();

@@ -21,10 +21,6 @@ use App\Mail\loginData;
 //     return view('dashboard');
 // })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/volunteering', function () {
-    return view('volunteer/volunteering');
-})->name('volunteering');
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile/edit', function () {
     $user = Auth::user();
     return view('volunteer/profile_edit')->with(compact('user'));
@@ -118,28 +114,7 @@ Route::get('test/test', function(){
     return "Hello";
 });
 
-Route::post('/search',function(Request $request){
-    $search_word = $request->search_word;
-    $activities = VolunteeringActivities::where('name','LIKE','%'.$search_word.'%')->orWhere('short_desc','LIKE','%'.$search_word.'%')->paginate(10);//->paginate(3);
-
-    if(count($activities) > 0){
-        $data = array(
-            'activities' => $activities,
-            'search_word' => $search_word,
-        );
-        return view('volunteer/volunteering')->with(compact('data'));
-    } else {
-        $data = array(
-            'message' => 'Nieko nepavyko rasti',
-        );
-        return view('volunteer/volunteering')->with(compact('data'));
-    }
-})->name('search');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/search', function () {
-    $activities = VolunteeringActivities::paginate(10);//->paginate(3);
-    $data = array(
-        'activities' => $activities,
-    );
-    return view('volunteer/volunteering')->with(compact('data'));
-})->name('search');
+Route::get('/volunteering',[UserController::class, 'volunteering'])->name('volunteering');
+Route::post('/search',[UserController::class, 'search'])->name('search');
+Route::get('/search',[UserController::class, 'search2'])->name('search');
+Route::get('/filter/{category_id}',[UserController::class, 'filterCategory'])->name('filter');

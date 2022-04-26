@@ -10,38 +10,59 @@
 
 </main><!-- End #main -->
 
-<section id="blog" class="blog">
+<section id="" class="">
   <div class="container" data-aos="fade-up">
 
     <div class="row">
 
       <div class="col-lg-8 entries">
-
         <div class="container">
-          @if(isset($data))
-          <h2>Sample Search Results</h2>
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th>Savanorystės pavadinimas</th>
-                      <th>Aprašymas</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  @foreach($data['activities'] as $a)
-                  <tr>
-                      <td>{{$a->name}}</td>
-                      <td>{{$a->short_desc}}</td>
-                  </tr>
-                  @endforeach
-              </tbody>
-          </table>
+          @if(isset($data['activities']))
+          <div class="box-body">
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nuotrauka</th>
+                            <th>Pavadinimas</th>
+                            <th>Apibendrinimas</th>
+                            <th>Laisvų vietų</th>
+                            <th>Veiksmai</th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data['activities'] as $act)
+                            <tr>
+                                <td><img width="100" height="80" src="{{asset($act->activity_photo)}}"/></td>
+
+                                <td>{{$act->name}}</td>
+                                <td style="">{{$act->short_desc}}</td>
+                                @php
+                                    if(!isset($act->people_limit)) $people = "Neribota";
+                                    else {
+                                      $people = $act->people_limit - $act->people_registered;
+                                    }
+                                @endphp
+                                <td>{{$people}}</td>
+                                <td>
+                                    <a href="" style="color: white; background-color: #86b03c" class="btn"
+                                        title="Registruotis į veiklą"> <i class="fa fa-address-book"></i></a>
+                                    <a href="" style="color: white; background-color: #0582dc" class="btn"
+                                    title="Peržiūrėti skelbimą"> <i class="fa fa-search"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $data['activities']->links('vendor.pagination.bootstrap-4') }}
+            </div>
         </div>
           @else
-            <h2>Sample Search Results</h2>
-            <h1>NIEKO NERASTA</h1>
-          </div>
+            <h1>Atsiprašome</h1>
+            <h2>Tačiau paieškos metu nieko neradome</h2>
           @endif
+        </div>
 
       </div><!-- End blog entries list -->
 
@@ -65,10 +86,11 @@
           <h3 class="sidebar-title">Kategorijos</h3>
           <div class="sidebar-item categories">
             <ul>
-              <li><a href="#">Medicina <span>(25)</span></a></li>
-              <li><a href="#">Kelionės <span>(12)</span></a></li>
-              <li><a href="#">Prieglauda <span>(5)</span></a></li>
-              <li><a href="#">Menas <span>(22)</span></a></li>
+              @if(isset($data['categories']))
+                @foreach($data['categories'] as $cat)
+                <li><a href="{{route('filter',$cat->id)}}">{{$cat->category_name_en}} <span></span></a></li>
+                @endforeach
+              @endif
             </ul>
           </div><!-- End sidebar categories-->
 

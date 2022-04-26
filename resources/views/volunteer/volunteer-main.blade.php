@@ -30,6 +30,7 @@
           <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
           <link href="{{asset('assets/css/profile.css')}}" rel="stylesheet">
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+          <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')}}">
 
           {{-- <link href="{{asset('css/app.css')}}" rel="stylesheet"> --}}
       
