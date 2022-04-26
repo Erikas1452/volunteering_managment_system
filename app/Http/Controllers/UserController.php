@@ -18,6 +18,20 @@ use Image;
 class UserController extends Controller
 {
 
+    public function viewActivity($activity_id){
+        $activity = VolunteeringActivities::with('category')->where('id', $activity_id)->get();
+        $questions = VolunteeringActivities::find($activity_id)->questions;
+        $organization = Organization::where('id', $activity[0]->organization_id)->get();
+        
+        $data = array(
+            'activity' => $activity,
+            'questions' => $questions,
+            'organization' => $organization,
+        );
+
+        return view('volunteer.volunteer-view-activity')->with(compact('data'));
+    }
+
     public function filterCategory($category_id)
     {
         $activities = VolunteeringActivities::with('category')->where('category_id',$category_id)->get();//->paginate(3);

@@ -115,6 +115,7 @@ Route::get('test/test', function(){
 });
 
 Route::get('/volunteering',[UserController::class, 'volunteering'])->name('volunteering');
-Route::post('/search',[UserController::class, 'search'])->name('search');
-Route::get('/search',[UserController::class, 'search2'])->name('search');
-Route::get('/filter/{category_id}',[UserController::class, 'filterCategory'])->name('filter');
+Route::post('/volunteering/search',[UserController::class, 'search'])->name('search');
+Route::get('/volunteering/search',[UserController::class, 'search2'])->name('search');
+Route::get('/volunteering/filter/{category_id}',[UserController::class, 'filterCategory'])->name('filter');
+Route::get('/volunteering/view/{activity_id}',[UserController::class, 'viewActivity'])->name('volunteer.activity.view');

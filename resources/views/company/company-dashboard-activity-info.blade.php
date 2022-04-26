@@ -44,15 +44,13 @@
                     <!-- Basic Forms -->
                     <div class="box">
                         <div class="box-header with-border">
-                            <h4 class="box-title">Pridėti Savanorystės veiklą </h4>
+                            <h4 class="box-title">Savanorystės veikla </h4>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
                                 <div class="col">
             
-                                    <form method="post" action="{{route('activity.submit')}}" enctype="multipart/form-data">
-                                        @csrf
                                         <div class="row">
                                             <div class="col-12">
             
@@ -191,7 +189,6 @@
                                                         @endif
                                                     </table>
                                                 </div>
-                                    </form>
             
                                 </div>
                                 <!-- /.col -->

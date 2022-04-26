@@ -11,7 +11,7 @@
 </main><!-- End #main -->
 
 <section id="" class="">
-  <div class="container" data-aos="fade-up">
+  <div class="container">
 
     <div class="row">
 
@@ -20,8 +20,8 @@
           @if(isset($data['activities']))
           <div class="box-body">
             <div class="table-responsive">
-                <table id="example1" class="table table-bordered">
-                    <thead>
+                <table id="example1" class="table">
+                    {{-- <thead>
                         <tr>
                             <th>Nuotrauka</th>
                             <th>Pavadinimas</th>
@@ -30,7 +30,7 @@
                             <th>Veiksmai</th>
                             </th>
                         </tr>
-                    </thead>
+                    </thead> --}}
                     <tbody>
                         @foreach ($data['activities'] as $act)
                             <tr>
@@ -44,11 +44,11 @@
                                       $people = $act->people_limit - $act->people_registered;
                                     }
                                 @endphp
-                                <td>{{$people}}</td>
+                                <td>Laisvų vietų: {{$people}}</td>
                                 <td>
                                     <a href="" style="color: white; background-color: #86b03c" class="btn"
                                         title="Registruotis į veiklą"> <i class="fa fa-address-book"></i></a>
-                                    <a href="" style="color: white; background-color: #0582dc" class="btn"
+                                    <a href="{{route('volunteer.activity.view',$act->id)}}" style="color: white; background-color: #0582dc" class="btn"
                                     title="Peržiūrėti skelbimą"> <i class="fa fa-search"></i></a>
                                 </td>
                             </tr>
