@@ -73,7 +73,7 @@
                     </div>
                   </div>
                   <hr>
-                  @if (Auth::user()->id === $user->id)
+                  @if (Auth::guard('web')->check() && Auth::user()->id === $user->id)
                   <div class="row">
                     <div class="col-sm-12">
                       <a class="editbutton"href="{{route('profile.edit')}}">Redaguoti</a>

@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/edit', function (
     return view('volunteer/profile_edit')->with(compact('user'));
 })->name('profile.edit');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}', function ($id) {
+Route::get('/profile/{id}', function ($id) {
     
     $user = User::where('id', $id)->first();
     
@@ -99,6 +99,10 @@ Route::post('/organization/register/request/create', [OrganizationController::cl
 Route::get('/organization/dashboard/', [OrganizationController::class, 'dashboard'])->name('company.dashboard');
 Route::get('/organization/dashboard/activities', [OrganizationController::class, 'dashboardActivities'])->name('company.dashboard.activities');
 Route::get('/organization/dashboard/activities/create', [OrganizationController::class, 'createActivityPage'])->name('company.dashboard.activities.create');
+Route::get('/organization/logout',[OrganizationController::class, 'logout'])->name('organization.logout');
+Route::get('/organization/dashborad/activities/volunteer/request/confirm/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'confirmRequest'])->name('volunteer.request.confirm');
+Route::get('/organization/dashborad/activities/volunteer/request/deny/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'denyRequest'])->name('volunteer.request.deny');
+
 
 //Activities
 Route::post('/organization/dashboard/activities/submit',[VolunteeringActivitiesController::class, 'createActivity'])->name('activity.submit');

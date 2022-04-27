@@ -15,12 +15,41 @@ use App\Models\RegistrationForm;
 use App\Models\ExtraQuestions;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\VolunteerAccepted;
+use App\Mail\VolunteerDnied;
 use File;
 use Session;
 use Image;
 
 class VolunteeringActivitiesController extends Controller
 {
+
+    public function confirmRequest($email, $activity, $formId){
+
+        $form = RegistrationForm::where('id',$formId)->first();
+        $form->accepted = true;
+        $form->update();
+
+        Mail::to($email)->send(new VolunteerAccepted($activity));
+
+        $notification = array(
+            'message' => 'Patvirtinta sėkmingai',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function denyRequest($email, $activity, $formId){
+
+        $form = RegistrationForm::where('id',$formId)->first();
+        $act = VolunteeringActivities::where('id', $form->activity_id)->first();
+        $form->delete();
+        $act->people_registered--;
+        $act->update();
+        Mail::to($email)->send(new VolunteerDnied($activity));
+        return redirect()->back();
+    }
 
     public function register(Request $request){
 
@@ -95,11 +124,15 @@ class VolunteeringActivitiesController extends Controller
 
         $activity = VolunteeringActivities::with('category')->where('id', $id)->get();
         $questions = VolunteeringActivities::find($id)->questions;
+        // $forms = VolunteeringActivities::find($id)->registrationForms;
+        $volunteers = VolunteeringActivities::find($id)->acceptedForms;
+        $requests = VolunteeringActivities::find($id)->notAcceptedForms;
         
-
         $data = array(
             'activity' => $activity,
             'questions' => $questions,
+            'requests' => $requests,
+            'volunteers' => $volunteers,
         );
 
         return view('company.company-dashboard-activity-info')->with(compact('data'));

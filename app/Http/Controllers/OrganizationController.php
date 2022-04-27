@@ -22,6 +22,15 @@ use Image;
 class OrganizationController extends Controller
 {
 
+    public function logout()
+    {
+        Session::flush();
+        
+        auth('organization')->logout();
+
+        return redirect()->route('company.login');
+    }
+
     public function createActivityPage(){
         $category = Category::orderBy('category_name_en')->get();
         $data = array(

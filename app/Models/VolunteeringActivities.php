@@ -21,4 +21,12 @@ class VolunteeringActivities extends Model
     public function registrationForms(){
         return $this->hasMany(RegistrationForm::class,'activity_id', 'id');
     }
+
+    public function acceptedForms() {
+        return $this->hasMany(RegistrationForm::class,'activity_id', 'id')->where('accepted', '1');
+    }
+
+    public function notAcceptedForms() {
+        return $this->hasMany(RegistrationForm::class,'activity_id', 'id')->where('accepted', '0');
+    }
 }

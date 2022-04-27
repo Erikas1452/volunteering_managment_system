@@ -16,13 +16,71 @@
 
     <div class="container py-5">
 
-        <a class="btn btn-primary nav-link border-0 text-uppercase font-weight-bold" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a class="btn btn-primary nav-link border-0 text-uppercase font-weight-bold" data-toggle="" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
             užklausos į savanorystę
           </a>
         </p>
-        <div class="collapse" id="collapseExample">
+        <div class="" id="collapseExample">
           <div class="card card-body">
-            
+            <h2 class="mb-4">Savanorių užklausos</h2>
+
+            @if(!$data['requests']->isEmpty())
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>Vardas-Pavardė</th>
+                      <th>El. paštas</th>
+                      <th>Miestas</th>
+                      <th>Telefono Nr.</th>
+                      @if($data['activity'][0]->papers_required)
+                      <th style="text-align: -webkit-center;">Dokumentas</th>
+                      @endif
+                      <th style="text-align: -webkit-center;">Veiksmai</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach($data['requests'] as $re)
+                  <tr>
+                      <td>{{$re->full_name}}</td>
+                      <td>{{$re->email}}</td>
+                      <td>{{$re->city}}</td>
+                      <td>{{$re->phone}}</td>
+                      @if($data['activity'][0]->papers_required)
+                      <td style="text-align: -webkit-center;"><a href="{{ route('organization.request.file', $re->upload_file) }}" class="btn btn-info"
+                          title="Atsisiūsti"><i class="fa fa-download"></i> </a></td>
+                      @endif
+                      <td style="text-align: -webkit-center;">
+                        <a href="{{ route('volunteer.profile', $re->volunteer_id)}}" class="btn btn-info"
+                            title="Savanorio profilis"><i class="fa fa-user"></i> </a>
+                          <a href="{{ route('volunteer.request.confirm', [$re->email, $data['activity'][0]->name, $re->id]) }}" class="btn btn-success"
+                              title="Patvirtinti"><i class="fa fa-check"></i> </a>
+                          <a href="{{ route('volunteer.request.deny', [$re->email, $data['activity'][0]->name, $re->id]) }}" class="btn btn-danger"
+                              title="Atmesti"><i class="fa fa-times"></i> </a>
+                      </td>
+                  </tr>
+                  @endforeach
+              </tbody>
+          </table>
+          @else
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Vardas-Pavardė</th>
+                    <th>El. paštas</th>
+                    <th>Miestas</th>
+                    <th>Telefono Nr.</th>
+                    @if($data['activity'][0]->papers_required)
+                    <th style="text-align: -webkit-center;">Dokumentas</th>
+                    @endif
+                    <th style="text-align: -webkit-center;">Veiksmai</th>
+                </tr>
+            </thead>
+          </table>
+          <h4>Šiuo metu užsiregistravusių savanorių nėra</h4>
+          @endif
+
+
+          {{-- {{ $data['requests']->links('vendor.pagination.bootstrap-4') }} --}}
           </div>
         </div>
       
@@ -205,7 +263,56 @@
 
             {{-- TAB2 --}}
             <div id="tab4" role="tabpanel" aria-labelledby="tab4-tab" class="tab-pane fade px-4 py-5">
-                <p class="text-muted">Savanoriai</p>
+                @if(!$data['volunteers']->isEmpty())
+                <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th>Vardas-Pavardė</th>
+                          <th>El. paštas</th>
+                          <th>Miestas</th>
+                          <th>Telefono Nr.</th>
+                          @if($data['activity'][0]->papers_required)
+                          <th style="text-align: -webkit-center;">Dokumentas</th>
+                          @endif
+                          <th style="text-align: -webkit-center;">Veiksmai</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach($data['volunteers'] as $v)
+                      <tr>
+                          <td>{{$v->full_name}}</td>
+                          <td>{{$v->email}}</td>
+                          <td>{{$v->city}}</td>
+                          <td>{{$v->phone}}</td>
+                          @if($data['activity'][0]->papers_required)
+                          <td style="text-align: -webkit-center;"><a href="{{ route('organization.request.file', $v->upload_file) }}" class="btn btn-info"
+                              title="Atsisiūsti"><i class="fa fa-download"></i> </a></td>
+                          @endif
+                          <td style="text-align: -webkit-center;">
+                            <a href="{{ route('volunteer.profile', $v->volunteer_id)}}" class="btn btn-info"
+                                title="Savanorio profilis"><i class="fa fa-user"></i> </a>
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+              @else
+              <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Vardas-Pavardė</th>
+                        <th>El. paštas</th>
+                        <th>Miestas</th>
+                        <th>Telefono Nr.</th>
+                        @if($data['activity'][0]->papers_required)
+                        <th style="text-align: -webkit-center;">Dokumentas</th>
+                        @endif
+                        <th style="text-align: -webkit-center;">Veiksmai</th>
+                    </tr>
+                </thead>
+              </table>
+              <h4>Šiuo metu  savanorių neturite</h4>
+              @endif
             </div>
 
           </div>

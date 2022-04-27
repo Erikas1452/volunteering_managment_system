@@ -68,9 +68,18 @@
       <section id="work-process" class="work-process">
         <div class="container">
   
+          @php
+            $form = DB::table('registration_forms')
+            ->where('activity_id', $data['activity'][0]->id)
+            ->where('volunteer_id', Auth::guard('web')->user()->id)
+            ->get();
+          @endphp
+
+          @if($form->isEmpty())
           <div class="section-title" data-aos="fade-up">
             <a href="{{route('volunteer.activity.register', $data['activity'][0]->id)}}"><h2 style="color: #94c045">Registruotis</h2></a>
           </div>
+          @endif
   
         </div>
       </section><!-- End Work Process Section -->

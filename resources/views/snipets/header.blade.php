@@ -54,7 +54,7 @@
 
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a class="getstarted" href="{{route('admin.logout')}}">Atsijungti</a></li>
+              <li><a class="getstarted" href="{{route('organization.logout')}}">Atsijungti</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
