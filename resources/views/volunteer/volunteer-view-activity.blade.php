@@ -69,7 +69,7 @@
         <div class="container">
   
           <div class="section-title" data-aos="fade-up">
-            <a href="{{}}"><h2 style="color: #94c045">Registruotis</h2></a>
+            <a href="{{route('volunteer.activity.register', $data['activity'][0]->id)}}"><h2 style="color: #94c045">Registruotis</h2></a>
           </div>
   
         </div>

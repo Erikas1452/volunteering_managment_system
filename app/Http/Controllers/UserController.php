@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\VolunteeringActivities;
+use App\Models\RegististrationForm;
 use App\Models\Category;
 use App\Models\ExtraQuestions;
 use App\Models\Organization;

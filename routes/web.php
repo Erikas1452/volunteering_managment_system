@@ -119,3 +119,5 @@ Route::post('/volunteering/search',[UserController::class, 'search'])->name('sea
 Route::get('/volunteering/search',[UserController::class, 'search2'])->name('search');
 Route::get('/volunteering/filter/{category_id}',[UserController::class, 'filterCategory'])->name('filter');
 Route::get('/volunteering/view/{activity_id}',[UserController::class, 'viewActivity'])->name('volunteer.activity.view');
+Route::get('/volunteering/activity/register/{activity_id}',[VolunteeringActivitiesController::class, 'activityRegisterForm'])->name('volunteer.activity.register');
+Route::post('/volunteering/activity/register/',[VolunteeringActivitiesController::class, 'register'])->name('activity.register.volunteer');

@@ -17,4 +17,8 @@ class VolunteeringActivities extends Model
     public function questions(){
         return $this->hasMany(ExtraQuestions::class,'activity_id', 'id');
     }
+
+    public function registrationForms(){
+        return $this->hasMany(RegistrationForm::class,'activity_id', 'id');
+    }
 }

@@ -46,10 +46,23 @@
                                 @endphp
                                 <td>Laisvų vietų: {{$people}}</td>
                                 <td>
-                                    <a href="" style="color: white; background-color: #86b03c" class="btn"
+
+                                  @php
+                                     $form = DB::table('registration_forms')
+                                    ->where('activity_id', $act->id)
+                                    ->where('volunteer_id', Auth::guard('web')->user()->id)
+                                    ->get();
+                                  @endphp
+
+                                  @if(!$form->isEmpty())
+                                  <a href="{{route('volunteer.activity.view',$act->id)}}" style="color: white; background-color: #0582dc" class="btn"
+                                  title="Peržiūrėti skelbimą"> <i class="fa fa-search"></i></a>
+                                  @else
+                                    <a href="{{route('volunteer.activity.register', $act->id)}}" style="color: white; background-color: #86b03c" class="btn"
                                         title="Registruotis į veiklą"> <i class="fa fa-address-book"></i></a>
                                     <a href="{{route('volunteer.activity.view',$act->id)}}" style="color: white; background-color: #0582dc" class="btn"
                                     title="Peržiūrėti skelbimą"> <i class="fa fa-search"></i></a>
+                                  @endif
                                 </td>
                             </tr>
                         @endforeach

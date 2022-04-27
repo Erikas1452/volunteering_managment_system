@@ -10,6 +10,8 @@ use App\Models\Organization;
 use App\Models\OrganizationRequests;
 use App\Models\VolunteeringActivities;
 use App\Models\Category;
+use App\Models\RegistrationAnswers;
+use App\Models\RegistrationForm;
 use App\Models\ExtraQuestions;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
@@ -19,6 +21,74 @@ use Image;
 
 class VolunteeringActivitiesController extends Controller
 {
+
+    public function register(Request $request){
+
+        $activity = VolunteeringActivities::where('id', $request->activity_id)->first();
+
+        $document_path = null;
+
+        if($activity->papers_required  === 1){
+
+            $file = $request->file('upload_file');
+
+            if ($file->getClientMimeType() !== 'application/pdf')
+            {
+                $notification = array(
+                    'message' => 'Netinkamas dokumento formatas',
+                    'alert-type' => 'warning'
+                );
+                return "Netinkamas formatas";
+                return redirect()->back()->with($notification);
+            }
+
+            $extension= $request->file("upload_file")->getClientOriginalExtension();
+            $name_gen= hexdec(uniqid()).'.'.$extension;
+            $FileEnconded=File::get($request->file('upload_file'));
+            Storage::disk('local')->put('public/Paper'.$name_gen, $FileEnconded);
+
+            $document_path = 'Paper'.$name_gen;
+        }
+
+        $form = RegistrationForm::create([
+            'email' => $request->email,
+            'full_name' => $request->full_name,
+            'phone' => $request->phone,
+            'city' => $request->city,
+            'comments' => $request->comments,
+            'upload_file' => $document_path,
+            'activity_id' => $request->activity_id,
+            'volunteer_id' => $request->volunteer_id,
+        ]);
+
+        $activity->people_registered++;
+        $activity->save();
+
+        foreach($request->answer as $key => $value){
+            RegistrationAnswers::create([
+                'answer' => 1,
+                'registration_form_id' => $form->id,
+                'question_id' => $value['answer'],
+            ]);
+        }
+
+    } 
+
+    public function activityRegisterForm($activity_id){
+
+        $activity = VolunteeringActivities::with('category')->where('id', $activity_id)->get();
+        $questions = VolunteeringActivities::find($activity_id)->questions;
+        $organization = Organization::where('id', $activity[0]->organization_id)->get();
+        
+        $data = array(
+            'activity' => $activity,
+            'questions' => $questions,
+            'organization' => $organization,
+        );
+
+        return view('volunteer.volunteer-activity-register')->with(compact('data'));
+
+    }
 
     public function openActivity($id){
 
@@ -79,7 +149,7 @@ class VolunteeringActivitiesController extends Controller
             'organization_id' => Auth::guard('organization')->user()->id,
             'category_id' => $request->category_id,
             'activity_photo' => $save_url,
-            'people_registered' => null,
+            'people_registered' => 0,
             'people_limit' => $request->people_limit,
             'papers_required' => $document_needed,
             'short_desc' => $request->short_desc,
