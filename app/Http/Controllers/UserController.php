@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\VolunteeringActivities;
-use App\Models\RegististrationForm;
+use App\Models\RegistrationForm;
 use App\Models\Category;
 use App\Models\ExtraQuestions;
 use App\Models\Organization;
 use Carbon\Carbon;
 use Session;
 use Image;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+  
+
 
 class UserController extends Controller
 {
@@ -61,6 +66,29 @@ class UserController extends Controller
             'categories' => $categories,
         );
         return view('volunteer/volunteering')->with(compact('data'));
+    }
+
+    public function myVolunteerings(){
+
+        $activities = VolunteeringActivities::with('category')->get();//->paginate(3);
+        $categories = Category::get();
+        $registeredActivities = [];
+
+        foreach ($activities as $act){
+            $form = RegistrationForm::where('activity_id', $act->id)
+                                ->where('volunteer_id', Auth::guard('web')->user()->id)
+                                ->get();
+            if(!$form->isEmpty()) array_push($registeredActivities,$act);
+        }
+
+        $registeredActivities = $this->paginate($registeredActivities);
+
+        $data = array(
+            'activities' => $registeredActivities,
+            'categories' => $categories,
+        );
+
+        return view('volunteer/volunteer-my-activities')->with(compact('data'));
     }
 
     public function search(Request $request){
@@ -198,5 +226,12 @@ class UserController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function paginate($items, $perPage = 5, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

@@ -13,13 +13,19 @@
                 <div class="form-group"> <input type="password" name="password" class="form-control" placeholder="Slaptažodis" required="required"> </div>
                     <span class="text-danger">{{session()->get('password')}}</span>
                 <div class="flex items-center justify-end mt-4">
-               
                     @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                             {{ __('Pamiršau slaptažodį') }}
                         </a>
                     @endif
+                    <div class="flex items-center justify-end mt-4">
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                            {{ __('Neturite vartotojo paskyros?') }}
+                        </a>
+                    </div>
+                </div>
                 <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block">Prisijungti</button> </div>
+
             </form>
         </div>
     </div>

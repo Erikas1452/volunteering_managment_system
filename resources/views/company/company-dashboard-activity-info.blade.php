@@ -317,7 +317,40 @@
 
           </div>
           <!-- End of tabs -->
+          <a class="btn btn-primary nav-link border-0 text-uppercase font-weight-bold" data-toggle="" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            El. pranešimo siuntimas
+          </a>
+        </p>
+        <div class="" id="collapseExample">
+          <div class="card card-body">
+            <h2 class="mb-4">El. pranešimo siuntimas</h2>
+
+            <form method="post" action="{{route('participants.send.mail', $data['activity'][0]->id)}}" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <!-- start 8th row  -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h5>Šioje skiltyje įvesta žinutė pasieks visus priimtus savanorius automatiškai į Savanorių el. paštų adresus <span class="text-danger"></span></h5>
+                            <div class="controls">
+                                <textarea id="editor1" class="form-control" placeholder="Žinutė" name="message" rows="10" cols="80"required=""></textarea>
+                            </div>
+                        </div>
+                    </div> <!-- end col md 6 -->
+                </div> <!-- end 8th row  -->
+                <div class="row">
+                    <!-- start 8th row  -->
+                    <div style="text-align-last: center;" class="col-md-12">
+                        <button type="submit" class="btn btn-primary">Siūsti pranešimą</button>
+                    </div> <!-- end col md 6 -->
+                </div> <!-- end 8th row  -->
+            </form>
+
+          {{-- {{ $data['requests']->links('vendor.pagination.bootstrap-4') }} --}}
+          </div>
         </div>
+        </div>
+        
       
       </div>       
 

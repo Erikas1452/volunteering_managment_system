@@ -57,6 +57,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/update
 Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/photo/update/',[UserController::class, 'updateVolunteerPhoto'])->name('volunteer.profile.photo.update');
 Route::post('/volunteer/register',[UserController::class, 'registerVolunteer'])->name('register.volunteer');
 Route::post('/volunteer/login',[UserController::class, 'authenticate'])->name('authenticate.volunteer');
+Route::get('/volunteer/my/volunteerings',[UserController::class,'myVolunteerings'])->name('my.volunteerings');
 
 //Admin
 Route::get('/admin/login', function(){
@@ -102,6 +103,7 @@ Route::get('/organization/dashboard/activities/create', [OrganizationController:
 Route::get('/organization/logout',[OrganizationController::class, 'logout'])->name('organization.logout');
 Route::get('/organization/dashborad/activities/volunteer/request/confirm/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'confirmRequest'])->name('volunteer.request.confirm');
 Route::get('/organization/dashborad/activities/volunteer/request/deny/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'denyRequest'])->name('volunteer.request.deny');
+Route::post('/organization/dashboard/activities/{activity}/send/email',[VolunteeringActivitiesController::class, 'sendEmails'])->name('participants.send.mail');
 
 
 //Activities

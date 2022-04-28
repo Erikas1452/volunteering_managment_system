@@ -21,16 +21,16 @@
           <div class="box-body">
             <div class="table-responsive">
                 <table id="example1" class="table">
-                    {{-- <thead>
+                    <thead>
                         <tr>
                             <th>Nuotrauka</th>
                             <th>Pavadinimas</th>
-                            <th>Apibendrinimas</th>
+                            <th>Aprašymas</th>
                             <th>Laisvų vietų</th>
                             <th>Veiksmai</th>
                             </th>
                         </tr>
-                    </thead> --}}
+                    </thead>
                     <tbody>
                         @foreach ($data['activities'] as $act)
                             <tr>

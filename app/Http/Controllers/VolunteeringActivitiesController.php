@@ -17,12 +17,36 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VolunteerAccepted;
 use App\Mail\VolunteerDnied;
+use App\Mail\MessageFromOrganization;
 use File;
 use Session;
 use Image;
 
 class VolunteeringActivitiesController extends Controller
 {
+
+    public function sendEmails($activity_id, Request $request){
+
+        $message = $request->message;
+        $activity = VolunteeringActivities::with('organization')->where('id',$activity_id)->first();
+        $volunteers = VolunteeringActivities::find($activity_id)->acceptedForms;
+
+        foreach ($volunteers as $volunteer)
+        {
+            Mail::to($volunteer->email)->send(new MessageFromOrganization($activity->organization->name,
+            $activity->organization->email,
+            $message,
+            $activity->name,));
+        }
+
+        $notification = array(
+            'message' => 'Žinutė išsiūsta sėkmingai',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+    }
 
     public function confirmRequest($email, $activity, $formId){
 
@@ -127,7 +151,7 @@ class VolunteeringActivitiesController extends Controller
         // $forms = VolunteeringActivities::find($id)->registrationForms;
         $volunteers = VolunteeringActivities::find($id)->acceptedForms;
         $requests = VolunteeringActivities::find($id)->notAcceptedForms;
-        
+
         $data = array(
             'activity' => $activity,
             'questions' => $questions,
