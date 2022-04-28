@@ -105,6 +105,7 @@ Route::get('/organization/dashborad/activities/volunteer/request/confirm/{email}
 Route::get('/organization/dashborad/activities/volunteer/request/deny/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'denyRequest'])->name('volunteer.request.deny');
 Route::post('/organization/dashboard/activities/{activity}/send/email',[VolunteeringActivitiesController::class, 'sendEmails'])->name('participants.send.mail');
 
+Route::get('/organization/dashboard/{form}/answers',[VolunteeringActivitiesController::class, 'getAnswers'])->name('participants.answers');
 
 //Activities
 Route::post('/organization/dashboard/activities/submit',[VolunteeringActivitiesController::class, 'createActivity'])->name('activity.submit');

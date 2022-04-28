@@ -9,4 +9,6 @@ class RegistrationAnswers extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    
 }

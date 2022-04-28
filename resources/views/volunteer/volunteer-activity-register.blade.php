@@ -168,13 +168,14 @@
                                     <td style="text-align: -webkit-center;"><a style="color: white" href="{{ route('organization.request.file', $data['activity'][0]->file_upload_path) }}" class="btn btn-info"
                                             title="Atsisiūsti"><i class="fa fa-download"></i> </a></td>
                                     </div>
+                                    <div style="padding-top: 1rem; padding-bottom: 1rem" class="col-md-6 text-secondary">
+                                        <div class="form-group"><span><input type="file" name="upload_file" required class="form-control">*</span> </div>
+                                    </div>
                                     @else
-                                        
+                                    
                                     @endif
                                 </div>
-                                <div style="padding-top: 1rem; padding-bottom: 1rem" class="col-md-6 text-secondary">
-                                    <div class="form-group"><span><input type="file" name="upload_file" required class="form-control">*</span> </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

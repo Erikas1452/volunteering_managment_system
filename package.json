@@ -29,6 +29,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "vuejs-smart-table": "0.0.8"
     }
 }

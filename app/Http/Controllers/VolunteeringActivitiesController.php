@@ -117,14 +117,23 @@ class VolunteeringActivitiesController extends Controller
         $activity->people_registered++;
         $activity->save();
 
-        foreach($request->answer as $key => $value){
-            RegistrationAnswers::create([
-                'answer' => 1,
-                'registration_form_id' => $form->id,
-                'question_id' => $value['answer'],
-            ]);
+        if(isset($request->answer))
+        {
+                foreach($request->answer as $key => $value){
+                RegistrationAnswers::create([
+                    'answer' => 1,
+                    'registration_form_id' => $form->id,
+                    'question_id' => $value['answer'],
+                ]);
+            }
         }
 
+        $notification = array(
+            'message' => 'Į savanorystę užsiregistruota sėkmingai',
+            'alert-type' => 'success'
+        );
+        
+        return redirect()->route('volunteering')->with($notification);
     } 
 
     public function activityRegisterForm($activity_id){
@@ -140,6 +149,20 @@ class VolunteeringActivitiesController extends Controller
         );
 
         return view('volunteer.volunteer-activity-register')->with(compact('data'));
+
+    }
+
+    public function getAnswers($formID){
+
+        $response = [];
+
+        $answers = RegistrationAnswers::where('registration_form_id',$formID)->get();
+        foreach($answers as $a)
+        {
+            $question = ExtraQuestions::where('id', $a->question_id) ->first();
+            array_push($response,$question->question);
+        }
+        return json_encode($response);
 
     }
 

@@ -22,6 +22,7 @@ window.Vue = require('vue').default;
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('questions', require('./components/CustomQuestionsComponent.vue').default);
 Vue.component('documents', require('./components/DocumentUploadComponent.vue').default);
+Vue.component('answers', require('./components/CustomQuestionsAnswersPopUpComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
