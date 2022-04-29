@@ -53,7 +53,7 @@
                                     }
                                 @endphp
 
-                                @if($form->accepted == 0)
+                                @if($form->accepted == 1)
                                 <td> <span class="badge bg-success">Patvirtinta</span></td>
                                 <td>
                                     <a href="" style="color: white; background-color: #86b03c" class="btn"
