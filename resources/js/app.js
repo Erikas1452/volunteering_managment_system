@@ -22,7 +22,11 @@ window.Vue = require('vue').default;
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('questions', require('./components/CustomQuestionsComponent.vue').default);
 Vue.component('documents', require('./components/DocumentUploadComponent.vue').default);
+Vue.component('comment', require('./components/CommentsPopUpComponent.vue').default);
 Vue.component('answers', require('./components/CustomQuestionsAnswersPopUpComponent.vue').default);
+Vue.component('badge', require('./components/BadgeUploadPopUpComponent.vue').default);
+Vue.component('complaint', require('./components/ComplaintsPopUpComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

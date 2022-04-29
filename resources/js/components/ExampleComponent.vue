@@ -71,6 +71,7 @@
       data() {
           return{
               showModal: false,
+              csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
           }
       }
   }

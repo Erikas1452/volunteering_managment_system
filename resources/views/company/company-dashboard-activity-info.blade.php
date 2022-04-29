@@ -53,14 +53,17 @@
                         <td style="text-align: -webkit-center;">
                             <a href="{{ route('volunteer.profile', $re->volunteer_id)}}" class="btn btn-info"
                                 title="Savanorio profilis"><i class="fa fa-user"></i> </a>
+                                <div style="display: inline-flex;">
+                                    <div id="app">
+                                        <answers id="{{$re->id}}">
+                                    </div>
+                                </div>
                             <a href="{{ route('volunteer.request.confirm', [$re->email, $data['activity'][0]->name, $re->id]) }}" class="btn btn-success"
                                 title="Patvirtinti"><i class="fa fa-check"></i> </a>
                             <a href="{{ route('volunteer.request.deny', [$re->email, $data['activity'][0]->name, $re->id]) }}" class="btn btn-danger"
                                 title="Atmesti"><i class="fa fa-times"></i> </a>
-                            @php
-                                    
-                            @endphp
-                            <answers id="{{$re->id}}">
+
+                            
                         </td>
                     </tr>
                     @endforeach
@@ -290,13 +293,29 @@
                             <td>{{$v->city}}</td>
                             <td>{{$v->phone}}</td>
                             @if($data['activity'][0]->papers_required)
-                            <td style="text-align: -webkit-center;"><a href="{{ route('organization.request.file', $v->upload_file) }}" class="btn btn-info"
+                            <td style="text-align: -webkit-center;"><a style="color: white" href="{{ route('organization.request.file', $v->upload_file) }}" class="btn btn-info"
                                 title="Atsisiūsti"><i class="fa fa-download"></i> </a></td>
                             @endif
                             <td style="text-align: -webkit-center;">
-                                <a href="{{ route('volunteer.profile', $v->volunteer_id)}}" class="btn btn-info"
+                                <a  style="color: white" href="{{ route('volunteer.profile', $v->volunteer_id)}}" class="btn btn-info"
                                     title="Savanorio profilis"><i class="fa fa-user"></i> </a>
-                                <answers id="{{$v->id}}">
+                                    <div style="display: inline-flex;">
+                                        <div id="app">
+                                         <answers id="{{$v->id}}">
+                                        </div>
+                                        <div style="padding-margin: 1rem" id="app">
+                                            <comment id="{{$v->id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                        </div>
+                                        <div style="padding-margin: 1rem" id="app">
+                                            <complaint id="{{$v->id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                        </div>
+                                        <div style="padding-margin: 1rem" id="app">
+                                            <badge id="{{$v->id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                        </div>
+                                    </div>
+                                <a style="color: white" href="{{ route('volunteer.remove', [$v->email, $data['activity'][0]->name, $v->id]) }}" class="btn btn-danger"
+                                    title="Pašalinti iš savanorystės"><i class="fa fa-times"></i> </a>
+                                    
                             </td>
                         </tr>
                         @endforeach

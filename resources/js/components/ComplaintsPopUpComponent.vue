@@ -1,7 +1,7 @@
 <template>
 <div>
-<i id="show-modal" style="" @click="showAnswers" title="Anketos atsakymai" class="btn btn-info fa fa-list"></i>
-  <div v-if="showModal">
+<i id="show-modal" style="margin-left: 0.5rem;" @click="showCommentModal = true" title="Palikti nusiskundimą" class="btn btn-warning fa fa-thumbs-down"></i>
+  <div v-if="showCommentModal">
     <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -9,17 +9,22 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  Anketos atsakymai
+                  Palikti komentarą
                 </slot>
               </div>
 
               <div class="modal-body">
-                  {{info}}
+                <h6>Komentaras</h6>
+                <input v-model="comment" @change="onCommentChange($event)" type="text" name="comment" />
+                 <p style="color: red">{{text}}</p>
               </div>
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-default-button" @click="showModal = false">
+                  <button class="modal-default-button" @click="submitComment">
+                    Siūsti
+                  </button>
+                  <button class="modal-default-button" @click="showCommentModal = false">
                     Uždaryti
                   </button>
                 </slot>
@@ -35,29 +40,41 @@
 <script>
   export default {
       props:{
+        organization:String,
         id:String,
       },
       methods: {
-          showAnswers(event){
-              console.log(this.info);
-              axios
-                .get('http://127.0.0.1:8000/organization/dashboard/' +this.id + '/answers')
+           onCommentChange(event){
+            this.comment = event.target.value;
+          },
+          submitComment(event){
+            if(this.comment === ""){
+              this.text = "Neįvestas nusiskundimas";
+            }else{
+              try{
+                 axios
+                .post('http://127.0.0.1:8000/volunteer/complaint',{
+                    user_id:this.id,
+                    organization_id: this.organization,
+                    complaint: this.comment,
+                })
                 .then(response => {
-                    let text = "";
-                    response.data.forEach(element => {
-                        text = text + "+" + element + "\n";
-                    });
-                    this.info = text;
-                    this.showModal = true;
-                }
-                )
+                    console.log(response);
+                    this.showCommentModal = false;
+                }) 
+              } catch (error) {
+                  console.error(error.response.data);
+              }
+            }
           },
 
       },
       data() {
           return{
-              showModal: false,
-              info: "Anketoje Nebuvo Atsakytų klausimų",
+              showCommentModal: false,
+              comment: "",
+              csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+              text: "",
           }
       }
   }

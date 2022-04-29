@@ -15,12 +15,13 @@ use App\Models\RegistrationForm;
 use App\Models\ExtraQuestions;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\VolunteerAccepted;
-use App\Mail\VolunteerDnied;
-use App\Mail\MessageFromOrganization;
 use File;
 use Session;
 use Image;
+use App\Mail\VolunteerAccepted;
+use App\Mail\VolunteerDnied;
+use App\Mail\removedFromActivity;
+use App\Mail\MessageFromOrganization;
 
 class VolunteeringActivitiesController extends Controller
 {
@@ -51,6 +52,9 @@ class VolunteeringActivitiesController extends Controller
     public function confirmRequest($email, $activity, $formId){
 
         $form = RegistrationForm::where('id',$formId)->first();
+        $act = VolunteeringActivities::where('id', $form->activity_id)->first();
+        $act->people_registered++;
+        $act->save();
         $form->accepted = true;
         $form->update();
 
@@ -62,6 +66,16 @@ class VolunteeringActivitiesController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+
+    public function removeVolunteer($email, $activity, $formId){
+        $form = RegistrationForm::where('id',$formId)->first();
+        $act = VolunteeringActivities::where('id', $form->activity_id)->first();
+        $form->delete();
+        $act->people_registered--;
+        $act->update();
+        Mail::to($email)->send(new removedFromActivity($activity));
+        return redirect()->back();
     }
 
     public function denyRequest($email, $activity, $formId){
@@ -113,9 +127,6 @@ class VolunteeringActivitiesController extends Controller
             'activity_id' => $request->activity_id,
             'volunteer_id' => $request->volunteer_id,
         ]);
-
-        $activity->people_registered++;
-        $activity->save();
 
         if(isset($request->answer))
         {

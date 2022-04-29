@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\VolunteeringActivitiesController;
 use App\Mail\loginData;
 
@@ -103,6 +104,7 @@ Route::get('/organization/dashboard/activities/create', [OrganizationController:
 Route::get('/organization/logout',[OrganizationController::class, 'logout'])->name('organization.logout');
 Route::get('/organization/dashborad/activities/volunteer/request/confirm/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'confirmRequest'])->name('volunteer.request.confirm');
 Route::get('/organization/dashborad/activities/volunteer/request/deny/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'denyRequest'])->name('volunteer.request.deny');
+Route::get('/organization/dashborad/activities/volunteer/request/remove/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'removeVolunteer'])->name('volunteer.remove');
 Route::post('/organization/dashboard/activities/{activity}/send/email',[VolunteeringActivitiesController::class, 'sendEmails'])->name('participants.send.mail');
 
 Route::get('/organization/dashboard/{form}/answers',[VolunteeringActivitiesController::class, 'getAnswers'])->name('participants.answers');
@@ -128,3 +130,8 @@ Route::get('/volunteering/filter/{category_id}',[UserController::class, 'filterC
 Route::get('/volunteering/view/{activity_id}',[UserController::class, 'viewActivity'])->name('volunteer.activity.view');
 Route::get('/volunteering/activity/register/{activity_id}',[VolunteeringActivitiesController::class, 'activityRegisterForm'])->name('volunteer.activity.register');
 Route::post('/volunteering/activity/register/',[VolunteeringActivitiesController::class, 'register'])->name('activity.register.volunteer');
+
+//Reviews/Comments
+Route::post('/volunteer/review',[CommentsController::class, 'submitComment'])->name('submit.comment');
+Route::post('/volunteer/badge',[CommentsController::class, 'submitBadge'])->name('submit.badge');
+Route::post('/volunteer/complaint',[CommentsController::class, 'submitComplaint'])->name('submit.complaint');
