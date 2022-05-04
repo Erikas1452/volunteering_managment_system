@@ -115,17 +115,68 @@
 
       </div>
     </section><!-- End Services Section -->
-
-
   <!-- ======= Cta Section ======= -->
   <section id="cta" class="cta">
     <div class="container" data-aos="fade-in">
 
-      <div class="text-center">
-        <h3>Call To Action</h3>
-        <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <a class="cta-btn" href="#">Call To Action</a>
-      </div>
+        <div class="container my-5 py-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-12">
+              <div class="card text-dark">
+                <div class="card-body p-4">
+                  <h4 style="text-align: center" class="mb-0">Atsiliepimai</h4>
+                  <div class="d-flex flex-start">
+                    <div>
+                      <h6 class="fw-bold mb-1">įmonė</h6>
+                      <div class="d-flex align-items-center mb-3">
+                        <p style="color: black" class="mb-0">
+                          Komentaras apie savanorį:
+                        </p>
+                      </div>
+                      <p style="color: black" class="mb-0">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry's standard dummy text ever
+                        since the 1500s, when an unknown printer took a galley of type and
+                        scrambled it.
+                      </p>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="d-flex flex-start">
+                    <div>
+                      <h6 class="fw-bold mb-1">įmonė</h6>
+                      <div class="d-flex align-items-center mb-3">
+                        <p style="color: black" class="mb-0">
+                          Komentaras apie savanorį:
+                        </p>
+                      </div>
+                      <p style="color: black" class="mb-0">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry's standard dummy text ever
+                        since the 1500s, when an unknown printer took a galley of type and
+                        scrambled it.
+                      </p>
+                    </div>
+                  </div>
+
+                  <hr>
+                  
+                </div>
+
+                <hr>
+
+                </div>
+                
+                </div>
+                </div>
+      
+
+              </div>
+            </div>
+          </div>
+        </div>
 
     </div>
   </section><!-- End Cta Section -->

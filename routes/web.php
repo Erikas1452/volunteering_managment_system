@@ -36,6 +36,7 @@ Route::get('/profile/{id}', function ($id) {
 
 })->name('volunteer.profile');
 
+Route::get('/profile/{id}',[UserController::class,'showVolunteerProfile'])->name('volunteer.profile');
 
 //Main pages
 Route::get('/', function () {
@@ -119,8 +120,8 @@ Route::get('/email', function(){
 });
 
 //TEST
-Route::get('test/test', function(){
-    return "Hello";
+Route::post('test/test', function(Request $request){
+    return $request;
 });
 
 Route::get('/volunteering',[UserController::class, 'volunteering'])->name('volunteering');
@@ -135,3 +136,5 @@ Route::post('/volunteering/activity/register/',[VolunteeringActivitiesController
 Route::post('/volunteer/review',[CommentsController::class, 'submitComment'])->name('submit.comment');
 Route::post('/volunteer/badge',[CommentsController::class, 'submitBadge'])->name('submit.badge');
 Route::post('/volunteer/complaint',[CommentsController::class, 'submitComplaint'])->name('submit.complaint');
+
+

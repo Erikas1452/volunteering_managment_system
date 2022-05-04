@@ -32,6 +32,8 @@
           </tr>
       </thead>
       <tbody>
+
+        {{csrf_token()}}
         @php
 
         foreach ($data['users'] as $user) {

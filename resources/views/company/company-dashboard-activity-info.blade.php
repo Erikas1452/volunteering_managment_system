@@ -270,6 +270,9 @@
 
 
                 {{-- TAB2 --}}
+
+                {{csrf_token()}}
+
                 <div id="tab4" role="tabpanel" aria-labelledby="tab4-tab" class="tab-pane fade px-4 py-5">
                     @if(!$data['volunteers']->isEmpty())
                     <table class="table table-striped">

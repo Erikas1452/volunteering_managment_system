@@ -58,12 +58,18 @@
             this.date = event.target.value
           },
           submit(event){
+
+              const options = {
+                headers: {'x-csrf-token': this.csrf}
+              };
+
               axios
-                .post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
+                .post('http://127.0.0.1:8000/test/test', {
+                  _token: this.csrf,
                   date: this.date,
                   reason: this.reason,
                   user: this.user,
-                })
+                },options)
                 .then(response => (this.info = response))
           },
 
