@@ -5850,17 +5850,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit(event) {
       var _this = this;
 
-      var options = {
-        headers: {
-          'x-csrf-token': this.csrf
-        }
-      };
-      axios.post('http://127.0.0.1:8000/test/test', {
-        _token: this.csrf,
+      axios.post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
         date: this.date,
         reason: this.reason,
         user: this.user
-      }, options).then(function (response) {
+      }).then(function (response) {
         return _this.info = response;
       });
     }

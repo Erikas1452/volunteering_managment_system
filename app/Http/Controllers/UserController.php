@@ -24,17 +24,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class UserController extends Controller
 {
 
-   public function showVolunteerProfile($id) {
-    
-        $user = User::with('comments')->where('id', $id)->first();
-        
-        return $user;
-
-        if(!$user) return redirect()->back();
-        else return view('volunteer/profile')->with(compact('user'));
-    
-    }
-
     public function viewActivity($activity_id){
         $activity = VolunteeringActivities::with('category')->where('id', $activity_id)->get();
         $questions = VolunteeringActivities::find($activity_id)->questions;
