@@ -38,6 +38,17 @@ class AdminController extends Controller
       else return view('admin.login');
     }
 
+    public function removeSuspension(Request $request){
+        $userID = $request->user;
+        User::findOrFail($userID)->update([
+            'suspended' => null,
+        ]);
+
+        $response = "Vartotojo paskyra".$userID." nebėra stabdoma";
+
+        return $response;
+    }
+
     public function suspendVolunteer(Request $request){
 
         $userID = $request->user;
@@ -50,7 +61,7 @@ class AdminController extends Controller
             'suspended' => $date,
         ]);
 
-        $response = "user".$userID."suspended till: ".$date;
+        $response = "Vartotojo paskyra: ".$userID." sustabdyta iki: ".$date;
 
         return $response;
     }
@@ -60,6 +71,15 @@ class AdminController extends Controller
             return view('admin.dashboard');
         }
         else return redirect()->route('admin.login');
+    }
+
+    public function deleteOrganization($id){
+        Organization::findOrFail($id)->delete();
+    	$notification = array(
+			'message' => 'Organizacija pašalinta sėkmingai',
+			'alert-type' => 'success'
+		);
+		return redirect()->back()->with($notification);
     }
 
     public function organizations(){

@@ -5830,6 +5830,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   props: {
     user: String
@@ -5847,15 +5848,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onDateChange: function onDateChange(event) {
       this.date = event.target.value;
     },
-    submit: function submit(event) {
+    stopSuspension: function stopSuspension(event) {
       var _this = this;
+
+      axios.post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend/stop', {
+        user: this.user
+      }).then(function (response) {
+        _this.info = response;
+        location.reload();
+      });
+    },
+    submit: function submit(event) {
+      var _this2 = this;
 
       axios.post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
         date: this.date,
         reason: this.reason,
         user: this.user
       }).then(function (response) {
-        return _this.info = response;
+        _this2.info = response;
+        location.reload();
       });
     }
   }
@@ -5931,7 +5943,8 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -29641,7 +29654,7 @@ var render = function () {
                         _vm._t("header", function () {
                           return [
                             _vm._v(
-                              "\r\n                  Palikti komentarą\r\n                "
+                              "\r\n                  Palikti pagyrimo ženkliuką\r\n                "
                             ),
                           ]
                         }),
@@ -29808,7 +29821,7 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
-                      _c("h6", [_vm._v("Nusiskundimas")]),
+                      _c("h6", [_vm._v("Komentaras")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29939,7 +29952,7 @@ var render = function () {
                         _vm._t("header", function () {
                           return [
                             _vm._v(
-                              "\r\n                  Palikti komentarą\r\n                "
+                              "\r\n                  Palikti nusiskundimą\r\n                "
                             ),
                           ]
                         }),
@@ -29948,7 +29961,7 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
-                      _c("h6", [_vm._v("Komentaras")]),
+                      _c("h6", [_vm._v("Nusiskundimas")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -30350,6 +30363,12 @@ var render = function () {
         },
       },
       [_vm._v("Stabdyti paskyrą")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      { attrs: { id: "show-modal" }, on: { click: _vm.stopSuspension } },
+      [_vm._v("Atšaukti")]
     ),
     _vm._v(" "),
     _vm.showModal

@@ -9,7 +9,7 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  Palikti komentarą
+                  Palikti pagyrimo ženkliuką
                 </slot>
               </div>
 

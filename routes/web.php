@@ -27,14 +27,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/edit', function (
     return view('volunteer/profile_edit')->with(compact('user'));
 })->name('profile.edit');
 
-Route::get('/profile/{id}', function ($id) {
-    
-    $user = User::where('id', $id)->first();
-    
-    if(!$user) return redirect()->back();
-    else return view('volunteer/profile')->with(compact('user'));
-
-})->name('volunteer.profile');
+Route::get('/profile/{id}',[UserController::class,'showVolunteerProfile'])->name('volunteer.profile');
 
 
 //Main pages
@@ -79,6 +72,7 @@ Route::get('/admin/dashboard/organizations',[AdminController::class, 'organizati
 Route::get('/admin/dashboard/organizations/register',[AdminController::class, 'registerOrganizationPage'])->name('organizations');
 Route::post('/admin/organization/register',[OrganizationController::class, 'registerOrganization'])->name('organization.registration');
 Route::post('/admin/dashboard/volunteers/suspend',[AdminController::class, 'suspendVolunteer'])->name('volunteer.suspend');
+Route::post('/admin/dashboard/volunteers/suspend/stop',[AdminController::class, 'removeSuspension'])->name('volunteer.suspend.stop');
 //adminCategories
 Route::get('/admin/dashboard/categories',[AdminController::class, 'categories'])->name('admin.dashboard.categories');
 Route::post('/admin/dashborad/categories/create',[CategoryController::class, 'storeCategory'])->name('category.store');
@@ -91,6 +85,8 @@ Route::get('/admin/dashboard/organization/requests',[OrganizationController::cla
 Route::get('/admin/dashborad/organization/requests/download/{path}',[OrganizationController::class, 'downloadFile'])->name('organization.request.file');
 Route::get('/admin/dashborad/organization/requests/confirm/{email}',[OrganizationController::class, 'confirmRequest'])->name('organization.request.confirm');
 Route::get('/admin/dashborad/organization/requests/deny/{email}',[OrganizationController::class, 'denyRequest'])->name('organization.request.deny');
+Route::get('/admin/dashborad/organization/delete/{id}',[AdminController::class, 'deleteOrganization'])->name('organization.delete');
+
 
 //Organizations
 Route::get('/organization/home',[OrganizationController::class, 'companyPage'])->name('company.main');
@@ -124,6 +120,7 @@ Route::get('test/test', function(){
 });
 
 Route::get('/volunteering',[UserController::class, 'volunteering'])->name('volunteering');
+Route::get('/volunteering/delete/form/{id}',[UserController::class, 'deleteRegistrationForm'])->name('volunteer.form.delete');
 Route::post('/volunteering/search',[UserController::class, 'search'])->name('search');
 Route::get('/volunteering/search',[UserController::class, 'search2'])->name('search');
 Route::get('/volunteering/filter/{category_id}',[UserController::class, 'filterCategory'])->name('filter');

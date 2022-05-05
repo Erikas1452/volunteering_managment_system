@@ -23,11 +23,11 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="{{asset($user->profile_img)}}" alt="Admin" class="rounded-circle" width="150">
+                    <img src="{{asset($data['user']->profile_img)}}" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                      <h4>{{$user->full_name}}</h4>
+                      <h4>{{$data['user']->full_name}}</h4>
                       <p class="text-secondary mb-1">
-                        {{$user->description}}
+                        {{$data['user']->description}}
                       </p>
                     </div>
                   </div>
@@ -42,7 +42,7 @@
                       <h6 class="mb-0">Vardas Pavardė</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{$user->full_name}}
+                      {{$data['user']->full_name}}
                     </div>
                   </div>
                   <hr>
@@ -51,7 +51,7 @@
                       <h6 class="mb-0">El. paštas</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{$user->email}}
+                      {{$data['user']->email}}
                     </div>
                   </div>
                   <hr>
@@ -60,7 +60,7 @@
                       <h6 class="mb-0">Telefono nr.</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{$user->phone}}
+                      {{$data['user']->phone}}
                     </div>
                   </div>
                   <hr>
@@ -69,11 +69,11 @@
                       <h6 class="mb-0">Adresas</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{$user->address}}
+                      {{$data['user']->address}}
                     </div>
                   </div>
                   <hr>
-                  @if (Auth::guard('web')->check() && Auth::user()->id === $user->id)
+                  @if (Auth::guard('web')->check() && Auth::user()->id === $data['user']->id)
                   <div class="row">
                     <div class="col-sm-12">
                       <a class="editbutton"href="{{route('profile.edit')}}">Redaguoti</a>
@@ -90,29 +90,82 @@
 
   {{-- Profile finish --}}
 
- @include('snipets.stats')
-
-     <!-- ======= Services Section ======= -->
-     <section id="services" class="services ">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="icon-box" data-aos="fade-up">
-              <div class="icon"><i class="bi bi-briefcase" style="color: #ff689b;"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="icon-box" data-aos="fade-up">
-              <div class="icon"><i class="bi bi-book" style="color: #e9bf06;"></i></div>
-              <h4 class="title"><a href="">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about">
+        <div class="container">
+  
+          <div class="row justify-content-end">
+            <div class="col-lg-11">
+              <div class="row justify-content-end">
+  
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                  <div class="count-box py-5">
+                    <i class="bi bi-emoji-smile"></i>
+                    <span data-purecounter-start="0" data-purecounter-end="0" class="purecounter">0</span>
+                    <p>Patenkintų kompanijų</p>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                  <div class="count-box py-5">
+                    <i class="bi bi-journal-richtext"></i>
+                    <span data-purecounter-start="0" data-purecounter-end="0" class="purecounter">0</span>
+                    <p>Savanorystės</p>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                  <div class="count-box pb-5 pt-0 pt-lg-5">
+                    <i class="bi bi-clock"></i>
+                    <span data-purecounter-start="0" data-purecounter-end="0" class="purecounter">0</span>
+                    <p>Prasavanoriautų valandų</p>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                  <div class="count-box pb-5 pt-0 pt-lg-5">
+                    <i class="bi bi-award"></i>
+                    <span data-purecounter-start="0" data-purecounter-end="{{count($data['badges'])}}" class="purecounter">0</span>
+                    <p>Pagyrimai</p>
+                  </div>
+                </div>
+  
+              </div>
             </div>
           </div>
         </div>
+      </section><!-- End About Section -->
 
+
+
+     <!-- ======= Services Section ======= -->
+     <section id="services" class="services ">
+      <div style="margin-bottom: 1rem" class="container">
+        <h1>Pagyrimo ženkliukai</h1>
+        <div style="width: 95%; display: -webkit-inline-box;" class="overflow-auto">
+        @if(!$data['badges']->isEmpty())
+        @foreach ($data['badges'] as $badge)
+        <div class="col-md-6">
+          <img style="width: auto;"  src="{{asset($badge->img_path)}}">
+
+              <div class="col-md-6">
+                <div data-aos="fade-up">
+                  <h4 class="title"><a href="">{{$badge->organization->name}}</a></h4>
+                  <p class="description">{{$badge->comment}}</p>
+                </div>
+              </div>
+
+        </div>
+        @endforeach
+        @else
+        <div class="col-md-12">
+          <div data-aos="fade-up">
+            <h4 class="title"><a href="">Šiuo metu šis savanoris neturi pagyrimų</a></h4>
+          </div>
+        </div>
+        @endif
+
+      </div>
       </div>
     </section><!-- End Services Section -->
 
@@ -121,10 +174,52 @@
   <section id="cta" class="cta">
     <div class="container" data-aos="fade-in">
 
-      <div class="text-center">
-        <h3>Call To Action</h3>
-        <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <a class="cta-btn" href="#">Call To Action</a>
+      <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-lg-12">
+            <div class="card text-dark">
+              <div class="card-body p-4">
+                <h4 style="text-align: center" class="mb-0">Atsiliepimai</h4>
+                @if(!$data['comments']->isEmpty())
+                @foreach ($data['comments'] as $com)
+                <div class="d-flex flex-start">
+                  <div>
+                    <h6 class="fw-bold mb-1">{{$com->organization->name}}</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p style="fonst-size:small; color: black" class="mb-0">
+                        Komentaras apie savanorį:
+                      </p>
+                    </div>
+                    <p style="color: black" class="mb-0">
+                      {{$com->comment}}
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                @endforeach
+                @else
+                <hr>
+                <div style="justify-content: center;" class="d-flex flex-start">
+                  <div>
+                    <p style="text-align:center;color: black" class="mb-0">
+                      Atsiliepimų nėra
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                @endif
+                
+              </div>
+
+              </div>
+              
+              </div>
+              </div>
+    
+
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>

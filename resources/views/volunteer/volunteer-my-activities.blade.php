@@ -66,7 +66,7 @@
                                 <td>
                                     <a href="{{route('volunteer.activity.view',$act->id)}}" style="color: white; background-color: #0582dc" class="btn"
                                     title="Peržiūrėti skelbimą"> <i class="fa fa-search"></i></a>
-                                    <a href="" style="color: white; background-color: #dc0505" class="btn"
+                                    <a href="{{route('volunteer.form.delete', $form->id)}}" style="color: white; background-color: #dc0505" class="btn"
                                     title="Atšaukti"> <i class="fa fa-times"></i></a>
                                 </td>
                                 @endif

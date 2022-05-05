@@ -65,4 +65,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function comments(){
+        return $this->hasMany(Comments::class,'user_id', 'id');
+    }
+    public function badges(){
+        return $this->hasMany(Badges::class,'user_id', 'id');
+    }
 }

@@ -14,7 +14,7 @@
               </div>
 
               <div class="modal-body">
-                <h6>Komentaras</h6>
+                <h6>Nusiskundimas</h6>
                 <input v-model="comment" @change="onCommentChange($event)" type="text" name="comment" />
                  <p style="color: red">{{text}}</p>
               </div>
@@ -53,7 +53,7 @@
             }else{
               try{
                  axios
-                .post('http://127.0.0.1:8000/volunteer/review',{
+                .post('http://127.0.0.1:8000/volunteer/send/email/'+this.id,{
                     user_id:this.id,
                     organization_id: this.organization,
                     comment: this.comment,

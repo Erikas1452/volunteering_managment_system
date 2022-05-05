@@ -9,12 +9,12 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  Palikti komentarą
+                  Palikti nusiskundimą
                 </slot>
               </div>
 
               <div class="modal-body">
-                <h6>Komentaras</h6>
+                <h6>Nusiskundimas</h6>
                 <input v-model="comment" @change="onCommentChange($event)" type="text" name="comment" />
                  <p style="color: red">{{text}}</p>
               </div>

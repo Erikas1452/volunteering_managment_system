@@ -12,6 +12,7 @@ use App\Models\RegistrationForm;
 use App\Models\Category;
 use App\Models\ExtraQuestions;
 use App\Models\Organization;
+use App\Models\Comments;
 use Carbon\Carbon;
 use Session;
 use Image;
@@ -23,6 +24,22 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
+
+    public function showVolunteerProfile($id) {
+    
+        $user = User::where('id', $id)->first();
+        $comments = User::where('id', $id)->first()->comments;
+        $badges = User::where('id', $id)->first()->badges;
+        $data = array(
+            'user' => $user,
+            'comments' => $comments,
+            'badges' => $badges,
+        );
+
+        if(!$user) return redirect()->back();
+        else return view('volunteer/profile')->with(compact('data'));
+    
+    }
 
     public function viewActivity($activity_id){
         $activity = VolunteeringActivities::with('category')->where('id', $activity_id)->get();
@@ -121,6 +138,15 @@ class UserController extends Controller
         return view('volunteer/volunteering')->with(compact('data'));
     }
 
+    public function deleteRegistrationForm($id)
+    {
+        RegistrationForm::findOrFail($id)->delete();
+    	$notification = array(
+			'message' => 'Išsiregistruota sėkmingai',
+			'alert-type' => 'success'
+		);
+		return redirect()->back()->with($notification);
+    }
 
     public function logout()
     {

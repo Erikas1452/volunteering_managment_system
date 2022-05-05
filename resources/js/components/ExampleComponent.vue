@@ -1,6 +1,7 @@
 <template>
 <div>
   <button id="show-modal" @click="showModal = true">Stabdyti paskyrą</button>
+  <button id="show-modal" @click="stopSuspension">Atšaukti</button>
   <div v-if="showModal">
     <transition name="modal">
         <div class="modal-mask">
@@ -57,6 +58,16 @@
           onDateChange(event){
             this.date = event.target.value
           },
+          stopSuspension(event){
+            axios
+                .post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend/stop', {
+                  user: this.user,
+                })
+                .then(response => {
+                  this.info = response;
+                  location.reload();
+                })
+          },
           submit(event){
               axios
                 .post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
@@ -64,7 +75,10 @@
                   reason: this.reason,
                   user: this.user,
                 })
-                .then(response => (this.info = response))
+                .then(response => {
+                  this.info = response;
+                  location.reload();
+                })
           },
 
       },

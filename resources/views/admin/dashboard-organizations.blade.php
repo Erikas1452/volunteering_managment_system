@@ -21,12 +21,10 @@
   <table class="table table-striped">
     <thead>
         <tr>
-            <th>Vardas</th>
+            <th>Pavadinimas</th>
             <th>El. paštas</th>
             <th>Statusas</th>
-            <th>Nusiskundimų skaičius</th>
-            <th>Informacija</th>
-            <th>Sustabdyti paskyrą</th>
+            <th>pašalinti iš sistemos</th>
         </tr>
     </thead>
     <tbody>
@@ -35,9 +33,9 @@
             <td>{{$organization->name}}</td>
             <td>{{$organization->email}}</td>
             <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
-            <td>Reports</td>
-            <td>Status</td>
-            <td>Reports</td>
+            <td style="text-align-last: center;"><a href="{{ route('organization.delete', $organization->id) }}"
+              class="btn btn-danger" title="Pašalinti" id="delete">
+              <i class="fa fa-trash"></i></a></td>
         </tr>
         @endforeach
     </tbody>

@@ -33,4 +33,13 @@ class VolunteeringActivities extends Model
     public function notAcceptedForms() {
         return $this->hasMany(RegistrationForm::class,'activity_id', 'id')->with('answers')->where('accepted', '0');
     }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($activity) {
+             $activity->questions()->delete();
+             $activity->registrationForms()->delete();
+        });
+    }
 }

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Badges extends Model
 {
     use HasFactory;
+
+    public function organization(){
+        return $this->belongsTo(Organization::class,'organization_id');
+    }
 }

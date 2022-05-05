@@ -62,7 +62,8 @@
               @endif
               
               <td>Reports</td>
-              <td>Peržiūrėti vartotojo profilį</td>
+              <td style="text-align: -webkit-center;"><a href="{{ route('volunteer.profile', $user->id)}}" class="btn btn-info"
+                title="Savanorio profilis"><i style="text-align: -webkit-center;" class="fa fa-user"></i> </a></td>
               <td>
                 <example-component user="{{$user->id}}"></example-component>
             </td>

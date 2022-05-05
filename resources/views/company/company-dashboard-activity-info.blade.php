@@ -304,13 +304,13 @@
                                          <answers id="{{$v->id}}">
                                         </div>
                                         <div style="padding-margin: 1rem" id="app">
-                                            <comment id="{{$v->id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                            <comment id="{{$v->volunteer_id}}" organization="{{$data['activity'][0]->organization_id}}">
                                         </div>
                                         <div style="padding-margin: 1rem" id="app">
-                                            <complaint id="{{$v->id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                            <complaint id="{{$v->volunteer_id}}" organization="{{$data['activity'][0]->organization_id}}">
                                         </div>
                                         <div style="padding-margin: 1rem" id="app">
-                                            <badge id="{{$v->id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                            <badge id="{{$v->volunteer_id}}" organization="{{$data['activity'][0]->organization_id}}">
                                         </div>
                                     </div>
                                 <a style="color: white" href="{{ route('volunteer.remove', [$v->email, $data['activity'][0]->name, $v->id]) }}" class="btn btn-danger"
