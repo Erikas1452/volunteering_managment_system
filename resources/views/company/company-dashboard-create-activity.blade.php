@@ -109,13 +109,30 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <h5>Pradžios data <span class="text-danger">*</span></h5>
-                                            <input class="form-group" type="datetime-local" name="start_date">
+                                            <input class="form-group" type="datetime-local" required="" name="start_date">
                                         </div>
                                         <div class="col-md-3">
                                             <h5>Pabaigos data<span class="text-danger">*</span></h5>
-                                            <input class="form-group" type="datetime-local" name="end_date">
+                                            <input class="form-group" type="datetime-local" required="" name="end_date">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>Miestas <span class="text-danger">*</span></h5>
+                                            <select name="city" class="form-control" required="">
+                                                <option value="" selected="" disabled="">Pasirinktite miestą</option>
+                                                <option value="Vilnius" selected="" ="">Vilnius</option>
+                                                <option value="Kaunas" selected="" ="">Kaunas</option>
+                                                <option value="Klaipėda" selected="" ="">Klaipėda</option>
+                                                <option value="Palanga" selected="" ="">Palanga</option>
+                                                <option value="Panevėžys" selected="" ="">Panevėžys</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>Valandų skaičius<span class="text-danger">*</span></h5>
+                                            <input class="form-group" pattern="\d*" step="1" oninvalid="this.setCustomValidity('Įveskite sveikąjį skaičių')" type="number" name="hours">
                                         </div>
                                     </div>
+
+                                    
 
                                     <div class="row">
                                         <!-- start 7th row  -->

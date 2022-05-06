@@ -96,6 +96,7 @@ Route::get('/organization/login/', [OrganizationController::class, 'login'])->na
 Route::post('/organization/register/request/create', [OrganizationController::class, 'companyRequestCreate'])->name('company.request.create');
 Route::get('/organization/dashboard/', [OrganizationController::class, 'dashboard'])->name('company.dashboard');
 Route::get('/organization/dashboard/activities', [OrganizationController::class, 'dashboardActivities'])->name('company.dashboard.activities');
+Route::get('/organization/dashboard/activities/handle', [OrganizationController::class, 'dashboardActivitiesHandle'])->name('company.dashboard.activities.handle');
 Route::get('/organization/dashboard/activities/create', [OrganizationController::class, 'createActivityPage'])->name('company.dashboard.activities.create');
 Route::get('/organization/logout',[OrganizationController::class, 'logout'])->name('organization.logout');
 Route::get('/organization/dashborad/activities/volunteer/request/confirm/{email}/{activity}/{formId}',[VolunteeringActivitiesController::class, 'confirmRequest'])->name('volunteer.request.confirm');

@@ -26,7 +26,6 @@
                     <div class="box-header with-border">
                         <h2 class="box-title">Savanorysčių veiklų sąrašas <span class="badge badge-pill badge-danger">
                           {{ count($data['activities']) }} </span></h2>
-                          <a href="{{route('company.dashboard.activities.create')}}" style="margin-bottom: 1rem" class="btn btn-rounded btn-primary">Pridėti naują savanorystės veiklą</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -54,11 +53,9 @@
                                                 else $people = $act->people_limit;
                                             @endphp
                                             <td>{{$people}}</td>
-                                            <td>
-                                                <a href="" class="btn btn-primary"
-                                                    title="Koreguoti veiklą"> <i class="fa fa-pencil"></i></a>
-                                                <a href="" class="btn btn-danger"
-                                                    title="Pašalinti veiklą"> <i class="fa fa-trash"></i></a>
+                                            <td style="text-align: -webkit-center;">
+                                                <a href="{{route('activity.info',$act->id)}}" class="btn btn-info"
+                                                    title="Valdymas"> <i class="fa fa-book"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

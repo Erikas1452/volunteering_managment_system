@@ -16,6 +16,7 @@ class UpdateVolunteeringActivitiesTable extends Migration
         Schema::table('volunteering_activities', function (Blueprint $table) {
             $table->string('city');
             $table->integer('hours');
+            $table->boolean('active')->default(1);
         });
     }
 

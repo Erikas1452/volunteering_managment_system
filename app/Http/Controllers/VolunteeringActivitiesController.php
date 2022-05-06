@@ -204,6 +204,16 @@ class VolunteeringActivitiesController extends Controller
         //Image
         if(isset($request->activity_photo)){
             $image = $request->file('activity_photo');
+
+            if($image->getClientOriginalExtension() !== "jpg" || $image->getClientOriginalExtension() !== "png"){
+                $notification = array(
+                    'message' => 'Blogas nuotraukos formatas',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+
+            // return $image->getClientOriginalExtension();
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(917,1000)->save('uploads/activity_pictures/'.$name_gen);
             $save_url = 'uploads/activity_pictures/'.$name_gen;
@@ -223,8 +233,7 @@ class VolunteeringActivitiesController extends Controller
                     'message' => 'Netinkamas dokumento formatas',
                     'alert-type' => 'warning'
                 );
-                return "Netinkamas formatas";
-                return redirect()->back()->with($notification);
+                return back()->with($notification);
             }
 
             $extension= $request->file("upload_file")->getClientOriginalExtension();
@@ -242,6 +251,8 @@ class VolunteeringActivitiesController extends Controller
             'activity_photo' => $save_url,
             'people_registered' => 0,
             'people_limit' => $request->people_limit,
+            'city' => $request->city,
+            'hours' => $request->hours,
             'papers_required' => $document_needed,
             'short_desc' => $request->short_desc,
             'long_desc' => $request->long_desc,

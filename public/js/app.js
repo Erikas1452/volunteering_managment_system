@@ -30309,9 +30309,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6" }, [
       _c("h6", { staticClass: "mb-0" }, [
-        _vm._v(
-          "Organizacijos validumą patvirtinantis dokumentas priimami formatai (.pdf)*"
-        ),
+        _vm._v("Dokumento įkėlimas. Priimami formatai: (.pdf)*"),
       ]),
     ])
   },

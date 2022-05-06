@@ -22,6 +22,18 @@ use Image;
 class OrganizationController extends Controller
 {
 
+    public function dashboardActivitiesHandle()
+    {
+        $activities = VolunteeringActivities::with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
+        if(count($activities) > 0){
+            $data = array(
+                'activities' => $activities,
+            );
+            return view('company.company-dashboard-activities-handle')->with(compact('data'));
+        }
+        else return view('company.company-dashboard-activities-handle');   
+    }
+
     public function logout()
     {
         Session::flush();

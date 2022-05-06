@@ -7,7 +7,7 @@
     </fieldset>
     <div class="row" v-if="display">
         <div class="col-md-6">
-            <h6 class="mb-0">Organizacijos validumą patvirtinantis dokumentas priimami formatai (.pdf)*</h6>
+            <h6 class="mb-0">Dokumento įkėlimas. Priimami formatai: (.pdf)*</h6>
         </div>
         <div class="col-md-6 text-secondary">
             <div class="form-group"> <input type="file" name="upload_file" class="form-control"> </div>
