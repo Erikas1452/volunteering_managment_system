@@ -204,10 +204,9 @@ class VolunteeringActivitiesController extends Controller
         //Image
         if(isset($request->activity_photo)){
             $image = $request->file('activity_photo');
-
-            if($image->getClientOriginalExtension() !== "jpg" || $image->getClientOriginalExtension() !== "png"){
+            if($image->getClientOriginalExtension() !== "jpg" && $image->getClientOriginalExtension() !== "png" && $image->getClientOriginalExtension() !== "jpeg"){
                 $notification = array(
-                    'message' => 'Blogas nuotraukos formatas',
+                    'message' => 'Netinkamas nuotraukos formatas',
                     'alert-type' => 'error'
                 );
                 return redirect()->back()->with($notification);
@@ -262,10 +261,12 @@ class VolunteeringActivitiesController extends Controller
         ]);
         if(isset($request->questions)){
             foreach($request->questions as $key => $value){
-                ExtraQuestions::create([
-                    'activity_id' => $activity->id,
-                    'question' => $value['question'],
-                ]);
+                if(isset($value['question'])){
+                    ExtraQuestions::create([
+                        'activity_id' => $activity->id,
+                        'question' => $value['question'],
+                    ]);
+                }
             }
         }
         
@@ -273,6 +274,6 @@ class VolunteeringActivitiesController extends Controller
             'message' => 'Veikla sukurta sėkmingai',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('company.dashboard.activities')->with($notification);
     }
 }

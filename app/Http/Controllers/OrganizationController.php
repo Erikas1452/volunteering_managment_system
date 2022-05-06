@@ -24,7 +24,7 @@ class OrganizationController extends Controller
 
     public function dashboardActivitiesHandle()
     {
-        $activities = VolunteeringActivities::with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
+        $activities = VolunteeringActivities::sortable()->with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
         if(count($activities) > 0){
             $data = array(
                 'activities' => $activities,
@@ -52,7 +52,7 @@ class OrganizationController extends Controller
     }
 
     public function dashboardActivities(){
-        $activities = VolunteeringActivities::with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
+        $activities = VolunteeringActivities::sortable()->with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
         if(count($activities) > 0){
             $data = array(
                 'activities' => $activities,

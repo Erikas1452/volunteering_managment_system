@@ -10,7 +10,7 @@ class VolunteeringActivities extends Model
 {
     use HasFactory, Sortable;
 
-    public $sortable = ['name'];
+    public $sortable = ['name', 'start_date', 'end_date'];
 
     protected $guarded = [];
 

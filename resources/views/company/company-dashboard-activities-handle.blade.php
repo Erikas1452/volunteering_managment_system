@@ -35,7 +35,7 @@
                                     <tr>
                                         <th>Nuotrauka</th>
                                         <th>Kategorija</th>
-                                        <th>Aktyvumas</th>
+                                        <th>@sortablelink('start_date', 'Pradžios data')</th>
                                         <th>Žmonių skaičius</th>
                                         <th>Veiksmai</th>
                                         </th>
@@ -47,7 +47,7 @@
                                             <td><img width="100" height="80" src="{{asset($act->activity_photo)}}"/></td>
 
                                             <td>{{$act->category['category_name_en']}}</td>
-                                            <td>{{$act->start_date}} - {{$act->end_date}}</td>
+                                            <td>{{$act->start_date}}</td>
                                             @php
                                                 if(!isset($act->people_limit)) $people = 0;
                                                 else $people = $act->people_limit;
@@ -61,6 +61,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $data['activities']->appends(\Request::except('page'))->links('vendor.pagination.bootstrap-4') }}
                         </div>
                     </div>
                     <!-- /.box-body -->

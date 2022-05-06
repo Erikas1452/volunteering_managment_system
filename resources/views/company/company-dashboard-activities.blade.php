@@ -64,6 +64,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $data['activities']->appends(\Request::except('page'))->links('vendor.pagination.bootstrap-4') }}
                         </div>
                     </div>
                     <!-- /.box-body -->
