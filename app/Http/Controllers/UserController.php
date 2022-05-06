@@ -76,7 +76,7 @@ class UserController extends Controller
     }
 
     public function volunteering(){
-        $activities = VolunteeringActivities::with('category')->paginate(8);//->paginate(3);
+        $activities = VolunteeringActivities::sortable()->with('category')->paginate(8);//->paginate(3);
         $categories = Category::get();
         $data = array(
             'activities' => $activities,

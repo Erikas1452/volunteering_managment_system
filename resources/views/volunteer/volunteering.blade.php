@@ -15,7 +15,7 @@
 
     <div class="row">
 
-      <div class="col-lg-8 entries">
+      <div class="col-lg-10 entries">
         <div class="container">
           @if(isset($data['activities']))
           <div class="box-body">
@@ -24,7 +24,7 @@
                     <thead>
                         <tr>
                             <th>Nuotrauka</th>
-                            <th>Pavadinimas</th>
+                            <th>@sortablelink('name', 'Pavadinimas')</th>
                             <th>Aprašymas</th>
                             <th>Laisvų vietų</th>
                             <th>Veiksmai</th>
@@ -68,7 +68,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $data['activities']->links('vendor.pagination.bootstrap-4') }}
+                {{ $data['activities']->appends(\Request::except('page'))->links('vendor.pagination.bootstrap-4') }}
             </div>
         </div>
           @else
@@ -79,7 +79,7 @@
 
       </div><!-- End blog entries list -->
 
-      <div class="col-lg-4">
+      <div class="col-lg-2">
 
         <div class="sidebar">
 
