@@ -126,6 +126,7 @@ Route::get('test/test', function(){
 });
 
 Route::get('/volunteering',[UserController::class, 'volunteering'])->name('volunteering');
+Route::get('/volunteering/history',[UserController::class, 'volunteeringHistory'])->name('volunteering.history');
 Route::get('/volunteering/delete/form/{id}',[UserController::class, 'deleteRegistrationForm'])->name('volunteer.form.delete');
 Route::post('/volunteering/search',[UserController::class, 'search'])->name('search');
 Route::get('/volunteering/search',[UserController::class, 'search2'])->name('search');

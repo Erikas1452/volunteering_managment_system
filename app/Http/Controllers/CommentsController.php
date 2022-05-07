@@ -58,6 +58,7 @@ class CommentsController extends Controller
             'user_id' => $request->user_id,
             'organization_id' => $request->organization_id,
             'comment' => $request->comment,
+            'rating' => $request->rating,
         ]);
         
         return json_encode("Comment Submited");

@@ -16,8 +16,45 @@
               <div class="modal-body">
                 <h6>Komentaras</h6>
                 <input v-model="comment" @change="onCommentChange($event)" type="text" name="comment" />
-                 <p style="color: red">{{text}}</p>
               </div>
+              <div class="modal-body">
+                 <form class="rating">
+                  <label>
+                    <input @change="onRatingChange($event)" type="radio" name="stars" value="1" />
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input  @change="onRatingChange($event)" type="radio" name="stars" value="2" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input  @change="onRatingChange($event)" type="radio" name="stars" value="3" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>   
+                  </label>
+                  <label>
+                    <input @change="onRatingChange($event)" type="radio" name="stars" value="4" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                  <label>
+                    <input @change="onRatingChange($event)" type="radio" name="stars" value="5" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                  </label>
+                </form>
+              </div>
+              <div class="moda-body">
+                <p style="color: red">{{text}}</p>
+              </div>
+              
 
               <div class="modal-footer">
                 <slot name="footer">
@@ -38,14 +75,18 @@
 </template>
 
 <script>
+
   export default {
       props:{
         organization:String,
         id:String,
       },
       methods: {
-           onCommentChange(event){
+          onCommentChange(event){
             this.comment = event.target.value;
+          },
+          onRatingChange(event){
+            this.rating = event.target.value;
           },
           submitComment(event){
             if(this.comment === ""){
@@ -55,6 +96,7 @@
                  axios
                 .post('http://127.0.0.1:8000/volunteer/review',{
                     user_id:this.id,
+                    rating:this.rating,
                     organization_id: this.organization,
                     comment: this.comment,
                 })
@@ -71,6 +113,7 @@
       },
       data() {
           return{
+              rating: 1,
               showCommentModal: false,
               comment: "",
               csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -91,6 +134,72 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
+}
+
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #000;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: #09f;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px #09f;
 }
 
 .modal-wrapper {

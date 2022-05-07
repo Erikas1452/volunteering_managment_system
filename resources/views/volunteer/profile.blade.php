@@ -100,16 +100,16 @@
   
                 <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                   <div class="count-box py-5">
-                    <i class="bi bi-emoji-smile"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="0" class="purecounter">0</span>
-                    <p>Patenkintų kompanijų</p>
+                    <i class="bi bi-star"></i>
+                    <span data-purecounter-start="0" data-purecounter-end="{{$data['rating']}}" class="purecounter">0</span>
+                    <p>Reitingas</p>
                   </div>
                 </div>
   
                 <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                   <div class="count-box py-5">
                     <i class="bi bi-journal-richtext"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="0" class="purecounter">0</span>
+                    <span data-purecounter-start="0" data-purecounter-end="{{$data['activitiesCount']}}" class="purecounter">0</span>
                     <p>Savanorystės</p>
                   </div>
                 </div>
@@ -117,8 +117,8 @@
                 <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                   <div class="count-box pb-5 pt-0 pt-lg-5">
                     <i class="bi bi-clock"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="0" class="purecounter">0</span>
-                    <p>Prasavanoriautų valandų</p>
+                    <span data-purecounter-start="0" data-purecounter-end="{{$data['hours']}}" class="purecounter">0</span>
+                    <p>Savanoriautos valandos</p>
                   </div>
                 </div>
   
@@ -186,6 +186,14 @@
                   <div>
                     <h6 class="fw-bold mb-1">{{$com->organization->name}}</h6>
                     <div class="d-flex align-items-center mb-3">
+                      <p style="fonst-size:small; color: black" class="mb-0">
+                        Organizatoriaus įvertinimas:
+                        @for($i = 0; $i < 5; $i++)
+                        <span class="fa fa-star" style="{{($com->rating >= $i)? 'color: orange;':''}}"></span>
+                        @endfor
+                      </p>
+                    </div>
+                    <div>
                       <p style="fonst-size:small; color: black" class="mb-0">
                         Komentaras apie savanorį:
                       </p>

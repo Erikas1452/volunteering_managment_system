@@ -13,6 +13,8 @@ use App\Models\Category;
 use App\Models\ExtraQuestions;
 use App\Models\Organization;
 use App\Models\Comments;
+use App\Models\ActivityLog;
+use App\Models\VolunteersLog;
 use Carbon\Carbon;
 use Session;
 use Image;
@@ -25,15 +27,60 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class UserController extends Controller
 {
 
+    public function volunteeringHistory(){
+        $volunteer = VolunteersLog::where('volunteer_id', Auth::guard('web')->user()->id)->get();
+
+        $array = array();
+
+        foreach ($volunteer as $v)
+        {
+            array_push($array, $v->activity_log_id);
+        }
+
+        $activities = ActivityLog::sortable()->whereIn('id', $array)->paginate(20);
+
+        $data = array(
+            'activities' => $activities,
+        );
+        return view('volunteer.volunteer-history')->with(compact('data'));
+    }
+
     public function showVolunteerProfile($id) {
     
         $user = User::where('id', $id)->first();
         $comments = User::where('id', $id)->first()->comments;
         $badges = User::where('id', $id)->first()->badges;
+
+        $hours = 0;
+        $activitiesCount = 0;
+        $rating = 0;
+
+        foreach ($comments as $com){
+            $rating += $com->rating;
+        }
+        $rating = $rating/count($comments);
+
+        $volunteer = VolunteersLog::where('volunteer_id', $id)->get();
+        $array = array();
+        foreach ($volunteer as $v)
+        {
+            array_push($array, $v->activity_log_id);
+        }
+        $activities = ActivityLog::sortable()->whereIn('id', $array)->get();
+
+        foreach($activities as $a){
+            $hours += $a->hours;
+        }
+
+        $activitiesCount = count($activities);
+
         $data = array(
             'user' => $user,
             'comments' => $comments,
             'badges' => $badges,
+            'hours' => $hours,
+            'activitiesCount' => $activitiesCount,
+            'rating' => $rating,
         );
 
         if(!$user) return redirect()->back();

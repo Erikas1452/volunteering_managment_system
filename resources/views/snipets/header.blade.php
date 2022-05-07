@@ -19,7 +19,7 @@
             <ul>
               <li class="{{($route == 'my.volunteerings')? 'active':''}}"><a href="{{route('my.volunteerings')}}">Mano Savanorystės</a></li>
               <li class="{{($route == 'volunteering' || $route == 'search')? 'active' : '' }}"><a href="{{route('volunteering')}}">Savanorystės</a></li> 
-              <li class=""><a href="">Istorija</a></li>
+              <li class="{{($route == 'volunteering.history')? 'active':''}}"><a href="{{route('volunteering.history')}}">Istorija</a></li>
               <li class=""><a href="">Kontaktai</a></li>
               <li class="dropdown"><a class="getstarted" href="{{route('volunteer.profile', ['id' => Auth::user()->id])}}">{{Auth::user()->full_name}}</a>
                 <ul>

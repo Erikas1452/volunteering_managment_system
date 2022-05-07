@@ -12,4 +12,8 @@ class VolunteersLog extends Model
     public $timestamps = false;
     public $sortable = ['full_name', 'email' , 'city'];
     protected $guarded = [];
+
+    public function activityLog(){
+        return $this->belongsTo(ActivityLog::class,'activity_log_id','id');
+    }
 }

@@ -5418,6 +5418,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     organization: String,
@@ -5426,6 +5463,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onCommentChange: function onCommentChange(event) {
       this.comment = event.target.value;
+    },
+    onRatingChange: function onRatingChange(event) {
+      this.rating = event.target.value;
     },
     submitComment: function submitComment(event) {
       var _this = this;
@@ -5436,6 +5476,7 @@ __webpack_require__.r(__webpack_exports__);
         try {
           axios.post('http://127.0.0.1:8000/volunteer/review', {
             user_id: this.id,
+            rating: this.rating,
             organization_id: this.organization,
             comment: this.comment
           }).then(function (response) {
@@ -5450,6 +5491,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      rating: 1,
       showCommentModal: false,
       comment: "",
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -11122,7 +11164,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask {\r\n  position: fixed;\r\n  z-index: 9998;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  padding: 20px 30px;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\n}\n.modal-header h3 {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body {\r\n  margin: 20px 0;\n}\n.modal-default-button {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter-from {\r\n  opacity: 0;\n}\n.modal-leave-to {\r\n  opacity: 0;\n}\n.modal-enter-from .modal-container,\r\n.modal-leave-to .modal-container {\r\n  transform: scale(1.1);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask {\r\n  position: fixed;\r\n  z-index: 9998;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.rating {\r\n  display: inline-block;\r\n  position: relative;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  font-size: 50px;\n}\n.rating label {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  height: 100%;\r\n  cursor: pointer;\n}\n.rating label:last-child {\r\n  position: static;\n}\n.rating label:nth-child(1) {\r\n  z-index: 5;\n}\n.rating label:nth-child(2) {\r\n  z-index: 4;\n}\n.rating label:nth-child(3) {\r\n  z-index: 3;\n}\n.rating label:nth-child(4) {\r\n  z-index: 2;\n}\n.rating label:nth-child(5) {\r\n  z-index: 1;\n}\n.rating label input {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  opacity: 0;\n}\n.rating label .icon {\r\n  float: left;\r\n  color: transparent;\n}\n.rating label:last-child .icon {\r\n  color: #000;\n}\n.rating:not(:hover) label input:checked ~ .icon,\r\n.rating:hover label:hover input ~ .icon {\r\n  color: #09f;\n}\n.rating label input:focus:not(:checked) ~ .icon:last-child {\r\n  color: #000;\r\n  text-shadow: 0 0 5px #09f;\n}\n.modal-wrapper {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  padding: 20px 30px;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\n}\n.modal-header h3 {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body {\r\n  margin: 20px 0;\n}\n.modal-default-button {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter-from {\r\n  opacity: 0;\n}\n.modal-leave-to {\r\n  opacity: 0;\n}\n.modal-enter-from .modal-container,\r\n.modal-leave-to .modal-container {\r\n  transform: scale(1.1);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30080,7 +30122,98 @@ var render = function () {
                           },
                         },
                       }),
-                      _vm._v(" "),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("form", { staticClass: "rating" }, [
+                        _c("label", [
+                          _c("input", {
+                            attrs: { type: "radio", name: "stars", value: "1" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.onRatingChange($event)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("label", [
+                          _c("input", {
+                            attrs: { type: "radio", name: "stars", value: "2" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.onRatingChange($event)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("label", [
+                          _c("input", {
+                            attrs: { type: "radio", name: "stars", value: "3" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.onRatingChange($event)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("label", [
+                          _c("input", {
+                            attrs: { type: "radio", name: "stars", value: "4" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.onRatingChange($event)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("label", [
+                          _c("input", {
+                            attrs: { type: "radio", name: "stars", value: "5" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.onRatingChange($event)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "icon" }, [_vm._v("★")]),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "moda-body" }, [
                       _c("p", { staticStyle: { color: "red" } }, [
                         _vm._v(_vm._s(_vm.text)),
                       ]),

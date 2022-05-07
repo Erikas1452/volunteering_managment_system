@@ -12,4 +12,8 @@ class ActivityLog extends Model
     public $sortable = ['name', 'created_at'];
     protected $guarded = [];
 
+    public function volunteers(){
+        return $this->hasMany(VolunteersLog::class,'activity_log_id', 'id');
+    }
+
 }
