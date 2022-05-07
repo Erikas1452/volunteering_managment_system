@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use App\Models\Organization;
 use App\Models\OrganizationRequests;
 use App\Models\VolunteeringActivities;
+use App\Models\ActivityLog;
+use App\Models\VolunteersLog;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
@@ -22,9 +24,31 @@ use Image;
 class OrganizationController extends Controller
 {
 
+    public function activitiesHistory(){
+        $activities = ActivityLog::sortable()->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
+        if(count($activities) > 0){
+            $data = array(
+                'activities' => $activities,
+            );
+            return view('company.company-dashboard-history')->with(compact('data'));
+        }
+        else return view('company.company-dashboard-history');
+    }
+
+    public function activitiesHistoryVoluteers($id){
+        $volunteers = VolunteersLog::sortable()->where('activity_log_id', $id)->paginate(20);
+        if(count($volunteers) > 0){
+            $data = array(
+                'volunteers' => $volunteers,
+            );
+            return view('company.company-dashboard-history-volunteers')->with(compact('data'));
+        }
+        else return view('company.company-dashboard-history-volunteers');
+    }
+
     public function dashboardActivitiesHandle()
     {
-        $activities = VolunteeringActivities::sortable()->with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);//->paginate(3);
+        $activities = VolunteeringActivities::sortable()->with('category')->where('organization_id',Auth::guard('organization')->user()->id)->paginate(10);
         if(count($activities) > 0){
             $data = array(
                 'activities' => $activities,

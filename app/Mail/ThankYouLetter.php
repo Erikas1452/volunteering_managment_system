@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageFromOrganization extends Mailable
+class ThankYouLetter extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,12 +16,13 @@ class MessageFromOrganization extends Mailable
      *
      * @return void
      */
-    public function __construct($organizationName, $organizationEmail, $message, $activityName)
+    public function __construct($organizationName, $organizationEmail, $message, $activityName, $hours)
     {
         $this->organization = $organizationName;
         $this->email = $organizationEmail;
         $this->message = $message;
         $this->activity = $activityName;
+        $this->hours = $hours;
 
     }
 
@@ -32,11 +33,12 @@ class MessageFromOrganization extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.message-from-organization')->subject("Gavote žinutę iš svanorystės: ".$this->activity)->with([
+        return $this->markdown('emails.thank-you-letter')->subject("Padėka už dalyvavimą ".$this->activity. " savanorystėje")->with([
             'activity' => $this->activity,
             'organization' => $this->organization,
             'message' => $this->message,
             'email' => $this->email,
-        ]);
+            'hours' => $this->hours,
+        ]);;
     }
 }

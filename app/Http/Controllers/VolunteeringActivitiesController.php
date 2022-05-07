@@ -13,6 +13,8 @@ use App\Models\Category;
 use App\Models\RegistrationAnswers;
 use App\Models\RegistrationForm;
 use App\Models\ExtraQuestions;
+use App\Models\ActivityLog;
+use App\Models\VolunteersLog;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use File;
@@ -22,9 +24,53 @@ use App\Mail\VolunteerAccepted;
 use App\Mail\VolunteerDnied;
 use App\Mail\removedFromActivity;
 use App\Mail\MessageFromOrganization;
+use App\Mail\ThankYouLetter;
 
 class VolunteeringActivitiesController extends Controller
 {
+    public function endActivity(Request $request){
+
+        $activity = VolunteeringActivities::find($request->id);
+        $volunteers = VolunteeringActivities::find($request->id)->acceptedForms;
+
+        $activityLog = ActivityLog::create([
+            'name' => $activity->name,
+            'organization_id' => $activity->organization_id,
+            'activity_photo' => $activity->activity_photo,
+            'city' => $activity->city,
+            'hours' => $activity->hours,
+            'short_desc' => $activity->short_desc,
+            'long_desc' => $activity->long_desc,
+            'file_upload_path' => $activity->file_upload_path,
+            'start_date' => $activity->start_date,
+            'end_date' => $activity->end_date,
+            "created_at" => now(),
+        ]);
+
+        foreach($volunteers as $vol){
+            VolunteersLog::create([
+                'full_name' => $vol->full_name,
+                'email' => $vol->email,
+                'phone' => $vol->phone,
+                'city' => $vol->city,
+                'upload_file' => $vol->upload_file,
+                'activity_log_id' => $activityLog->id,
+                'volunteer_id' => $vol->volunteer_id,
+            ]);
+
+            Mail::to($vol->email)->send(new ThankYouLetter($activity->organization->name,
+                $activity->organization->email,
+                $request->message,
+                $activity->name,
+                $activity->hours,
+            ));
+        }
+
+        // $activity->delete();
+        
+        return json_encode("{message: \"Savanorystė sėkmingai užbaigta\"}");
+
+    }
 
     public function sendEmails($activity_id, Request $request){
 

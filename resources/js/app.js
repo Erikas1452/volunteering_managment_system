@@ -26,6 +26,7 @@ Vue.component('comment', require('./components/CommentsPopUpComponent.vue').defa
 Vue.component('answers', require('./components/CustomQuestionsAnswersPopUpComponent.vue').default);
 Vue.component('badge', require('./components/BadgeUploadPopUpComponent.vue').default);
 Vue.component('complaint', require('./components/ComplaintsPopUpComponent.vue').default);
+Vue.component('finish', require('./components/FinishVolunteeringPopUpComponent.vue').default);
 
 
 /**

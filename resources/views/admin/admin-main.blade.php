@@ -33,6 +33,13 @@
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+        <link rel="stylesheet" type="text/css" 
+           href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
         {{-- <link href="{{asset('css/app.css')}}" rel="stylesheet"> --}}
       
         <!-- =======================================================
@@ -105,8 +112,6 @@
   <script src="{{asset('assets/js/main.js')}}"></script>
 
   <script src="{{ asset('js/app.js') }}" defer></script>
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
       @if(Session::has('message'))

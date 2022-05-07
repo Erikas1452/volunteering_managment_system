@@ -10,7 +10,14 @@ class VolunteeringActivities extends Model
 {
     use HasFactory, Sortable;
 
-    public $sortable = ['name', 'start_date', 'end_date'];
+    public $sortable = ['name', 'people_limit' , 'people_registered', 'start_date', 'end_date'];
+
+    public function CategorySortable($query, $direction)
+    {
+        return $query->join('categories', 'categories.id', '=', 'volunteering_activities.id')
+                    ->orderBy('category_name_en', $direction)
+                    ->select('volunteering_activities.*');
+    }
 
     protected $guarded = [];
 

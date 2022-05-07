@@ -14,8 +14,8 @@
     </div>
   </nav>
   
-<div id="app">
-   <div class="container-full">
+
+<div class="container-full">
     <!-- Content Header (Page header) -->
     <!-- Main content -->
     <section class="content">
@@ -26,6 +26,7 @@
                     <div class="box-header with-border">
                         <h2 class="box-title">Savanorysčių veiklų sąrašas <span class="badge badge-pill badge-danger">
                           {{ count($data['activities']) }} </span></h2>
+                          <a href="{{route('company.dashboard.activities.create')}}" style="margin-bottom: 1rem" class="btn btn-rounded btn-primary">Pridėti naują savanorystės veiklą</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -33,11 +34,9 @@
                             <table id="example1" class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <th>Nuotrauka</th>
                                         <th>@sortablelink('name', 'Pavadinimas')</th>
-                                        <th>@sortablelink('categories','Kategorija')</th>
-                                        <th>@sortablelink('start_date', 'Pradžios data')</th>
-                                        <th>@sortablelink('people_limit','Žmonių limitas')</th>
-                                        <th>@sortablelink('people_registered','Registruotų savanorių skaičius')</th>
+                                        <th>@sortablelink('created_at','Pabaigos data')</th>
                                         <th>Veiksmai</th>
                                         </th>
                                     </tr>
@@ -45,20 +44,12 @@
                                 <tbody>
                                     @foreach ($data['activities'] as $act)
                                         <tr>
-                                            {{-- <td><img width="100" height="80" src="{{asset($act->activity_photo)}}"/></td> --}}
+                                            <td><img width="100" height="80" src="{{asset($act->activity_photo)}}"/></td>
                                             <td>{{$act->name}}</td>
-                                            <td>{{$act->category['category_name_en']}}</td>
-                                            <td>{{$act->start_date}}</td>
-                                            @php
-                                                if(!isset($act->people_limit)) $people = "Limito nėra";
-                                                else $people = $act->people_limit;
-                                            @endphp
-                                            <td>{{$people}}</td>
-                                            <td>{{$act->people_registered}}
-                                            <td style="display: inline-flex; text-align: -webkit-center;">
-                                                <finish :id = {{$act->id}}> </finish>
-                                                <a href="{{route('activity.info',$act->id)}}" class="btn btn-info"
-                                                    title="Valdymas"> <i class="fa fa-book"></i></a>
+                                            <td>{{$act->created_at}}</td>
+                                            <td>
+                                                <a href="{{route('company.dashboard.activities.history.volunteers', $act->id)}}" class="btn btn-info"
+                                                    title="Savanorių sąrašas"> <i class="fa fa-address-book-o"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -90,9 +81,8 @@
                               <thead>
                                   <tr>
                                       <th>Nuotrauka</th>
-                                      <th>Kategorija</th>
-                                      <th>Aktyvumas</th>
-                                      <th>Žmonių skaičius</th>
+                                      <th>Pavadinimas</th>
+                                      <th>Pabaigos data</th>
                                       <th>Veiksmai</th>
                                       </th>
                                   </tr>
@@ -114,9 +104,7 @@
           @endif
     </section>
     <!-- /.content -->
-</div> 
 </div>
-
 </div>
 
 @endsection

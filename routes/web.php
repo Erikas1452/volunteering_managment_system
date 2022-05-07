@@ -106,9 +106,14 @@ Route::post('/organization/dashboard/activities/{activity}/send/email',[Voluntee
 
 Route::get('/organization/dashboard/{form}/answers',[VolunteeringActivitiesController::class, 'getAnswers'])->name('participants.answers');
 
+Route::get('/organization/dashboard/activities/history', [OrganizationController::class, 'activitiesHistory'])->name('company.dashboard.activities.history');
+Route::get('/organization/dashboard/activities/{id}/history/volunteers', [OrganizationController::class, 'activitiesHistoryVoluteers'])->name('company.dashboard.activities.history.volunteers');
+
 //Activities
 Route::post('/organization/dashboard/activities/submit',[VolunteeringActivitiesController::class, 'createActivity'])->name('activity.submit');
 Route::get('/organization/dashboard/activities/{id}',[VolunteeringActivitiesController::class, 'openActivity'])->name('activity.info');
+Route::post('/organization/dashboard/activity/end',[VolunteeringActivitiesController::class, 'endActivity'])->name('end.activity');
+
 
 //Emails
 Route::get('/email', function(){

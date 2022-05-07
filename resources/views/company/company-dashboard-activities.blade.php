@@ -35,9 +35,9 @@
                                 <thead>
                                     <tr>
                                         <th>Nuotrauka</th>
-                                        <th>Kategorija</th>
-                                        <th>Aktyvumas</th>
-                                        <th>Žmonių skaičius</th>
+                                        <th>@sortablelink('name', 'Pavadinimas')</th>
+                                        <th>@sortablelink('categories','Kategorija')</th>
+                                        <th>@sortablelink('people_limit','Žmonių limitas')</th>
                                         <th>Veiksmai</th>
                                         </th>
                                     </tr>
@@ -46,11 +46,10 @@
                                     @foreach ($data['activities'] as $act)
                                         <tr>
                                             <td><img width="100" height="80" src="{{asset($act->activity_photo)}}"/></td>
-
+                                            <td>{{$act->name}}</td>
                                             <td>{{$act->category['category_name_en']}}</td>
-                                            <td>{{$act->start_date}} - {{$act->end_date}}</td>
                                             @php
-                                                if(!isset($act->people_limit)) $people = 0;
+                                                if(!isset($act->people_limit)) $people = "Limito Nėra";
                                                 else $people = $act->people_limit;
                                             @endphp
                                             <td>{{$people}}</td>
@@ -89,12 +88,12 @@
                           <table id="example1" class="table table-bordered">
                               <thead>
                                   <tr>
-                                      <th>Nuotrauka</th>
-                                      <th>Kategorija</th>
-                                      <th>Aktyvumas</th>
-                                      <th>Žmonių skaičius</th>
-                                      <th>Veiksmai</th>
-                                      </th>
+                                    <th>Nuotrauka</th>
+                                    <th>Pavadinimas</th>
+                                    <th>Kategorija</th>
+                                    <th>Žmonių limitas</th>
+                                    <th>Veiksmai</th>
+                                    </th>
                                   </tr>
                               </thead>
                               <tbody>
