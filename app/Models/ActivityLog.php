@@ -9,5 +9,7 @@ use Kyslik\ColumnSortable\Sortable;
 class ActivityLog extends Model
 {
     use HasFactory, Sortable;
+    public $sortable = ['name', 'created_at'];
     protected $guarded = [];
+
 }

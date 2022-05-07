@@ -19,9 +19,9 @@
         <table class="table table-striped">
         <thead>
             <tr>
-                <th>Vardas-Pavardė</th>
-                <th>El. paštas</th>
-                <th>Miestas</th>
+                <th>@sortablelink('full_name','Vardas Pavardė')</th>
+                <th>@sortablelink('email', 'El. paštas')</th>
+                <th>@sortablelink('city', 'Miestas')</th>
                 <th>Telefono Nr.</th>
                 <th style="text-align: -webkit-center;">Veiksmai</th>
             </tr>
@@ -36,13 +36,14 @@
                 <td style="text-align: -webkit-center;">
                     <a  style="color: white" href="{{ route('volunteer.profile', $v->volunteer_id)}}" class="btn btn-info"
                         title="Savanorio profilis"><i class="fa fa-user"></i> </a>
-                    <a  style="color: white" href="" class="btn btn-info"
-                    title="Pakviesti į veiklą"><i class="fa fa-paper-plane"></i> </a>     
+                    {{-- <a  style="color: white" href="" class="btn btn-info"
+                    title="Pakviesti į veiklą"><i class="fa fa-paper-plane"></i> </a>      --}}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    {{ $data['volunteers']->appends(\Request::except('page'))->links('vendor.pagination.bootstrap-4') }}
     @else
     <table class="table table-striped">
         <thead>

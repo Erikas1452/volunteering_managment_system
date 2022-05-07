@@ -10,5 +10,6 @@ class VolunteersLog extends Model
 {
     use HasFactory, Sortable;
     public $timestamps = false;
+    public $sortable = ['full_name', 'email' , 'city'];
     protected $guarded = [];
 }

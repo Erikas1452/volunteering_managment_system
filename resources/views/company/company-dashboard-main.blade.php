@@ -70,7 +70,7 @@
           <li class="{{ ($route == 'company.dashboard.activities.handle')? 'active' : '' }}">
             <a href="{{route('company.dashboard.activities.handle')}}"><span class="fa fa-list"></span> Savanorysčių valdymas</a>
           </li>
-          <li class="{{ ($route == 'company.dashboard.activities.history')? 'active' : '' }}">
+          <li class="{{ ($route == 'company.dashboard.activities.history' || $route == 'company.dashboard.activities.history.volunteers')? 'active' : '' }}">
             <a href="{{route('company.dashboard.activities.history')}}"><span class="fa fa-list"></span> Savanorysčių Istorija</a>
           </li>
         </ul>
