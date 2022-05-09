@@ -70,6 +70,9 @@
           <li class="{{ ($route == 'admin.dashboard.categories')? 'active' : '' }}">
             <a href="{{route('admin.dashboard.categories')}}"><span class="fa fa-list"></span> Kategorijos</a>
           </li>
+          <li class="{{ ($route == 'admin.badges')? 'active' : '' }}">
+            <a href="{{route('admin.badges')}}"><span class="fa fa-trophy"></span> Pagyrimo ženkliukai</a>
+          </li>
           <li class="{{ ($route == 'admin.dashboard.organizations')? 'active' : '' }}">
             <a href="{{route('admin.dashboard.organizations')}}"><span class="fa fa-address-book"></span> Įmonių sąrašas</a>
           </li>

@@ -141,3 +141,8 @@ Route::post('/volunteering/activity/register/',[VolunteeringActivitiesController
 Route::post('/volunteer/review',[CommentsController::class, 'submitComment'])->name('submit.comment');
 Route::post('/volunteer/badge',[CommentsController::class, 'submitBadge'])->name('submit.badge');
 Route::post('/volunteer/complaint',[CommentsController::class, 'submitComplaint'])->name('submit.complaint');
+
+//admin badges
+Route::get('/admin/dashboard/badges',[AdminController::class, 'badgeView'])->name('admin.badges');
+Route::post('/admin/dashboard/badge/store',[AdminController::class, 'createBadge'])->name('admin.create.badge');
+Route::get('/admin/dashboard/badge/{id}/delete',[AdminController::class, 'deleteBadge'])->name('admin.badge.delete');

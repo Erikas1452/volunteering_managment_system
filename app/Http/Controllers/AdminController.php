@@ -9,11 +9,55 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Organization;
 use App\Models\Category;
+use App\Models\SystemBadges;
 use Carbon\Carbon;
+use Image;
 use Session;
 
 class AdminController extends Controller
 {
+
+    public function badgeView(){
+        if(auth::guard('admin')->check()){
+            $badges = SystemBadges::latest()->get();
+            return view('admin.dashboard-badges', compact('badges'));
+        }
+        else return view('admin.login');
+    }
+
+    public function createBadge(Request $request){
+        print_r($request->all());
+
+        $title = $request->title;
+        $image = $request->file('upload_file');
+
+        $allowedMimeTypes = ['jpeg','png','jpg'];
+        $contentType = $image->getClientOriginalExtension();
+
+        if(! in_array($contentType, $allowedMimeTypes) ) return response('Įkeltas failas nėra tinkamo formato');
+        
+
+    	$name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+    	Image::make($image)->resize(200,200)->save('uploads/profile_pictures/'.$name_gen);
+    	$save_url = 'uploads/profile_pictures/'.$name_gen;
+
+        SystemBadges::insert([
+            'title' => $title,
+            'img_path' => $save_url,
+        ]);
+
+        $notification = array(
+			'message' => 'Pagyrimo ženkliupkas sukurtas sėkmingai',
+			'alert-type' => 'success'
+		);
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function deleteBadge($id){
+        
+    }
+
     public function categories(){
         if(auth::guard('admin')->check()){
             $category = Category::latest()->get();
@@ -40,9 +84,11 @@ class AdminController extends Controller
 
     public function removeSuspension(Request $request){
         $userID = $request->user;
-        User::findOrFail($userID)->update([
-            'suspended' => null,
-        ]);
+        $user = User::findOrFail($userID);
+
+        $user->suspended = null;
+        $user->suspension_reason = null;
+        $user->save();
 
         $response = "Vartotojo paskyra".$userID." nebėra stabdoma";
 
@@ -57,9 +103,11 @@ class AdminController extends Controller
         $dateformat = Carbon::parse($request->date);
         $date = $dateformat->format('Y-m-d');
 
-        User::findOrFail($userID)->update([
-            'suspended' => $date,
-        ]);
+        $user = User::findOrFail($userID);
+
+        $user->suspended = $date;
+        $user->suspension_reason = $reason;
+        $user->save();
 
         $response = "Vartotojo paskyra: ".$userID." sustabdyta iki: ".$date;
 

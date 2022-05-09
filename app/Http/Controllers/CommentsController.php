@@ -29,24 +29,14 @@ class CommentsController extends Controller
 
         print_r($request->all());
 
-        $comment = $request->comment;
-        $image = $request->file('upload_file');
-
-        $allowedMimeTypes = ['image/jpeg','image/png'];
-        $contentType = $image->getClientMimeType();
-
-        if(! in_array($contentType, $allowedMimeTypes) ) return response('Įkeltas failas nėra tinkamo formato');
-        
-
-    	$name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-    	Image::make($image)->resize(200,200)->save('uploads/profile_pictures/'.$name_gen);
-    	$save_url = 'uploads/profile_pictures/'.$name_gen;
+        $user_id = $request->user_id;
+        $organization_id = $request->organization_id;
+        $system_badge_id = $request->badge_id;
 
         Badges::insert([
-            'user_id' => $request->user_id,
-            'organization_id' => $request->organization_id,
-            'comment' => $comment,
-            'img_path' => $save_url,
+            'system_badge_id' => $system_badge_id,
+            'organization_id' => $organization_id,
+            'user_id' => $user_id,
         ]);
 
         return "Made it";

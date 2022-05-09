@@ -5304,13 +5304,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     organization: String,
-    id: String
+    id: String,
+    badges: Array
+  },
+  selected: {
+    id: 1
   },
   methods: {
     onCommentChange: function onCommentChange(event) {
@@ -5323,33 +5324,26 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.file);
       console.log(this.comment === "");
       console.log(this.file === "");
+      var formData = new FormData();
+      formData.append('badge_id', this.badgeVal);
+      formData.append('organization_id', this.organization);
+      formData.append('user_id', this.id);
+      console.log(this.badgeVal);
+      axios.post('http://127.0.0.1:8000/volunteer/badge', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        console.log(response.data);
 
-      if (this.comment === "") {
-        this.text = "Neįvestas komentaras";
-      } else if (this.file === "") {
-        this.text = "Nepasirinkta nuotrauka";
-      } else {
-        var formData = new FormData();
-        formData.append('upload_file', this.file);
-        formData.append('comment', this.comment);
-        formData.append('organization_id', this.organization);
-        formData.append('user_id', this.id);
-        axios.post('http://127.0.0.1:8000/volunteer/badge', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(function (response) {
-          console.log(response.data);
-
-          if (response.data.includes('nėra tinkamo')) {
-            _this.text = "Įkeltas failas nėra tinkamo formato";
-          } else _this.showCommentModal = false;
-        })["catch"](function (error) {
-          console.log('Show error notification!');
-          console.log(error.response.data);
-          return Promise.reject(error);
-        });
-      }
+        if (response.data.includes('nėra tinkamo')) {
+          _this.text = "Įkeltas failas nėra tinkamo formato";
+        } else _this.showCommentModal = false;
+      })["catch"](function (error) {
+        console.log('Show error notification!');
+        console.log(error.response.data);
+        return Promise.reject(error);
+      });
     },
     onChangeFileUpload: function onChangeFileUpload() {
       this.file = this.$refs.file.files[0];
@@ -5361,7 +5355,8 @@ __webpack_require__.r(__webpack_exports__);
       comment: "",
       file: "",
       text: "",
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      badgeVal: ""
     };
   }
 });
@@ -6013,8 +6008,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -6057,15 +6050,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     user: String
-  },
-  data: {
-    showModal: false,
-    date: '',
-    reason: '',
-    info: 0
   },
   methods: {
     onReasonChange: function onReasonChange(event) {
@@ -6087,22 +6074,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit(event) {
       var _this2 = this;
 
-      axios.post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
-        date: this.date,
-        reason: this.reason,
-        user: this.user
-      }).then(function (response) {
-        _this2.info = response;
-        location.reload();
-      });
+      if (this.reason === "") {
+        this.text = "Neįvesta priežastis";
+      } else if (this.date === "") {
+        this.text = "Nepasirinkta data";
+      } else {
+        axios.post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
+          date: this.date,
+          reason: this.reason,
+          user: this.user
+        }).then(function (response) {
+          _this2.info = response;
+          location.reload(); // console.log(response.data);
+        });
+      }
     }
+  },
+  data: function data() {
+    return {
+      showModal: false,
+      text: "",
+      reason: "",
+      date: "",
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    };
   }
-}, "data", function data() {
-  return {
-    showModal: false,
-    csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-  };
-}));
+});
 
 /***/ }),
 
@@ -30407,53 +30404,48 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
-                      _c("label", [
-                        _vm._v("Nuotrauka\r\n                "),
-                        _c("input", {
-                          ref: "file",
-                          attrs: {
-                            accept: "image/png, image/jpeg",
-                            type: "file",
-                            id: "file",
-                          },
-                          on: {
-                            change: function ($event) {
-                              return _vm.onChangeFileUpload()
-                            },
-                          },
-                        }),
+                      _c("h5", [
+                        _vm._v(
+                          "Pasirinkite ženkliuko tipą, kurį norite priskirti"
+                        ),
                       ]),
                       _vm._v(" "),
-                      _c("label", [
-                        _vm._v("Komentaras\r\n                "),
-                        _c("input", {
+                      _c(
+                        "select",
+                        {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.comment,
-                              expression: "comment",
+                              value: _vm.badgeVal,
+                              expression: "badgeVal",
                             },
                           ],
-                          attrs: { type: "text", name: "comment" },
-                          domProps: { value: _vm.comment },
                           on: {
                             change: function ($event) {
-                              return _vm.onCommentChange($event)
-                            },
-                            input: function ($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.comment = $event.target.value
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.badgeVal = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
                             },
                           },
+                        },
+                        _vm._l(this.badges, function (badge) {
+                          return _c(
+                            "option",
+                            { key: badge.id, domProps: { value: badge.id } },
+                            [_vm._v(_vm._s(badge.title))]
+                          )
                         }),
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticStyle: { color: "red" } }, [
-                        _vm._v(_vm._s(_vm.text)),
-                      ]),
+                        0
+                      ),
                     ]),
                     _vm._v(" "),
                     _c(
@@ -31539,6 +31531,10 @@ var render = function () {
                           },
                         },
                       }),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticStyle: { color: "red" } }, [
+                      _vm._v(_vm._s(_vm.text)),
                     ]),
                     _vm._v(" "),
                     _c(

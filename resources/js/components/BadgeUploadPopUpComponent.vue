@@ -14,15 +14,12 @@
               </div>
 
               <div class="modal-body">
-               <label>Nuotrauka
-                <input accept="image/png, image/jpeg" type="file" id="file" ref="file" v-on:change="onChangeFileUpload()"/>
-                </label>
-                <label>Komentaras
-                <input v-model="comment" @change="onCommentChange($event)" type="text" name="comment" />
-                </label>
-                <p style="color: red">{{text}}</p>
-              </div>
+                <h5>Pasirinkite ženkliuko tipą, kurį norite priskirti</h5>
+              <select v-model="badgeVal">
+                <option v-for="badge in this.badges" :key=badge.id :value=badge.id>{{badge.title}}</option>
+              </select>
 
+              </div>
               <div class="modal-footer">
                 <slot name="footer">
                   <button class="modal-default-button" v-on:click="submitBadge()"> Įkelti </button>
@@ -44,6 +41,10 @@
       props:{
         organization:String,
         id:String,
+        badges:Array,
+      },
+      selected:{
+        id: 1
       },
       methods: {
            onCommentChange(event){
@@ -51,46 +52,40 @@
           },
           submitBadge(event){
 
-              console.log(this.comment);
-              console.log(this.file);
+            console.log(this.comment);
+            console.log(this.file);
 
-              console.log(this.comment === "");
-              console.log(this.file === "");
-            if(this.comment === "")
-            {
-                this.text = "Neįvestas komentaras";
-            }else if(this.file === ""){
-                this.text = "Nepasirinkta nuotrauka";
-            } else {
-                let formData = new FormData();
-                formData.append('upload_file', this.file);
-                formData.append('comment', this.comment);
-                formData.append('organization_id', this.organization);
-                formData.append('user_id', this.id);
+            console.log(this.comment === "");
+            console.log(this.file === "");
 
-                axios
-                .post('http://127.0.0.1:8000/volunteer/badge',
-                    formData,
-                {
-                    headers:{
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then(response => {
-                    console.log(response.data);
-                    if(response.data.includes('nėra tinkamo')){
-                        this.text = "Įkeltas failas nėra tinkamo formato";
-                    }
-                    else this.showCommentModal = false;
-                }).catch(
-                    function (error){
-                        console.log('Show error notification!');
-                        console.log(error.response.data);
-                        return Promise.reject(error);
-                    }
-                ) 
-            }
-            
+              let formData = new FormData();
+              formData.append('badge_id', this.badgeVal);
+              formData.append('organization_id', this.organization);
+              formData.append('user_id', this.id);
+
+              console.log(this.badgeVal);
+
+              axios
+              .post('http://127.0.0.1:8000/volunteer/badge',
+                  formData,
+              {
+                  headers:{
+                      'Content-Type': 'multipart/form-data'
+                  }
+              })
+              .then(response => {
+                  console.log(response.data);
+                  if(response.data.includes('nėra tinkamo')){
+                      this.text = "Įkeltas failas nėra tinkamo formato";
+                  }
+                  else this.showCommentModal = false;
+              }).catch(
+                  function (error){
+                      console.log('Show error notification!');
+                      console.log(error.response.data);
+                      return Promise.reject(error);
+                  }
+              ) 
           },
           onChangeFileUpload(){
             this.file = this.$refs.file.files[0];
@@ -104,6 +99,7 @@
               file: "",
               text: "",
               csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+              badgeVal: "",
           }
       }
   }

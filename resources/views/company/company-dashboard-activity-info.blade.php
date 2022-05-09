@@ -310,7 +310,10 @@
                                             <complaint id="{{$v->volunteer_id}}" organization="{{$data['activity'][0]->organization_id}}">
                                         </div>
                                         <div style="padding-margin: 1rem" id="app">
-                                            <badge id="{{$v->volunteer_id}}" organization="{{$data['activity'][0]->organization_id}}">
+                                            @php
+                                               $badges = DB::table('system_badges')->get();
+                                            @endphp     
+                                            <badge :badges="{{$badges}}" id="{{$v->volunteer_id}}" organization="{{$data['activity'][0]->organization_id}}">
                                         </div>
                                     </div>
                                 <a style="color: white" href="{{ route('volunteer.remove', [$v->email, $data['activity'][0]->name, $v->id]) }}" class="btn btn-danger"

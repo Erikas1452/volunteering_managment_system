@@ -145,13 +145,20 @@
         <div style="width: 95%; display: -webkit-inline-box;" class="overflow-auto">
         @if(!$data['badges']->isEmpty())
         @foreach ($data['badges'] as $badge)
-        <div class="col-md-6">
-          <img style="width: auto;"  src="{{asset($badge->img_path)}}">
 
-              <div class="col-md-6">
+          @php
+              $badge_data = DB::table('system_badges')->where('id', $badge->system_badge_id)->first();
+              $organization = DB::table('organizations')->where('id', $badge->organization_id)->first();
+          @endphp
+
+        <div style="margin-right: 1rem; border: 1rem black solid;" class="col-md-6">
+
+          <img style="width: auto;" src="{{asset($badge_data->img_path)}}">
+
+              <div style="display: inline-flex;" class="col-md-6">
                 <div data-aos="fade-up">
-                  <h4 class="title"><a href="">{{$badge->organization->name}}</a></h4>
-                  <p class="description">{{$badge->comment}}</p>
+                  <h4 class="title"><a href="">{{$organization->name}}</a></h4>
+                  <p class="description">{{$badge_data->title}}</p>
                 </div>
               </div>
 

@@ -21,7 +21,7 @@
                 <h6> Stabdymo Laikotarpis </h6>
                 <input v-model="date" @change="onDateChange($event)" type="date" />
               </div>
-
+              <p style="color: red">{{text}}</p>
               <div class="modal-footer">
                 <slot name="footer">
                   <button class="modal-default-button" @click="submit">
@@ -45,12 +45,6 @@
       props:{
         user:String,
       },
-      data: {
-              showModal: false,
-              date: '',
-              reason: '',
-              info: 0,
-      },
       methods: {
           onReasonChange(event){
             this.reason = event.target.value;
@@ -69,6 +63,11 @@
                 })
           },
           submit(event){
+            if(this.reason === ""){
+              this.text = "Neįvesta priežastis";
+            }else if(this.date === ""){
+              this.text = "Nepasirinkta data";
+            }else{
               axios
                 .post('http://127.0.0.1:8000/admin/dashboard/volunteers/suspend', {
                   date: this.date,
@@ -78,13 +77,18 @@
                 .then(response => {
                   this.info = response;
                   location.reload();
+                  // console.log(response.data);
                 })
-          },
+          }
+        },
 
       },
       data() {
           return{
               showModal: false,
+              text: "",
+              reason: "",
+              date:"",
               csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
           }
       }

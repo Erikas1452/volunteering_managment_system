@@ -237,16 +237,20 @@ class UserController extends Controller
 
                 if(isset($user->suspended)){
                   if(Carbon::createFromFormat('Y-m-d', $user->suspended)->gte(Carbon::now())){
+
+                    $date = $user->suspended;
+                    $reason = $user->suspension_reason;
+
                     Session::flush();
     
                     auth('web')->logout();
 
                     $notification = array(
-                        'message' => 'Jūsų vartotojo profilis sustabdytas',
+                        'message' => 'Jūsų vartotojo profilis sustabdytas iki '.$date.' \n Priežastis: '.$reason,
                         'alert-type' => 'warning'
                     );
 
-                    return redirect()->route('home')->with($notification);
+                    return redirect()->route('login')->with($notification);
                     }
                     else{
                         $notification = array(
