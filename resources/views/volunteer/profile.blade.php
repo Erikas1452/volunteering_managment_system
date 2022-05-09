@@ -101,7 +101,7 @@
                 <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                   <div class="count-box py-5">
                     <i class="bi bi-star"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="{{$data['rating']}}" class="purecounter">0</span>
+                    <span>{{number_format((float)$data['rating'], 2, '.', '');}}</span>
                     <p>Reitingas</p>
                   </div>
                 </div>
@@ -188,7 +188,7 @@
                     <div class="d-flex align-items-center mb-3">
                       <p style="fonst-size:small; color: black" class="mb-0">
                         Organizatoriaus įvertinimas:
-                        @for($i = 0; $i < 5; $i++)
+                        @for($i = 1; $i < 6; $i++)
                         <span class="fa fa-star" style="{{($com->rating >= $i)? 'color: orange;':''}}"></span>
                         @endfor
                       </p>

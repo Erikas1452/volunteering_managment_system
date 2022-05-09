@@ -27,7 +27,6 @@
                             <th>@sortablelink('name','Pavadinimas')</th>
                             <th>@sortablelink('hours','Valandos')</th>
                             <th>@sortablelink('create_at','Baigta')</th>
-                            <th>Veiksmai</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,9 +37,6 @@
                         <td>{{$act->name}}</td>
                         <td>{{$act->hours}}</td>
                         <td>{{$act->created_at}}</td>
-                        <td>
-                            None
-                        </td>
                         @endforeach
                     </tbody>
                 </table>
@@ -53,14 +49,13 @@
                 <tr>
                     <th>Nuotrauka</th>
                     <th>Pavadinimas</th>
-                    <th>Aprašymas</th>
-                    <th>Statusas</th>
-                    <th>Veiksmai</th>
+                    <th>Valandos</th>
+                    <th>Baigta</th>
                     </th>
                 </tr>
             </thead>
           </table>
-            <h2 style="padding-bottom: 20%">Šiuo metu nesate užsiregistravę į jokią savanorystę</h2>
+            <h2 style="padding-bottom: 20%">Šiuo metu jūsų istroija tuščia</h2>
           @endif
         </div>
 

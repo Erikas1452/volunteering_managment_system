@@ -38,7 +38,7 @@
             <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
           </div>
 
-          <nav id="navbar" class="navbar">
+          <nav style="display: contents;" id="navbar" class="navbar">
             <ul>
               <li><a class="getstarted" href="{{route('admin.logout')}}">Atsijungti</a></li>
             </ul>
@@ -51,7 +51,7 @@
             <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
           </div>
 
-          <nav id="navbar" class="navbar">
+          <nav style="display: contents;" id="navbar" class="navbar">
             <ul>
               <li><a class="getstarted" href="{{route('organization.logout')}}">Atsijungti</a></li>
             </ul>
@@ -66,9 +66,9 @@
 
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a class="active" href="index.html">Pagrindinis</a></li>
+              <li><a class="{{($route == 'home')? 'active':''}}" href="{{route('home')}}">Pagrindinis</a></li>
               <li><a href="">Kontaktai</a></li>
-              <li><a href="{{route('company.main')}}">Organizacijoms</a></li>
+              <li class="{{($route == 'company.main' || $route == 'company.request' || $route == 'company.login')? 'active':''}}"><a href="{{route('company.main')}}">Organizacijoms</a></li>
               <li><a class="getstarted" href="{{route('login')}}">Prisijungti</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>

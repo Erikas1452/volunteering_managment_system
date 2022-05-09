@@ -25,9 +25,30 @@ use App\Mail\VolunteerDnied;
 use App\Mail\removedFromActivity;
 use App\Mail\MessageFromOrganization;
 use App\Mail\ThankYouLetter;
+use App\Mail\ApologyLetter;
 
 class VolunteeringActivitiesController extends Controller
 {
+
+    public function removeActivity($id){
+        $activity = VolunteeringActivities::find($id);
+        $forms = VolunteeringActivities::find($id)->acceptedForms;
+        foreach($forms as $form){
+            Mail::to($form->email)->send(new ApologyLetter($activity->organization->name,
+                $activity->organization->email,
+                $activity->name,
+            ));
+        }
+        $activity->delete();
+
+        $notification = array(
+            'message' => 'Veikla pašalinta sėkmingai',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
     public function endActivity(Request $request){
 
         $activity = VolunteeringActivities::find($request->id);

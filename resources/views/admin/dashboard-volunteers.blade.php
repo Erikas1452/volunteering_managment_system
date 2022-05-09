@@ -26,7 +26,7 @@
               <th>Vardas</th>
               <th>El. paštas</th>
               <th>Statusas</th>
-              <th>Nusiskundimų skaičius</th>
+              <th>Nusiskundimai</th>
               <th>Informacija</th>
               <th>Paskyros stabdymas</th>
           </tr>
@@ -60,8 +60,11 @@
               @else
                   <td style="text-align: center;"><a class="badge badge-success">Aktyvus</a></td>
               @endif
-              
-              <td>Reports</td>
+              @php
+              $complaints = DB::table('complaints')->where('user_id', $user->id)->get();
+              $count = count($complaints);
+              @endphp
+              <td style="text-align-last: center;"><complaint-admin :complaints="{{$complaints}}" id="{{$user->id}}" count="{{$count}}"> </complaint-admin></td>
               <td style="text-align: -webkit-center;"><a href="{{ route('volunteer.profile', $user->id)}}" class="btn btn-info"
                 title="Savanorio profilis"><i style="text-align: -webkit-center;" class="fa fa-user"></i> </a></td>
               <td>

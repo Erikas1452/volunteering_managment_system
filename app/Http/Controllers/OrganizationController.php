@@ -189,13 +189,21 @@ class OrganizationController extends Controller
         );
 
         Mail::to($email)->send(new loginData($email, $password));
-
+        $request->delete();
         return redirect()->back()->with($notification);
     }
 
     public function denyRequest($email){
         Mail::to($email)->send(new denied());
-        return redirect()->back();
+        $request = OrganizationRequests::where('email',$email)->first();
+        $request->delete();
+
+        $notification = array(
+            'message' => 'Užklausa atšaukta sėkmingai',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     public function companyRequestCreate(Request $request){

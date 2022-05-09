@@ -54,9 +54,7 @@
                                             @endphp
                                             <td>{{$people}}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary"
-                                                    title="Koreguoti veiklą"> <i class="fa fa-pencil"></i></a>
-                                                <a href="" class="btn btn-danger"
+                                                <a href="{{route('remove.activity',$act->id)}}" class="btn btn-danger"
                                                     title="Pašalinti veiklą"> <i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

@@ -91,6 +91,8 @@
           submitComment(event){
             if(this.comment === ""){
               this.text = "Neįvestas komentaras";
+            }else if(this.rating === 0){
+              this.text = "Būtina įvertinti savanorį žvaigždutėmis";
             }else{
               try{
                  axios
@@ -113,7 +115,7 @@
       },
       data() {
           return{
-              rating: 1,
+              rating: 0,
               showCommentModal: false,
               comment: "",
               csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

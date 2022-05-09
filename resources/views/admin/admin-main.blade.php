@@ -65,7 +65,7 @@
 				<h1><a class="logo">{{Str::ucfirst(Auth::guard('admin')->user()->name[0])}}</a></h1>
         <ul class="list-unstyled components mb-5">
           <li class="{{ ($route == 'admin.dashboard.volunteers')? 'active' : '' }}">
-            <a href="{{route('admin.dashboard.volunteers')}}"><span class="fa fa-user"></span> Vartotojai</a>
+            <a href="{{route('admin.dashboard.volunteers')}}"><span class="fa fa-user"></span> Savanoriai</a>
           </li>
           <li class="{{ ($route == 'admin.dashboard.categories')? 'active' : '' }}">
             <a href="{{route('admin.dashboard.categories')}}"><span class="fa fa-list"></span> Kategorijos</a>

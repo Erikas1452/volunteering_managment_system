@@ -113,7 +113,7 @@ Route::get('/organization/dashboard/activities/{id}/history/volunteers', [Organi
 Route::post('/organization/dashboard/activities/submit',[VolunteeringActivitiesController::class, 'createActivity'])->name('activity.submit');
 Route::get('/organization/dashboard/activities/{id}',[VolunteeringActivitiesController::class, 'openActivity'])->name('activity.info');
 Route::post('/organization/dashboard/activity/end',[VolunteeringActivitiesController::class, 'endActivity'])->name('end.activity');
-
+Route::get('/organization/dashboard/activity/remove/{id}',[VolunteeringActivitiesController::class, 'removeActivity'])->name('remove.activity');
 
 //Emails
 Route::get('/email', function(){

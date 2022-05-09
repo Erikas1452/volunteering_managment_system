@@ -6,7 +6,7 @@
         <div class="col-md-10 col-md-offset-1">
             <form method="POST" class="signup-form" action="{{route('company.authenticate')}}" enctype="multipart/form-data">
                 @csrf
-                <h2 class="text-center">Prisijungimas</h2>
+                <h2 class="text-center">Organizacijos prisijungimas</h2>
                 <hr>
                 <div class="form-group"> <input type="email" name="email" class="form-control" placeholder="El. Paštas" required="required"> </div>
                     <span class="text-danger">{{session()->get('email')}}</span>

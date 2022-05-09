@@ -27,6 +27,8 @@ Vue.component('answers', require('./components/CustomQuestionsAnswersPopUpCompon
 Vue.component('badge', require('./components/BadgeUploadPopUpComponent.vue').default);
 Vue.component('complaint', require('./components/ComplaintsPopUpComponent.vue').default);
 Vue.component('finish', require('./components/FinishVolunteeringPopUpComponent.vue').default);
+Vue.component('complaint-admin', require('./components/CompaintsAdminPopUpComponent.vue').default);
+
 
 
 /**

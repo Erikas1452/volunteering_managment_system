@@ -12,8 +12,8 @@
             <div class="container">
       
               <div class="section-title" data-aos="fade-up">
-                <h2>Kažkas</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                <h2>Sveiki atvykę į puslapį skirtą organizacijoms</h2>
+                <p>Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. </p>
               </div>
 
             </div>

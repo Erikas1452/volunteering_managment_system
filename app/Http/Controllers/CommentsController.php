@@ -70,6 +70,7 @@ class CommentsController extends Controller
             'user_id' => $request->user_id,
             'organization_id' => $request->organization_id,
             'complaint' => $request->complaint,
+            'created_at' => now(),
         ]);
         
         return json_encode("Complaint Submited");
