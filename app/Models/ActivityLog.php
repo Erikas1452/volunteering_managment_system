@@ -9,7 +9,7 @@ use Kyslik\ColumnSortable\Sortable;
 class ActivityLog extends Model
 {
     use HasFactory, Sortable;
-    public $sortable = ['name', 'created_at'];
+    public $sortable = ['name', 'created_at', 'hours'];
     protected $guarded = [];
 
     public function volunteers(){
