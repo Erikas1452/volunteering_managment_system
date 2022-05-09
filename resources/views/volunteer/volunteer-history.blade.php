@@ -32,11 +32,12 @@
                     <tbody>
                         
                         @foreach ($data['activities'] as $act)
-
+                        <tr>
                         <td><img style="width="100": height="80";"  src="{{asset($act->activity_photo)}}"></td>
                         <td>{{$act->name}}</td>
                         <td>{{$act->hours}}</td>
                         <td>{{$act->created_at}}</td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
