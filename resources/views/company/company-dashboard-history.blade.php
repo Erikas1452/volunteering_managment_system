@@ -24,9 +24,8 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h2 class="box-title">Savanorysčių veiklų sąrašas <span class="badge badge-pill badge-danger">
+                        <h2 class="box-title">Savanorysčių veiklų istroija <span class="badge badge-pill badge-danger">
                           {{ count($data['activities']) }} </span></h2>
-                          <a href="{{route('company.dashboard.activities.create')}}" style="margin-bottom: 1rem" class="btn btn-rounded btn-primary">Pridėti naują savanorystės veiklą</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

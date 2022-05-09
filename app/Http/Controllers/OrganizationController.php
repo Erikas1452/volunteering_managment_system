@@ -158,7 +158,7 @@ class OrganizationController extends Controller
                     );
                     return view('admin.dashboard-organization-requests')->with(compact('data'));
                 }
-            return view('admin.dashboard-organization-requests')->with();
+            return view('admin.dashboard-organization-requests');
         }
         else return view('admin.login');
     }

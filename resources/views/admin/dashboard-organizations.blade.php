@@ -16,7 +16,7 @@
     </div>
   </nav>
 
-  <h2 class="mb-4">Savanorių profilių sąrašas</h2>
+  <h2 class="mb-4">Organizacijų sąrašas</h2>
   
   <table class="table table-striped">
     <thead>

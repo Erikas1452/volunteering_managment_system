@@ -29,7 +29,9 @@
             <th style="text-align: -webkit-center;">Veiksmai</th>
         </tr>
     </thead>
+    @if(isset($data['requests']))
     <tbody>
+            
         @foreach($data['requests'] as $re)
         <tr>
             <td>{{$re->name}}</td>
@@ -49,6 +51,9 @@
     </tbody>
 </table>
 {{ $data['requests']->links('vendor.pagination.bootstrap-4') }}
-
+@else
+</tbody>
+</table>
+@endif
 </div>
 @endsection

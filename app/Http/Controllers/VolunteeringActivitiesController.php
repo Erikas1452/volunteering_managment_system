@@ -87,7 +87,7 @@ class VolunteeringActivitiesController extends Controller
             ));
         }
 
-        // $activity->delete();
+        $activity->delete();
         
         return json_encode("{message: \"Savanorystė sėkmingai užbaigta\"}");
 
