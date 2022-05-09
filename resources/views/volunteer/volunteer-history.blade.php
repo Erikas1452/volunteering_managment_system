@@ -26,7 +26,7 @@
                             <th>Nuotrauka</th>
                             <th>@sortablelink('name','Pavadinimas')</th>
                             <th>@sortablelink('hours','Valandos')</th>
-                            <th>@sortablelink('create_at','Baigta')</th>
+                            <th>@sortablelink('created_at','Baigta')</th>
                         </tr>
                     </thead>
                     <tbody>
