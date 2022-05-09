@@ -52,6 +52,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/volunteer/profile/photo/
 Route::post('/volunteer/register',[UserController::class, 'registerVolunteer'])->name('register.volunteer');
 Route::post('/volunteer/login',[UserController::class, 'authenticate'])->name('authenticate.volunteer');
 Route::get('/volunteer/my/volunteerings',[UserController::class,'myVolunteerings'])->name('my.volunteerings');
+Route::post('/volunteer/activity/email/send',[UserController::class,'sendMessage'])->name('volunteer.send.message');
+
 
 //Admin
 Route::get('/admin/login', function(){

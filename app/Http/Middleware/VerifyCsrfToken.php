@@ -18,6 +18,7 @@ class VerifyCsrfToken extends Middleware
         '/volunteer/review',
         '/volunteer/badge',
         '/volunteer/complaint',
-        '/organization/dashboard/activity/end'
+        '/organization/dashboard/activity/end',
+        '/volunteer/activity/email/send',
     ];
 }

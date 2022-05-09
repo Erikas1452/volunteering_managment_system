@@ -21,11 +21,29 @@ use Image;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MessageMail;
   
 
 
 class UserController extends Controller
 {
+
+    public function sendMessage(Request $request){
+        $volunteer = User::find($request->user);
+        $organization = Organization::find($request->organization);
+        $activity = VolunteeringActivities::find($request->activity);
+        $message = $request->message;
+
+        Mail::to($organization->email)->send(new MessageMail($activity->name,
+            $volunteer->full_name,
+            $volunteer->email,
+            $message,
+        ));
+
+        return json_encode("Išsiųsta");
+    }
+
 
     public function volunteeringHistory(){
         $volunteer = VolunteersLog::where('volunteer_id', Auth::guard('web')->user()->id)->get();

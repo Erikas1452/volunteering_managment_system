@@ -28,8 +28,7 @@ Vue.component('badge', require('./components/BadgeUploadPopUpComponent.vue').def
 Vue.component('complaint', require('./components/ComplaintsPopUpComponent.vue').default);
 Vue.component('finish', require('./components/FinishVolunteeringPopUpComponent.vue').default);
 Vue.component('complaint-admin', require('./components/CompaintsAdminPopUpComponent.vue').default);
-
-
+Vue.component('email-popup', require('./components/EmailPopUpComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

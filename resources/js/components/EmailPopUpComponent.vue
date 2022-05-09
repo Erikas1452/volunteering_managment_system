@@ -1,7 +1,7 @@
 <template>
 <div>
-<i id="show-modal" style="margin-left: 0.5rem;" @click="showCommentModal = true" title="Palikti komentarą" class="btn btn-info fa fa-thumbs-up"></i>
-  <div v-if="showCommentModal">
+    <a id="show-modal" style="color: white; background-color: #86b03c; margin-right: 0.5rem;" @click="showModal = true" title="Susisiekti" class="btn btn-success"><i class="fa fa-envelope"></i></a>
+    <div v-if="showModal">
     <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -9,26 +9,23 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  Palikti komentarą
+                  Siųsti žinutę
                 </slot>
               </div>
 
-              <div class="modal-body">
-                <h6>Nusiskundimas</h6>
-                <input v-model="comment" @change="onCommentChange($event)" type="text" name="comment" />
+              <div style="text-align-last: center;" class="modal-body">
+            
+                <h4>Žinutės turinys:</h4>
+                <textarea style="width: 90%; max-height: 180px;" v-model="message" @change="onMessage($event)" type="text" name="message" />
                  <p style="color: red">{{text}}</p>
+                 <div class="modal-body">
+                     <button @click="submit" style="width: 45%;
+    margin-right: 1rem;" class="btn btn-success">Siųsti</button>
+                     <button @click="showModal = false;" style="width: 45%;
+    margin-left: 1rem;" class="btn btn-danger">Atšaukti</button>
+                 </div>
               </div>
 
-              <div class="modal-footer">
-                <slot name="footer">
-                  <button class="modal-default-button" @click="submitComment">
-                    Siūsti
-                  </button>
-                  <button class="modal-default-button" @click="showCommentModal = false">
-                    Uždaryti
-                  </button>
-                </slot>
-              </div>
             </div>
           </div>
         </div>
@@ -40,27 +37,29 @@
 <script>
   export default {
       props:{
+        user:String,
         organization:String,
-        id:String,
+        activity:String
       },
       methods: {
-           onCommentChange(event){
-            this.comment = event.target.value;
+          onMessage(event){
+            this.message = event.target.value;
           },
-          submitComment(event){
-            if(this.comment === ""){
-              this.text = "Neįvestas komentaras";
+          submit(event){
+            if(this.message === ""){
+              this.text = "Neįvesta žinutė";
             }else{
               try{
                  axios
-                .post('http://127.0.0.1:8000/volunteer/send/email/'+this.id,{
-                    user_id:this.id,
-                    organization_id: this.organization,
-                    comment: this.comment,
+                .post('http://127.0.0.1:8000/volunteer/activity/email/send',{
+                    user: this.user,
+                    organization: this.organization,
+                    activity: this.activity,
+                    message: this.message,
                 })
                 .then(response => {
-                    console.log(response);
-                    this.showCommentModal = false;
+                    console.log(response.data);
+                    this.showModal = false;
                 }) 
               } catch (error) {
                   console.error(error.response.data);
@@ -71,8 +70,8 @@
       },
       data() {
           return{
-              showCommentModal: false,
-              comment: "",
+              showModal: false,
+              message: "",
               csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
               text: "",
           }
@@ -99,7 +98,7 @@
 }
 
 .modal-container {
-  width: 300px;
+  width: 680px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

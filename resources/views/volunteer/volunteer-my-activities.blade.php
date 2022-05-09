@@ -10,7 +10,8 @@
 
 </main><!-- End #main -->
 
-<section id="" class="">
+<div id="app">
+  <section id="" class="">
   <div class="container">
 
     <div class="row">
@@ -56,10 +57,11 @@
                                 @if($form->accepted == 1)
                                 <td> <span class="badge bg-success">Patvirtinta</span></td>
                                 <td>
-                                    <a href="" style="color: white; background-color: #86b03c" class="btn"
-                                    title="Susisiekti"> <i class="fa fa-envelope"></i></a>
+                                  <div style="display: -webkit-inline-box;">
+                                    <email-popup user="{{Auth::guard('web')->user()->id}}" activity="{{$act->id}}" organization="{{$act->organization_id}}"> </email-popup>
                                     <a href="{{route('volunteer.activity.view',$act->id)}}" style="color: white; background-color: #0582dc" class="btn"
                                     title="Peržiūrėti skelbimą"> <i class="fa fa-search"></i></a>
+                                  </div>
                                 </td>
                                 @else
                                 <td> <span class="badge bg-secondary text-dark">Laukiama atsakymo</span></td>
@@ -101,5 +103,7 @@
 
   </div>
 </section><!-- End Blog Section -->
+</div>
+
 
 @endsection
