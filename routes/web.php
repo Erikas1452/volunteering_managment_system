@@ -29,6 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/edit', function (
 
 Route::get('/profile/{id}',[UserController::class,'showVolunteerProfile'])->name('volunteer.profile');
 
+Route::get('/token',function(){
+    echo csrf_token();
+});
 
 //Main pages
 Route::get('/', function () {
