@@ -141,7 +141,7 @@ class AdminController extends Controller
               );
               return view('admin.dashboard-organizations')->with(compact('data'));
           }
-            return view('admin.dashboard-organizations')->with();
+            return view('admin.dashboard-organizations');
         }
         else return view('admin.login');
       }

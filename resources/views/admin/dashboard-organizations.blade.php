@@ -28,6 +28,7 @@
         </tr>
     </thead>
     <tbody>
+      @if(isset($data['organizations']))
         @foreach($data['organizations'] as $organization)
         <tr>
             <td>{{$organization->name}}</td>
@@ -41,6 +42,9 @@
     </tbody>
 </table>
 {{ $data['organizations']->links('vendor.pagination.bootstrap-4') }}
-
+@else
+</tbody>
+</table>
+@endif
 </div>
 @endsection
