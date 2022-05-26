@@ -59,6 +59,60 @@ class VolunteerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_logged_in_volunteer_and_go_to_my_activities()
+    {
+        $response = $this->post('/volunteer/login', [
+            'email' => "eee1452@gmail.com",
+            'password' =>"cikas1452"
+        ]);
+
+        $response = $this->get('/volunteer/my/volunteerings');
+        $response->assertStatus(200);
+    }
+
+    public function test_logged_in_volunteer_and_go_to_profile()
+    {
+        $response = $this->post('/volunteer/login', [
+            'email' => "eee1452@gmail.com",
+            'password' =>"cikas1452"
+        ]);
+
+        $response = $this->get('/profile/1');
+        $response->assertStatus(200);
+    }
+
+    // /volunteering/search
+
+    public function test_logged_in_volunteer_search()
+    {
+        $response = $this->post('/volunteer/login', [
+            'email' => "eee1452@gmail.com",
+            'password' =>"cikas1452"
+        ]);
+
+        $response = $this->get('/volunteering/');
+
+        $response = $this->post('/volunteering/search/', [
+            'search_word' => "testSearch",
+        ]);
+
+        $response->assertStatus(200);
+    }
+
+    public function test_logged_in_volunteer_history()
+    {
+        $response = $this->post('/volunteer/login', [
+            'email' => "eee1452@gmail.com",
+            'password' =>"cikas1452"
+        ]);
+
+        $response = $this->get('/volunteering/history/');
+
+
+        $response->assertStatus(200);
+    }
+
+
     public function test_bad_password_on_login_volunteer()
     {
         $response = $this->from('login')->post('/volunteer/login', [
